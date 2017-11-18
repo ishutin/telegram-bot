@@ -2,6 +2,9 @@
 
 namespace Telegram\Exception;
 
-abstract class TelegramException extends \Exception
+use Exception;
+
+class TelegramException extends Exception
 {
+
 }
