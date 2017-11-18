@@ -1,6 +1,7 @@
 {
     "name": "ishutin/telegram-bot",
     "description": "Simple Telegram bot API",
+    "version": "1.0",
     "authors": [
         {
             "name": "Aleksey Ishutin",
