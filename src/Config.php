@@ -16,27 +16,16 @@ class Config
     /**
      * @var string
      */
-    private $responseUrl;
-
-    /**
-     * @var string
-     */
     private $token;
 
-    public function __construct(string $token, $responseUrl = self::TELEGRAM_API_URL)
+    public function __construct(string $token)
     {
         $this->token = $token;
-        $this->responseUrl = $responseUrl;
     }
 
     public function setHttpClient(ClientInterface $client)
     {
         $this->client = $client;
-    }
-
-    public function getResponseUrl(): string
-    {
-        return $this->responseUrl;
     }
 
     public function getHttpClient()
