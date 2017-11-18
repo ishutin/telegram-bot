@@ -7,7 +7,6 @@
             "email": "ishutin.alexey@gmail.com"
         }
     ],
-    "minimum-stability": "stable",
     "require": {
         "php": ">=7.0",
         "guzzlehttp/guzzle": "^6.3"
