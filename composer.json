@@ -2,6 +2,7 @@
     "name": "ishutin/telegram-bot",
     "description": "Simple Telegram bot API",
     "type": "library",
+    "license": "MIT",
     "authors": [
         {
             "name": "Aleksey Ishutin",
