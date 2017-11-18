@@ -39,8 +39,8 @@ class Bot
         if (!$this->request) {
             $request = $request ?? json_decode(file_get_contents('php://input'), true);
 
-            if ($jsonError = json_last_error_msg()) {
-                throw new RequestException($jsonError);
+            if (json_last_error() !== JSON_ERROR_NONE) {
+                throw new RequestException(json_last_error_msg());
             }
 
             $this->request = new Request($request);
