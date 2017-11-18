@@ -2,6 +2,7 @@
 
 namespace Telegram;
 
+use GuzzleHttp\Client;
 use Telegram\Exception\RequestException;
 
 class Bot
@@ -23,6 +24,13 @@ class Bot
 
     public function __construct(Config $config)
     {
+        if (empty($config->getHttpClient())) {
+            // Base HTTP Client - Guzzle
+            $config->addHttpClient(new Client([
+                'base_uri' => $config->getResponseUrl(),
+            ]));
+        }
+
         $this->config = $config;
     }
 

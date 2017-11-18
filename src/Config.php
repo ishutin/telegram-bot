@@ -6,6 +6,8 @@ use GuzzleHttp\ClientInterface;
 
 class Config
 {
+    const TELEGRAM_API_URL = 'https://api.telegram.org/';
+
     /**
      * @var ClientInterface
      */
@@ -14,15 +16,33 @@ class Config
     /**
      * @var string
      */
+    private $responseUrl;
+
+    /**
+     * @var string
+     */
     private $token;
 
-    public function __construct(ClientInterface $client, string $token)
+    public function __construct(string $token, $responseUrl = self::TELEGRAM_API_URL)
     {
-        $this->client = $client;
         $this->token = $token;
+        $this->responseUrl = $responseUrl;
     }
 
-    public function getHttpClient(): ClientInterface
+    public function addHttpClient(ClientInterface $client)
+    {
+        $this->client = $client;
+    }
+
+    public function getResponseUrl(): string
+    {
+        return $this->responseUrl;
+    }
+
+    /**
+     * @return ClientInterface|null
+     */
+    public function getHttpClient()
     {
         return $this->client;
     }
