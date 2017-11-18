@@ -1,0 +1,19 @@
+{
+    "name": "ishutin/telegram-bot",
+    "description": "Simple Telegram bot API",
+    "authors": [
+        {
+            "name": "Aleksey Ishutin",
+            "email": "ishutin.alexey@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "guzzlehttp/guzzle": "^6.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "Telegram\\": "src/"
+        }
+    }
+}
