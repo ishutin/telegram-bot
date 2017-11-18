@@ -26,7 +26,7 @@ class Bot
     {
         if (empty($config->getHttpClient())) {
             // Base HTTP Client - Guzzle
-            $config->addHttpClient(new Client([
+            $config->setHttpClient(new Client([
                 'base_uri' => $config->getResponseUrl(),
             ]));
         }

@@ -63,7 +63,7 @@ class Request
                 $message['message_id'],
                 $fromUser,
                 $chatEntity,
-                $message['text'],
+                $message['text'] ?? null,
                 $messageEntities
             );
         } catch (Exception $e) {

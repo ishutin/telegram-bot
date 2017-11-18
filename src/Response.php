@@ -2,7 +2,7 @@
 
 namespace Telegram;
 
-use Exception;
+use GuzzleHttp\Exception\ClientException;
 use Telegram\Entity\Chat;
 use Telegram\Exception\ResponseException;
 
@@ -36,7 +36,7 @@ class Response
                 "/bot$token/$method",
                 ['query' => $params]
             );
-        } catch (Exception $e) {
+        } catch (ClientException $e) {
             throw new ResponseException($e->getMessage());
         }
     }

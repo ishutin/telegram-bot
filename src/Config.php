@@ -29,7 +29,7 @@ class Config
         $this->responseUrl = $responseUrl;
     }
 
-    public function addHttpClient(ClientInterface $client)
+    public function setHttpClient(ClientInterface $client)
     {
         $this->client = $client;
     }
@@ -39,9 +39,6 @@ class Config
         return $this->responseUrl;
     }
 
-    /**
-     * @return ClientInterface|null
-     */
     public function getHttpClient()
     {
         return $this->client;
