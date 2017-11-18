@@ -63,6 +63,9 @@ class Message
         return $this->text ?? '';
     }
 
+    /**
+     * @return MessageEntity[]
+     */
     public function getEntities(): array
     {
         return $this->entities;
