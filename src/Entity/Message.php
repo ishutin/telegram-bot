@@ -4,10 +4,6 @@ namespace Telegram\Entity;
 
 class Message
 {
-    const TYPE_TEXT = 'text';
-    const TYPE_BOT_COMMAND = 'bot_command';
-    const TYPE_URL = 'url';
-
     /**
      * @var int
      */

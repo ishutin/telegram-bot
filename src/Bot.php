@@ -2,7 +2,6 @@
 
 namespace Telegram;
 
-use GuzzleHttp\ClientInterface;
 use Telegram\Exception\RequestException;
 
 class Bot
