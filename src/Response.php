@@ -20,24 +20,27 @@ class Response
 
     public function sendMessage(Chat $chat, string $message)
     {
-        $this->send('sendMessage', [
+        $this->sendGet('sendMessage', [
             'chat_id' => $chat->getId(),
             'text' => $message,
         ]);
     }
 
-    private function send(string $method, array $params)
+    private function sendGet(string $method, array $params)
     {
-        $token = $this->config->getToken();
-
         try {
             $this->config->getHttpClient()->request(
                 'GET',
-                "/bot$token/$method",
+                $this->getUri($method),
                 ['query' => $params]
             );
         } catch (ClientException $e) {
             throw new ResponseException($e->getMessage());
         }
+    }
+
+    private function getUri(string $method): string
+    {
+        return "/bot{$this->config->getToken()}/$method";
     }
 }
