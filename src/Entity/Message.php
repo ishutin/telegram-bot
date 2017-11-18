@@ -33,7 +33,7 @@ class Message
         int $id,
         User $from,
         Chat $chat,
-        string $text,
+        string $text = null,
         array $entities = []
     ) {
         $this->id = $id;
@@ -60,7 +60,7 @@ class Message
 
     public function getText(): string
     {
-        return $this->text;
+        return $this->text ?? '';
     }
 
     public function getEntities(): array
