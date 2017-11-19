@@ -21,7 +21,7 @@ class MessageEntity
      */
     private $length;
 
-    public function __construct(string $type, integer $offset, integer $length)
+    public function __construct(string $type, int $offset, int $length)
     {
         $this->type = $type;
         $this->offset = $offset;
