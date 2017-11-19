@@ -17,5 +17,13 @@
         "psr-4": {
             "Telegram\\": "src/"
         }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Test\\": "tests/"
+        }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^6.4"
     }
 }

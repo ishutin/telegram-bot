@@ -4,7 +4,7 @@ namespace Telegram\Event;
 
 use Telegram\Bot;
 
-abstract class EventHandler
+abstract class Event
 {
     /**
      * @var Bot

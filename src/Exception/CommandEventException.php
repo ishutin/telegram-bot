@@ -2,7 +2,7 @@
 
 namespace Telegram\Exception;
 
-class CommandEventException extends TelegramException
+class CommandEventException extends EventException
 {
 
 }

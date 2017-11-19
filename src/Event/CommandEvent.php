@@ -4,7 +4,7 @@ namespace Telegram\Event;
 
 use Telegram\Handler\CommandHandler;
 
-class CommandEvent extends EventHandler
+class CommandEvent extends Event
 {
     /**
      * @var CommandHandler[]

@@ -2,7 +2,10 @@
 
 namespace Telegram;
 
+use Exception;
 use GuzzleHttp\Client;
+use Telegram\Event\Event;
+use Telegram\Exception\EventException;
 use Telegram\Exception\RequestException;
 
 class Bot
@@ -22,16 +25,27 @@ class Bot
      */
     private $response;
 
+    /**
+     * @var Event[]
+     */
+    private $events = [];
+
     public function __construct(Config $config)
     {
         if (empty($config->getHttpClient())) {
-            // Base HTTP Client - Guzzle
             $config->setHttpClient(new Client([
                 'base_uri' => $config::TELEGRAM_API_URL,
             ]));
         }
 
         $this->config = $config;
+    }
+
+    public function run(): bool
+    {
+        $this->listenEvents();
+
+        return true;
     }
 
     public function getRequest(array $request = null): Request
@@ -56,5 +70,21 @@ class Bot
         }
 
         return $this->response;
+    }
+
+    public function addEvent(Event $event)
+    {
+        $this->events[get_class($event)] = $event;
+    }
+
+    private function listenEvents()
+    {
+        try {
+            foreach ($this->events as $event) {
+                $event->listen();
+            }
+        } catch (EventException $e) {
+            throw new $e;
+        }
     }
 }
