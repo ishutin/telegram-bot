@@ -2,6 +2,7 @@
 
 namespace Telegram\Handler;
 
+use Telegram\Entity\MessageEntity;
 use Telegram\Exception\TextHandlerException;
 use Telegram\EventInterface;
 
@@ -21,7 +22,17 @@ class TextHandler extends Handler
         $request = $this->bot->getRequest();
         $response = $this->bot->getResponse();
         $message = $request->getMessage();
-        if ($text = $message->getText() && empty($message->getEntities())) {
+
+        $isCommand = false;
+
+        foreach ($message->getEntities() as $entity) {
+            if ($entity->getType() == $entity::TYPE_BOT_COMMAND) {
+                $isCommand = true;
+                break;
+            }
+        }
+
+        if ($text = $message->getText() && !$isCommand) {
             $this->event->handle($request, $response);
         }
     }
