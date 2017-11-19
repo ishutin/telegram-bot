@@ -1,4 +1,4 @@
-# telegram-bot
+# telegram-bot (in dev)
 
 ## Installing
 ```bash
