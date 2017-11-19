@@ -70,4 +70,30 @@ class Message
     {
         return $this->entities;
     }
+
+    /**
+     * @param string $type
+     *
+     * @return string[]
+     */
+    public function getEntitiesValues(string $type)
+    {
+        $result = [];
+
+        if (!empty($this->entities)) {
+            foreach ($this->entities as $entity) {
+                if ($entity->getType() != $type) {
+                    continue;
+                }
+
+                $result[] = substr(
+                    $this->text,
+                    $entity->getOffset(),
+                    $entity->getLength()
+                );
+            }
+        }
+
+        return $result;
+    }
 }

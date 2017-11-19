@@ -4,6 +4,7 @@ namespace Telegram\Entity;
 
 class MessageEntity
 {
+    const TYPE_MENTION = 'mention';
     const TYPE_BOT_COMMAND = 'bot_command';
 
     /**
