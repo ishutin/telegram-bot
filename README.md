@@ -7,7 +7,10 @@ composer require ishutin/telegram-bot:dev-master
 
 ## Usage
 ```php
-// Bot
+<?php
+
+require_once 'vendor/autoload.php';
+
 $token = 'XXX-XXX-XXX-XXX'; // use bot token
 $config = new \Telegram\Config($token);
 $bot = new \Telegram\Bot($config);
