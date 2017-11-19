@@ -28,6 +28,6 @@ class TextHandler extends Handler
 
     public function on(EventInterface $event)
     {
-        $this->handler = $event;
+        $this->event = $event;
     }
 }
