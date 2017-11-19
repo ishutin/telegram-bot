@@ -10,11 +10,11 @@ class TextHandler extends Handler
     /**
      * @var EventInterface
      */
-    private $handler;
+    private $event;
 
     public function listen()
     {
-        if (empty($this->handler)) {
+        if (empty($this->event)) {
             throw new TextHandlerException('Invalid handler');
         }
 
@@ -22,12 +22,12 @@ class TextHandler extends Handler
         $response = $this->bot->getResponse();
         $message = $request->getMessage();
         if ($text = $message->getText() && empty($message->getEntities())) {
-            $this->handler->handle($request, $response);
+            $this->event->handle($request, $response);
         }
     }
 
-    public function on(EventInterface $handler)
+    public function on(EventInterface $event)
     {
-        $this->handler = $handler;
+        $this->handler = $event;
     }
 }

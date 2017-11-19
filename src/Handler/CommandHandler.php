@@ -33,9 +33,9 @@ class CommandHandler extends Handler
         }
     }
 
-    public function on(string $command, EventInterface $handler)
+    public function on(string $command, EventInterface $event)
     {
-        $this->commandsList[$command] = $handler;
+        $this->commandsList[$command] = $event;
     }
 
 }
