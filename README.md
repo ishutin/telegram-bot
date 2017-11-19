@@ -35,7 +35,7 @@ $textHandler->on(new class implements \Telegram\EventInterface
     {
         $response->sendMessage(
             $request->getMessage()->getChat(),
-            'Ne ozhidal? Ya poyavilsya iz temnoti, bratishka'
+            'User send some text. Answer him'
         );
     }
 });
