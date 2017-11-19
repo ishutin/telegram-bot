@@ -1,10 +1,10 @@
 <?php
 
-namespace Telegram\Handler;
+namespace Telegram\Event;
 
 use Telegram\Bot;
 
-abstract class BaseHandler
+abstract class EventHandler
 {
     /**
      * @var Bot
@@ -15,4 +15,6 @@ abstract class BaseHandler
     {
         $this->bot = $bot;
     }
+
+    abstract public function listen();
 }
