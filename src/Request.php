@@ -16,8 +16,15 @@ class Request
      */
     private $message;
 
+    /**
+     * @var array
+     */
+    private $originalRequest = [];
+
     public function __construct(array $request)
     {
+        $this->originalRequest = $request;
+
         try {
             if (empty($request['message'])) {
                 throw new RequestException('Invalid request: empty message');
@@ -74,5 +81,10 @@ class Request
     public function getMessage(): Message
     {
         return $this->message;
+    }
+
+    public function getOriginalRequest(): array
+    {
+        return $this->originalRequest;
     }
 }
