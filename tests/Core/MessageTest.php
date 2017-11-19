@@ -59,5 +59,7 @@ final class MessageTest extends TestCase
         $this->assertEquals($from->getLang(), $testReq['message']['from']['language_code']);
 
         $this->assertEquals($message->getText(), $testReq['message']['text']);
+
+        $this->assertEmpty($message->getEntities());
     }
 }
