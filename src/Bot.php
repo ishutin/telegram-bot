@@ -4,9 +4,9 @@ namespace Telegram;
 
 use Exception;
 use GuzzleHttp\Client;
-use Telegram\Event\Event;
-use Telegram\Event\EventInterface;
-use Telegram\Exception\EventException;
+use Telegram\Handler\Handler;
+use Telegram\Handler\HandlerInterface;
+use Telegram\Exception\HandlerException;
 use Telegram\Exception\RequestException;
 
 class Bot
@@ -27,9 +27,9 @@ class Bot
     private $response;
 
     /**
-     * @var Event[]
+     * @var Handler[]
      */
-    private $events = [];
+    private $handlers = [];
 
     public function __construct(Config $config)
     {
@@ -44,7 +44,7 @@ class Bot
 
     public function run(): bool
     {
-        $this->listenEvents();
+        $this->listenHandlers();
 
         return true;
     }
@@ -73,18 +73,18 @@ class Bot
         return $this->response;
     }
 
-    public function addEvent(EventInterface $event)
+    public function pushHandler(HandlerInterface $event)
     {
-        $this->events[get_class($event)] = $event;
+        $this->handlers[get_class($event)] = $event;
     }
 
-    private function listenEvents()
+    private function listenHandlers()
     {
         try {
-            foreach ($this->events as $event) {
+            foreach ($this->handlers as $event) {
                 $event->listen();
             }
-        } catch (EventException $e) {
+        } catch (HandlerException $e) {
             throw new $e;
         }
     }

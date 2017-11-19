@@ -2,7 +2,7 @@
 
 namespace Telegram;
 
-interface HandlerInterface
+interface EventInterface
 {
     public function handle(Request $request, Response $response);
 }

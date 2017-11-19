@@ -6,7 +6,7 @@ use PHPUnit\Framework\TestCase;
 use PHPUnit\Runner\Exception;
 use Telegram\Bot;
 use Telegram\Config;
-use Telegram\Event\Event;
+use Telegram\Handler\Handler;
 use Telegram\Request;
 use Telegram\Response;
 
@@ -62,7 +62,7 @@ final class BotTest extends TestCase
         $config = new Config('abc');
         $bot = new Bot($config);
 
-        $event = new class($bot) extends Event
+        $event = new class($bot) extends Handler
         {
             public function listen()
             {

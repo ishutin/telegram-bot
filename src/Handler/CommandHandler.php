@@ -1,13 +1,13 @@
 <?php
 
-namespace Telegram\Event;
+namespace Telegram\Handler;
 
-use Telegram\HandlerInterface;
+use Telegram\EventInterface;
 
-class CommandEvent extends Event
+class CommandHandler extends Handler
 {
     /**
-     * @var HandlerInterface[]
+     * @var EventInterface[]
      */
     private $commandsList = [];
 
@@ -33,7 +33,7 @@ class CommandEvent extends Event
         }
     }
 
-    public function on(string $command, HandlerInterface $handler)
+    public function on(string $command, EventInterface $handler)
     {
         $this->commandsList[$command] = $handler;
     }

@@ -1,21 +1,21 @@
 <?php
 
-namespace Telegram\Event;
+namespace Telegram\Handler;
 
-use Telegram\Exception\TextEventException;
-use Telegram\HandlerInterface;
+use Telegram\Exception\TextHandlerException;
+use Telegram\EventInterface;
 
-class TextEvent extends Event
+class TextHandler extends Handler
 {
     /**
-     * @var HandlerInterface
+     * @var EventInterface
      */
     private $handler;
 
     public function listen()
     {
         if (empty($this->handler)) {
-            throw new TextEventException('Invalid handler');
+            throw new TextHandlerException('Invalid handler');
         }
 
         $request = $this->bot->getRequest();
@@ -26,7 +26,7 @@ class TextEvent extends Event
         }
     }
 
-    public function on(HandlerInterface $handler)
+    public function on(EventInterface $handler)
     {
         $this->handler = $handler;
     }

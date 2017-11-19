@@ -1,10 +1,10 @@
 <?php
 
-namespace Telegram\Event;
+namespace Telegram\Handler;
 
 use Telegram\Bot;
 
-abstract class Event implements EventInterface
+abstract class Handler implements HandlerInterface
 {
     /**
      * @var Bot
