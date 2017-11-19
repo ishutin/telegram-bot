@@ -85,7 +85,7 @@ class Bot
                 $event->listen();
             }
         } catch (HandlerException $e) {
-            throw new $e;
+            throw $e;
         }
     }
 }
