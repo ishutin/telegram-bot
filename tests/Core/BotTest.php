@@ -69,7 +69,7 @@ final class BotTest extends TestCase
             }
         };
 
-        $bot->addEvent($event);
+        $bot->pushHandler($event);
         $result = $bot->run();
 
         $this->assertTrue($result);
