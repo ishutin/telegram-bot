@@ -5,6 +5,7 @@ namespace Telegram;
 use Exception;
 use GuzzleHttp\Client;
 use Telegram\Event\Event;
+use Telegram\Event\EventInterface;
 use Telegram\Exception\EventException;
 use Telegram\Exception\RequestException;
 
@@ -72,7 +73,7 @@ class Bot
         return $this->response;
     }
 
-    public function addEvent(Event $event)
+    public function addEvent(EventInterface $event)
     {
         $this->events[get_class($event)] = $event;
     }
