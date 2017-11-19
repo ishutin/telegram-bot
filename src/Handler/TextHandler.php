@@ -2,7 +2,6 @@
 
 namespace Telegram\Handler;
 
-use Telegram\Entity\MessageEntity;
 use Telegram\Exception\TextHandlerException;
 use Telegram\EventInterface;
 

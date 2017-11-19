@@ -6,6 +6,15 @@ class MessageEntity
 {
     const TYPE_MENTION = 'mention';
     const TYPE_BOT_COMMAND = 'bot_command';
+    const TYPE_HASHTAG = 'hashtag';
+    const TYPE_URL = 'url';
+    const TYPE_EMAIL = 'email';
+    const TYPE_BOLD = 'bold';
+    const TYPE_ITALIC = 'italic';
+    const TYPE_CODE = 'code';
+    const TYPE_PRE = 'pre';
+    const TYPE_TEXT_LINK = 'text_link';
+    const TYPE_TEXT_MENTION = 'text_mention';
 
     /**
      * @var string
