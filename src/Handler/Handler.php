@@ -5,6 +5,7 @@ namespace Telegram\Handler;
 use Telegram\Request;
 use Telegram\Response;
 
-abstract class CommandHandler implements Handler
+interface Handler
 {
+    public function handle(Request $request, Response $response);
 }
