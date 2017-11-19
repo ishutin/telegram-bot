@@ -2,12 +2,12 @@
 
 namespace Telegram\Event;
 
-use Telegram\Handler\CommandHandler;
+use Telegram\HandlerInterface;
 
 class CommandEvent extends Event
 {
     /**
-     * @var CommandHandler[]
+     * @var HandlerInterface[]
      */
     private $commandsList = [];
 
@@ -33,7 +33,7 @@ class CommandEvent extends Event
         }
     }
 
-    public function on(string $command, CommandHandler $handler): self
+    public function on(string $command, HandlerInterface $handler): self
     {
         $this->commandsList[$command] = $handler;
 

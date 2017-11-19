@@ -4,7 +4,7 @@ namespace Telegram\Event;
 
 use Telegram\Bot;
 
-abstract class Event
+abstract class Event implements EventInterface
 {
     /**
      * @var Bot
@@ -15,6 +15,4 @@ abstract class Event
     {
         $this->bot = $bot;
     }
-
-    abstract public function listen();
 }

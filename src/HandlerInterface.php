@@ -1,11 +1,11 @@
 <?php
 
-namespace Telegram\Handler;
+namespace Telegram;
 
 use Telegram\Request;
 use Telegram\Response;
 
-interface Handler
+interface HandlerInterface
 {
     public function handle(Request $request, Response $response);
 }

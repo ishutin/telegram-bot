@@ -3,12 +3,12 @@
 namespace Telegram\Event;
 
 use Telegram\Exception\TextEventException;
-use Telegram\Handler\TextHandler;
+use Telegram\HandlerInterface;
 
 class TextEvent extends Event
 {
     /**
-     * @var TextHandler
+     * @var HandlerInterface
      */
     private $handler;
 
@@ -26,7 +26,7 @@ class TextEvent extends Event
         }
     }
 
-    public function on(TextHandler $handler)
+    public function on(HandlerInterface $handler)
     {
         $this->handler = $handler;
     }
