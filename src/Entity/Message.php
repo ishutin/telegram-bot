@@ -129,14 +129,14 @@ class Message extends Entity
 
         if (!empty($this->entities)) {
             foreach ($this->entities as $entity) {
-                if ($entity->getType() != $type) {
+                if ($entity->type != $type) {
                     continue;
                 }
 
                 $result[] = substr(
                     $this->text,
-                    $entity->getOffset(),
-                    $entity->getLength()
+                    $entity->offset,
+                    $entity->length
                 );
             }
         }
