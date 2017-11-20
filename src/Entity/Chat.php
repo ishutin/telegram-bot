@@ -2,7 +2,14 @@
 
 namespace Telegram\Entity;
 
-class Chat
+/**
+ * Class Chat
+ * @package Telegram\Entity
+ *
+ * @property int $id
+ * @property string $type
+ */
+class Chat extends Entity
 {
     const TYPE_PRIVATE_CHAT = 'private';
     const TYPE_GROUP_CHAT = 'group';

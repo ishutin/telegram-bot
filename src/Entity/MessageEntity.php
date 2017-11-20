@@ -2,7 +2,15 @@
 
 namespace Telegram\Entity;
 
-class MessageEntity
+/**
+ * Class MessageEntity
+ * @package Telegram\Entity
+ *
+ * @property string $type
+ * @property int $offset
+ * @property int $length
+ */
+class MessageEntity extends Entity
 {
     const TYPE_MENTION = 'mention';
     const TYPE_BOT_COMMAND = 'bot_command';

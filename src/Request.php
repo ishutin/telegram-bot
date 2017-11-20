@@ -30,49 +30,7 @@ class Request
                 throw new RequestException('Invalid request: empty message');
             }
 
-            $message = $request['message'];
-
-            if (empty($message['chat'])) {
-                throw new RequestException('Invalid request: empty message.chat');
-            }
-
-            if (empty($message['from'])) {
-                throw new RequestException('Invalid request: empty message.from');
-            }
-
-            $from = $message['from'];
-            $chat = $message['chat'];
-
-            $chatEntity = new Chat($chat['id'], $chat['type']);
-
-            $fromUser = new User(
-                $from['id'],
-                $from['first_name'],
-                $from['last_name'],
-                $from['username'],
-                $from['language_code'],
-                $from['is_bot']
-            );
-
-            $messageEntities = [];
-
-            if (!empty($message['entities'])) {
-                foreach ($message['entities'] as $messageEntity) {
-                    $messageEntities[] = new MessageEntity(
-                        $messageEntity['type'],
-                        $messageEntity['offset'],
-                        $messageEntity['length']
-                    );
-                }
-            }
-
-            $this->message = new Message(
-                $message['message_id'],
-                $fromUser,
-                $chatEntity,
-                $message['text'] ?? null,
-                $messageEntities
-            );
+            $this->message = $this->createMessage($request['message']);
         } catch (Exception $e) {
             throw new RequestException($e->getMessage());
         }
@@ -86,5 +44,64 @@ class Request
     public function getOriginalRequest(): array
     {
         return $this->originalRequest;
+    }
+
+    private function createMessage(array $data): Message
+    {
+        if (empty($data['message_id'])) {
+            throw new RequestException('Invalid request: empty message.message_id');
+        }
+
+        if (empty($data['chat'])) {
+            throw new RequestException('Invalid request: empty message.chat');
+        }
+
+        if (empty($data['date'])) {
+            throw new RequestException('Invalid request: empty message.date');
+        }
+
+        $chat = $data['chat'];
+        $chatEntity = new Chat($chat['id'], $chat['type']);
+
+        $message = new Message($data['message_id'], $chatEntity, $data['date']);
+
+        if (!empty($data['text'])) {
+            $message->text = $data['text'];
+        }
+
+        if (!empty($data['from'])) {
+            $from = $data['from'];
+
+            $fromUser = new User(
+                $from['id'],
+                $from['first_name'],
+                $from['last_name'],
+                $from['username'],
+                $from['language_code'],
+                $from['is_bot']
+            );
+
+            $message->from = $fromUser;
+        }
+
+        if (!empty($data['entities'])) {
+            $messageEntities = [];
+
+            foreach ($data['entities'] as $messageEntity) {
+                $messageEntities[] = new MessageEntity(
+                    $messageEntity['type'],
+                    $messageEntity['offset'],
+                    $messageEntity['length']
+                );
+            }
+
+            $message->entities = $messageEntities;
+        }
+
+        if (!empty($data['forward_from'])) {
+            $message->forwardFrom = $this->createMessage($data['forward_from']);
+        }
+
+        return $message;
     }
 }

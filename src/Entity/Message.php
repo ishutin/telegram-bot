@@ -2,7 +2,19 @@
 
 namespace Telegram\Entity;
 
-class Message
+/**
+ * Class Message
+ * @package Telegram\Entity
+ *
+ * @property int $id
+ * @property Chat $chat
+ * @property int $date
+ * @property User $from
+ * @property string $text
+ * @property MessageEntity[] $entities
+ * @property Message $forwardFrom
+ */
+class Message extends Entity
 {
     /**
      * @var int
@@ -10,37 +22,63 @@ class Message
     private $id;
 
     /**
-     * @var User
-     */
-    private $from;
-
-    /**
      * @var Chat
      */
     private $chat;
 
     /**
+     * @var int
+     */
+    private $date;
+
+    /**
+     * @var User
+     */
+    private $from = null;
+
+    /**
      * @var string
      */
-    private $text;
+    private $text = null;
 
     /**
      * @var MessageEntity[]
      */
     private $entities = [];
 
+    /**
+     * @var Message
+     */
+    private $forwardFrom = null;
+
     public function __construct(
         int $id,
-        User $from,
         Chat $chat,
-        string $text = null,
-        array $entities = []
+        int $date
     ) {
         $this->id = $id;
-        $this->from = $from;
+        $this->date = $date;
         $this->chat = $chat;
+    }
+
+    public function setForwardFrom(Message $message)
+    {
+        $this->forwardFrom = $message;
+    }
+
+    public function setText(string $text)
+    {
         $this->text = $text;
-        $this->entities = $entities;
+    }
+
+    public function setFrom(User $from)
+    {
+        $this->from = $from;
+    }
+
+    public function setEntity(MessageEntity $entity)
+    {
+        $this->entities[] = $entity;
     }
 
     public function getId(): int
@@ -48,19 +86,25 @@ class Message
         return $this->id;
     }
 
-    public function getFrom(): User
-    {
-        return $this->from;
-    }
-
     public function getChat(): Chat
     {
         return $this->chat;
     }
 
-    public function getText(): string
+    /**
+     * @return User|null
+     */
+    public function getFrom()
     {
-        return $this->text ?? '';
+        return $this->from;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getText()
+    {
+        return $this->text;
     }
 
     /**
@@ -95,5 +139,13 @@ class Message
         }
 
         return $result;
+    }
+
+    /**
+     * @return Message|null
+     */
+    public function getForwardFrom()
+    {
+        return $this->forwardFrom;
     }
 }
