@@ -24,7 +24,7 @@ $commandHandler->on('/test', new class implements \Telegram\EventInterface
     public function handle(\Telegram\Request $request, \Telegram\Response $response)
     {
         $response->sendMessage(
-            $request->getMessage()->getChat(),
+            $request->getMessage()->chat,
             'User send /test command'
         );
     }
@@ -37,7 +37,7 @@ $textHandler->on(new class implements \Telegram\EventInterface
     public function handle(\Telegram\Request $request, \Telegram\Response $response)
     {
         $response->sendMessage(
-            $request->getMessage()->getChat(),
+            $request->getMessage()->chat,
             'User send some text. Answer him'
         );
     }
