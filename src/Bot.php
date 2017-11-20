@@ -49,16 +49,15 @@ class Bot
         return true;
     }
 
-    public function getRequest(array $request = null): Request
+    public function initRequest(array $request)
+    {
+        $this->request = new Request($request);
+    }
+
+    public function getRequest(): Request
     {
         if (!$this->request) {
-            $request = $request ?? json_decode(file_get_contents('php://input'), true);
-
-            if (json_last_error() !== JSON_ERROR_NONE) {
-                throw new RequestException(json_last_error_msg());
-            }
-
-            $this->request = new Request($request);
+            throw new RequestException('Request was not initialized');
         }
 
         return $this->request;
