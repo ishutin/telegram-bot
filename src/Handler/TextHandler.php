@@ -24,14 +24,14 @@ class TextHandler extends Handler
 
         $isCommand = false;
 
-        foreach ($message->getEntities() as $entity) {
-            if ($entity->getType() == $entity::TYPE_BOT_COMMAND) {
+        foreach ($message->entities as $entity) {
+            if ($entity->type == $entity::TYPE_BOT_COMMAND) {
                 $isCommand = true;
                 break;
             }
         }
 
-        if ($text = $message->getText() && !$isCommand) {
+        if ($text = $message->text && !$isCommand) {
             $this->event->handle($request, $response);
         }
     }
