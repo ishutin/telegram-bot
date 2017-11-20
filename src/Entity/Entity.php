@@ -2,6 +2,8 @@
 
 namespace Telegram\Entity;
 
+use ReflectionMethod;
+
 abstract class Entity
 {
     /**
@@ -13,7 +15,10 @@ abstract class Entity
         $method = 'get' . ucfirst($name);
 
         if (method_exists($this, $method)) {
-            return $this->$method();
+            $reflection = new ReflectionMethod($this, $method);
+            if ($reflection->isPublic()) {
+                return $this->$method();
+            }
         }
 
         return null;
@@ -22,14 +27,17 @@ abstract class Entity
     /**
      * @param string $name
      * @param mixed $value
-     * @return null
+     * @return mixed
      */
     public function __set($name, $value)
     {
         $method = 'set' . ucfirst($name);
 
         if (method_exists($this, $method)) {
-            return $this->$method($value);
+            $reflection = new ReflectionMethod($this, $method);
+            if ($reflection->isPublic()) {
+                return $this->$method($value);
+            }
         }
 
         return null;
