@@ -12,7 +12,7 @@ namespace Telegram\Entity;
  * @property User $from
  * @property string $text
  * @property MessageEntity[] $entities
- * @property Message $forwardFrom
+ * @property Message $replyTo
  */
 class Message extends Entity
 {
@@ -49,21 +49,21 @@ class Message extends Entity
     /**
      * @var Message
      */
-    private $forwardFrom = null;
+    private $replyTo = null;
 
     public function __construct(
         int $id,
-        Chat $chat,
-        int $date
+        int $date,
+        Chat $chat
     ) {
         $this->id = $id;
         $this->date = $date;
         $this->chat = $chat;
     }
 
-    public function setForwardFrom(Message $message)
+    public function setReplyTo(Message $message)
     {
-        $this->forwardFrom = $message;
+        $this->replyTo = $message;
     }
 
     public function setText(string $text)
@@ -144,8 +144,8 @@ class Message extends Entity
     /**
      * @return Message|null
      */
-    public function getForwardFrom()
+    public function getReplyTo()
     {
-        return $this->forwardFrom;
+        return $this->replyTo;
     }
 }
