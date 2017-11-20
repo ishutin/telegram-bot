@@ -76,9 +76,12 @@ class Message extends Entity
         $this->from = $from;
     }
 
-    public function setEntity(MessageEntity $entity)
+    /**
+     * @param MessageEntity[] $entities
+     */
+    public function seEntities(array $entities = [])
     {
-        $this->entities[] = $entity;
+        $this->entities = $entities;
     }
 
     public function getId(): int
