@@ -79,7 +79,7 @@ class Message extends Entity
     /**
      * @param MessageEntity[] $entities
      */
-    public function seEntities(array $entities = [])
+    public function setEntities(array $entities = [])
     {
         $this->entities = $entities;
     }

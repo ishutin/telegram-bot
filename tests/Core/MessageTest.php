@@ -32,7 +32,10 @@ final class MessageTest extends TestCase
                 'type' => 'private',
             ],
             'date' => 1511091561,
-            'text' => 'test text message',
+            'text' => '#test test text message',
+            'entities' => [
+                ['type' => 'hashtag', 'offset' => 0, 'length' => '5'],
+            ],
         ],
     ];
 
@@ -60,6 +63,6 @@ final class MessageTest extends TestCase
 
         $this->assertEquals($message->text, $testReq['message']['text']);
 
-        $this->assertEmpty($message->entities);
+        $this->assertNotEmpty($message->entities);
     }
 }
