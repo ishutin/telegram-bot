@@ -43,7 +43,8 @@ final class BotTest extends TestCase
     {
         $config = new Config('abc');
         $bot = new Bot($config);
-        $bot->initRequest($this->testRequest);
+        $request = new Request($this->testRequest);
+        $bot->initRequest($request);
         $request = $bot->getRequest();
 
         $this->assertInstanceOf(Request::class, $request);
