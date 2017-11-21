@@ -27,7 +27,7 @@ $commandHandler = new \Telegram\Handler\CommandHandler($bot);
 // handle '/test' command
 $commandHandler->on('/test', new class implements \Telegram\EventInterface
 {
-    public function handle(\Telegram\Request $request, \Telegram\Response $response)
+    public function handle(\Telegram\Request $request, \Telegram\Response $response): void
     {
         $response->sendMessage(
             $request->getMessage()->chat,
@@ -40,7 +40,7 @@ $commandHandler->on('/test', new class implements \Telegram\EventInterface
 $textHandler = new \Telegram\Handler\TextHandler($bot);
 $textHandler->on(new class implements \Telegram\EventInterface
 {
-    public function handle(\Telegram\Request $request, \Telegram\Response $response)
+    public function handle(\Telegram\Request $request, \Telegram\Response $response): void
     {
         $response->sendMessage(
             $request->getMessage()->chat,
