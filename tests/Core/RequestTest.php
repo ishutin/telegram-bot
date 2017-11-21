@@ -3,8 +3,10 @@
 namespace Test\Core;
 
 use PHPUnit\Framework\TestCase;
+use Telegram\Entity\Chat;
 use Telegram\Entity\Message;
 use Telegram\Request;
+use Telegram\RequestInterface;
 
 final class RequestTest extends TestCase
 {
@@ -35,7 +37,7 @@ final class RequestTest extends TestCase
         ],
     ];
 
-    public function testRequest()
+    public function testParseRequest()
     {
         $request = new Request($this->testRequest);
 
@@ -43,5 +45,22 @@ final class RequestTest extends TestCase
         $this->assertInstanceOf(Message::class, $message);
 
         $this->assertEquals($this->testRequest, $request->getOriginalRequest());
+    }
+
+    public function testAttachedRequest()
+    {
+        $request = new class implements RequestInterface
+        {
+            public function getMessage(): Message
+            {
+                return new Message(2, 1234, new Chat(1, 'private'));
+            }
+        };
+
+        $message = $request->getMessage();
+        $this->assertInstanceOf(Message::class, $message);
+
+        $this->assertEquals($message->id, 2);
+        $this->assertEquals($message->date, 1234);
     }
 }

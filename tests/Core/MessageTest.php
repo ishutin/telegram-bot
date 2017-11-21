@@ -46,6 +46,7 @@ final class MessageTest extends TestCase
 
         $message = $request->getMessage();
         $this->assertEquals($message->id, $testReq['message']['message_id']);
+        $this->assertEquals($message->date, $testReq['message']['date']);
 
         $chat = $message->chat;
         $this->assertInstanceOf(Chat::class, $chat);

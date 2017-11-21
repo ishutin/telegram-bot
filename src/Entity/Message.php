@@ -94,6 +94,11 @@ class Message extends Entity
         return $this->chat;
     }
 
+    public function getDate(): int
+    {
+        return $this->date;
+    }
+
     /**
      * @return User|null
      */
