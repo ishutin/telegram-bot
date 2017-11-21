@@ -57,11 +57,8 @@ class Message extends Entity
      */
     private $audio;
 
-    public function __construct(
-        int $id,
-        int $date,
-        Chat $chat
-    ) {
+    public function __construct(int $id, int $date, Chat $chat)
+    {
         $this->id = $id;
         $this->date = $date;
         $this->chat = $chat;
@@ -105,7 +102,7 @@ class Message extends Entity
      *
      * @return string[]
      */
-    public function getEntitiesValues(string $type)
+    public function getEntitiesValues(string $type): array
     {
         $result = [];
 
@@ -136,17 +133,17 @@ class Message extends Entity
         return $this->audio;
     }
 
-    public function setReplyTo(Message $message = null)
+    public function setReplyTo(Message $message = null): void
     {
         $this->replyTo = $message;
     }
 
-    public function setText(string $text = null)
+    public function setText(string $text = null): void
     {
         $this->text = $text;
     }
 
-    public function setFrom(User $from = null)
+    public function setFrom(User $from = null): void
     {
         $this->from = $from;
     }
@@ -154,12 +151,12 @@ class Message extends Entity
     /**
      * @param MessageEntity[] $entities
      */
-    public function setEntities(array $entities = [])
+    public function setEntities(array $entities = []): void
     {
         $this->entities = $entities;
     }
 
-    public function setAudio(Audio $audio = null)
+    public function setAudio(Audio $audio = null): void
     {
         $this->audio = $audio;
     }
