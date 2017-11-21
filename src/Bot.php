@@ -53,7 +53,7 @@ class Bot
         $this->request = $request;
     }
 
-    public function getRequest(): Request
+    public function getRequest(): RequestInterface
     {
         if (!$this->request) {
             throw new RequestException('Request was not initialized');

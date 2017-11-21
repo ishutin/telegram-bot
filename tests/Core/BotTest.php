@@ -5,48 +5,30 @@ namespace Test\Core;
 use PHPUnit\Framework\TestCase;
 use Telegram\Bot;
 use Telegram\Config;
+use Telegram\Entity\Chat;
+use Telegram\Entity\Message;
 use Telegram\Handler\Handler;
 use Telegram\Request;
+use Telegram\RequestInterface;
 use Telegram\Response;
 
 final class BotTest extends TestCase
 {
-    /**
-     * @var array
-     */
-    private $testRequest = [
-        'update_id' => 1,
-        'message' => [
-            'message_id' => 1,
-            'from' => [
-                'id' => 1,
-                'is_bot' => false,
-                'first_name' => 'Test',
-                'last_name' => 'Unit',
-                'username' => 'unit_test',
-                'language_code' => 'en',
-            ],
-            'chat' => [
-                'id' => 1,
-                'first_name' => 'Test',
-                'last_name' => 'Unit',
-                'username' => 'unit_test',
-                'type' => 'private',
-            ],
-            'date' => 1511091561,
-            'text' => 'test text message',
-        ],
-    ];
-
     public function testRequest(): void
     {
         $config = new Config('abc');
-        $bot = new Bot($config);
-        $request = new Request($this->testRequest);
-        $bot->initRequest($request);
-        $request = $bot->getRequest();
 
-        $this->assertInstanceOf(Request::class, $request);
+        $bot = new Bot($config);
+
+        $bot->initRequest(new class implements RequestInterface
+        {
+            public function getMessage(): Message
+            {
+                return new Message(1, 1, new Chat(1, 'private'));
+            }
+        });
+
+        $this->assertInstanceOf(RequestInterface::class, $bot->getRequest());
     }
 
     public function testResponse(): void

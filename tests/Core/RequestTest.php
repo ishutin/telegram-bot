@@ -49,6 +49,7 @@ final class RequestTest extends TestCase
     public function testParseRequest(): void
     {
         $request = new Request($this->testRequest);
+        $this->assertInstanceOf(RequestInterface::class, $request);
 
         $message = $request->getMessage();
         $this->assertInstanceOf(Message::class, $message);
