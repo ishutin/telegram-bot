@@ -49,9 +49,18 @@ class Bot
         return true;
     }
 
-    public function initRequest(array $request)
+    /**
+     * @param array|Request $request
+     */
+    public function initRequest($request)
     {
-        $this->request = new Request($request);
+        if ($request instanceof Request) {
+            $this->request = $request;
+        } elseif (is_array($request)) {
+            $this->request = new Request($request);
+        } else {
+            throw new RequestException('Invalid request');
+        }
     }
 
     public function getRequest(): Request

@@ -24,20 +24,24 @@ class Request
     public function __construct(array $request)
     {
         $this->originalRequest = $request;
-
-        try {
-            if (empty($request['message'])) {
-                throw new RequestException('Invalid request: empty message');
-            }
-
-            $this->message = $this->createMessage($request['message']);
-        } catch (Exception $e) {
-            throw new RequestException($e->getMessage());
-        }
     }
 
     public function getMessage(): Message
     {
+        if (!$this->message) {
+            try {
+                $request = $this->originalRequest;
+
+                if (empty($request['message'])) {
+                    throw new RequestException('Invalid request: empty message');
+                }
+
+                $this->message = $this->createMessage($request['message']);
+            } catch (Exception $e) {
+                throw new RequestException($e->getMessage());
+            }
+        }
+
         return $this->message;
     }
 
