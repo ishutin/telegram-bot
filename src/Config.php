@@ -23,12 +23,12 @@ class Config
         $this->token = $token;
     }
 
-    public function setHttpClient(ClientInterface $client)
+    public function setHttpClient(ClientInterface $client): void
     {
         $this->client = $client;
     }
 
-    public function getHttpClient()
+    public function getHttpClient():? ClientInterface
     {
         return $this->client;
     }

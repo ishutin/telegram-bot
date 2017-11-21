@@ -18,7 +18,7 @@ class Response
         $this->config = $config;
     }
 
-    public function sendMessage(Chat $chat, string $message)
+    public function sendMessage(Chat $chat, string $message): void
     {
         $this->sendGet('sendMessage', [
             'chat_id' => $chat->getId(),
@@ -26,7 +26,7 @@ class Response
         ]);
     }
 
-    private function sendGet(string $method, array $params)
+    private function sendGet(string $method, array $params): void
     {
         try {
             $this->config->getHttpClient()->request(

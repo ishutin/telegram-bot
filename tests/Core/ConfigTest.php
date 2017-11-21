@@ -8,13 +8,13 @@ use Telegram\Config;
 
 final class ConfigTest extends TestCase
 {
-    public function testToken()
+    public function testToken(): void
     {
         $config = new Config('abc');
         $this->assertEquals($config->getToken(), 'abc');
     }
 
-    public function testHttpClient()
+    public function testHttpClient(): void
     {
         $config = new Config('abc');
         $this->assertNull($config->getHttpClient());

@@ -99,18 +99,12 @@ class Message extends Entity
         return $this->date;
     }
 
-    /**
-     * @return User|null
-     */
-    public function getFrom()
+    public function getFrom():? User
     {
         return $this->from;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getText()
+    public function getText():? string
     {
         return $this->text;
     }
@@ -149,10 +143,7 @@ class Message extends Entity
         return $result;
     }
 
-    /**
-     * @return Message|null
-     */
-    public function getReplyTo()
+    public function getReplyTo():? Message
     {
         return $this->replyTo;
     }

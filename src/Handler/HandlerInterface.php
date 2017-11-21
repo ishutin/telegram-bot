@@ -4,5 +4,5 @@ namespace Telegram\Handler;
 
 interface HandlerInterface
 {
-    public function listen();
+    public function listen(): void;
 }

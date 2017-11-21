@@ -48,7 +48,7 @@ class Bot
         return true;
     }
 
-    public function initRequest(RequestInterface $request)
+    public function initRequest(RequestInterface $request): void
     {
         $this->request = $request;
     }
@@ -62,7 +62,7 @@ class Bot
         return $this->request;
     }
 
-    public function getResponse()
+    public function getResponse(): Response
     {
         if (!$this->response) {
             $this->response = new Response($this->config);
@@ -71,12 +71,12 @@ class Bot
         return $this->response;
     }
 
-    public function pushHandler(HandlerInterface $event)
+    public function pushHandler(HandlerInterface $event): void
     {
         $this->handlers[get_class($event)] = $event;
     }
 
-    private function listenHandlers()
+    private function listenHandlers(): void
     {
         try {
             foreach ($this->handlers as $event) {

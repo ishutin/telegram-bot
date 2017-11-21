@@ -39,7 +39,7 @@ final class BotTest extends TestCase
         ],
     ];
 
-    public function testRequest()
+    public function testRequest(): void
     {
         $config = new Config('abc');
         $bot = new Bot($config);
@@ -50,7 +50,7 @@ final class BotTest extends TestCase
         $this->assertInstanceOf(Request::class, $request);
     }
 
-    public function testResponse()
+    public function testResponse(): void
     {
         $config = new Config('abc');
         $bot = new Bot($config);
@@ -59,14 +59,14 @@ final class BotTest extends TestCase
         $this->assertInstanceOf(Response::class, $response);
     }
 
-    public function testAddEvent()
+    public function testAddEvent(): void
     {
         $config = new Config('abc');
         $bot = new Bot($config);
 
         $event = new class($bot) extends Handler
         {
-            public function listen()
+            public function listen(): void
             {
             }
         };

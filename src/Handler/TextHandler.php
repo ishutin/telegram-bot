@@ -12,7 +12,7 @@ class TextHandler extends Handler
      */
     private $event;
 
-    public function listen()
+    public function listen(): void
     {
         if (empty($this->event)) {
             throw new TextHandlerException('Invalid handler');
@@ -36,7 +36,7 @@ class TextHandler extends Handler
         }
     }
 
-    public function on(EventInterface $event)
+    public function on(EventInterface $event): void
     {
         $this->event = $event;
     }

@@ -12,7 +12,7 @@ class CommandHandler extends Handler
      */
     private $commandEventsList = [];
 
-    public function listen()
+    public function listen(): void
     {
         $bot = $this->bot;
         $message = $bot->getRequest()->getMessage();
@@ -28,7 +28,7 @@ class CommandHandler extends Handler
         }
     }
 
-    public function on(string $command, EventInterface $event)
+    public function on(string $command, EventInterface $event): void
     {
         $this->commandEventsList[$command] = $event;
     }
