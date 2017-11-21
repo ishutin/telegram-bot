@@ -5,8 +5,6 @@ namespace Test\Core;
 use PHPUnit\Framework\TestCase;
 use Telegram\Entity\Chat;
 use Telegram\Entity\Message;
-use Telegram\Entity\User;
-use Telegram\Request;
 
 final class MessageTest extends TestCase
 {

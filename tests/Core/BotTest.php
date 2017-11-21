@@ -3,7 +3,6 @@
 namespace Test\Core;
 
 use PHPUnit\Framework\TestCase;
-use PHPUnit\Runner\Exception;
 use Telegram\Bot;
 use Telegram\Config;
 use Telegram\Handler\Handler;
