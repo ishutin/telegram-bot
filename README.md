@@ -14,7 +14,11 @@ require_once 'vendor/autoload.php';
 $token = 'XXX-XXX-XXX-XXX'; // use bot token
 $config = new \Telegram\Config($token);
 $bot = new \Telegram\Bot($config);
-$request = new \Telegram\Request(json_decode(file_get_contents('php://input'), true));
+$request = new \Telegram\Request(
+    json_decode(file_get_contents('php://input'), true)
+);
+
+// use \Telegram\Request class or your own realisation \Telegram\RequestInterface
 $bot->initRequest($request);
 
 // commands handler
