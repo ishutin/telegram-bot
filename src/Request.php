@@ -9,7 +9,7 @@ use Telegram\Entity\MessageEntity;
 use Telegram\Entity\User;
 use Telegram\Exception\RequestException;
 
-class Request
+class Request implements RequestInterface
 {
     /**
      * @var Message

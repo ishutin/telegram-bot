@@ -2,7 +2,6 @@
 
 namespace Telegram;
 
-use Exception;
 use GuzzleHttp\Client;
 use Telegram\Handler\Handler;
 use Telegram\Handler\HandlerInterface;
@@ -49,7 +48,7 @@ class Bot
         return true;
     }
 
-    public function initRequest(Request $request)
+    public function initRequest(RequestInterface $request)
     {
         $this->request = $request;
     }
