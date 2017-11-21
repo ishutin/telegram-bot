@@ -3,6 +3,7 @@
 namespace Test\Core;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\ClientInterface;
 use PHPUnit\Framework\TestCase;
 use Telegram\Config;
 
@@ -21,6 +22,10 @@ final class ConfigTest extends TestCase
 
         $client = new Client();
         $config->setHttpClient($client);
+        $this->assertInstanceOf(
+            ClientInterface::class,
+            $config->getHttpClient()
+        );
 
         $this->assertEquals($client, $config->getHttpClient());
     }

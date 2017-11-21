@@ -8,7 +8,6 @@ use Telegram\Config;
 use Telegram\Entity\Chat;
 use Telegram\Entity\Message;
 use Telegram\Handler\Handler;
-use Telegram\Request;
 use Telegram\RequestInterface;
 use Telegram\Response;
 
