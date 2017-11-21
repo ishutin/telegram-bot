@@ -3,12 +3,14 @@
 namespace Telegram\Entity;
 
 use ReflectionMethod;
+use Telegram\Exception\EntityException;
 
 abstract class Entity
 {
     /**
-     * @param string $name
+     * @param $name
      * @return mixed
+     * @throws EntityException
      */
     public function __get($name)
     {
@@ -21,13 +23,14 @@ abstract class Entity
             }
         }
 
-        return null;
+        throw new EntityException("Unknown getting property: $name");
     }
 
     /**
      * @param string $name
      * @param mixed $value
      * @return mixed
+     * @throws EntityException
      */
     public function __set($name, $value)
     {
@@ -40,6 +43,6 @@ abstract class Entity
             }
         }
 
-        return null;
+        throw new EntityException("Unknown property: $name");
     }
 }

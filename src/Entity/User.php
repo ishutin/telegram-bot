@@ -87,7 +87,7 @@ class User extends Entity
         return $this->lang;
     }
 
-    public function isBot(): bool
+    public function getIsBot(): bool
     {
         return $this->isBot;
     }
