@@ -1,6 +1,6 @@
 <?php
 
-namespace Test\Core;
+namespace Test\Entity;
 
 use PHPUnit\Framework\TestCase;
 use Telegram\Entity\User;
