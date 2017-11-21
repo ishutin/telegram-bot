@@ -81,22 +81,22 @@ class Audio extends Entity
         return $this->fileSize;
     }
 
-    public function setPerformer(string $performer): void
+    public function setPerformer(string $performer = null): void
     {
         $this->performer = $performer;
     }
 
-    public function setTitle(string $title): void
+    public function setTitle(string $title = null): void
     {
         $this->title = $title;
     }
 
-    public function setMimeType(string $mimeType): void
+    public function setMimeType(string $mimeType = null): void
     {
         $this->mimeType = $mimeType;
     }
 
-    public function setFileSize(int $fileSize): void
+    public function setFileSize(int $fileSize = null): void
     {
         $this->fileSize = $fileSize;
     }

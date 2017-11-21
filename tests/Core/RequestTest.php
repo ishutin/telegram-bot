@@ -3,6 +3,7 @@
 namespace Test\Core;
 
 use PHPUnit\Framework\TestCase;
+use Telegram\Entity\Audio;
 use Telegram\Entity\Chat;
 use Telegram\Entity\Message;
 use Telegram\Entity\User;
@@ -37,6 +38,10 @@ final class RequestTest extends TestCase
             'text' => '#test test text message',
             'entities' => [
                 ['type' => 'hashtag', 'offset' => 0, 'length' => '5'],
+            ],
+            'audio' => [
+                'file_id' => 'jwegjkwnl',
+                'duration' => 4321,
             ],
         ],
     ];
@@ -77,6 +82,11 @@ final class RequestTest extends TestCase
         $this->assertEquals($message->text, $testReq['message']['text']);
 
         $this->assertNotEmpty($message->entities);
+
+        $audio = $message->audio;
+        $this->assertInstanceOf(Audio::class, $audio);
+        $this->assertEquals($audio->id, $testReq['message']['audio']['file_id']);
+        $this->assertEquals($audio->duration, $testReq['message']['audio']['duration']);
     }
 
     public function testAttachedRequest(): void

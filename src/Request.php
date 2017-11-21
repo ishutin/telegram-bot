@@ -3,6 +3,7 @@
 namespace Telegram;
 
 use Exception;
+use Telegram\Entity\Audio;
 use Telegram\Entity\Chat;
 use Telegram\Entity\Message;
 use Telegram\Entity\MessageEntity;
@@ -96,6 +97,10 @@ class Request implements RequestInterface
             $message->replyTo = $this->createMessage($data['forward_from']);
         }
 
+        if (!empty($data['audio'])) {
+            $message->audio = $this->createAudio($data['audio']);
+        }
+
         return $message;
     }
 
@@ -114,5 +119,16 @@ class Request implements RequestInterface
             $data['language_code'],
             $data['is_bot']
         );
+    }
+
+    private function createAudio(array $data): Audio
+    {
+        $audio = new Audio($data['file_id'], $data['duration']);
+        $audio->performer = $data['performer'] ?? null;
+        $audio->title = $data['title'] ?? null;
+        $audio->mimeType = $data['mime_type'] ?? null;
+        $audio->fileSize = $data['file_size'] ?? null;
+
+        return $audio;
     }
 }

@@ -13,6 +13,7 @@ namespace Telegram\Entity;
  * @property string $text
  * @property MessageEntity[] $entities
  * @property Message $replyTo
+ * @property Audio $audio
  */
 class Message extends Entity
 {
@@ -51,6 +52,11 @@ class Message extends Entity
      */
     private $replyTo = null;
 
+    /**
+     * @var Audio
+     */
+    private $audio;
+
     public function __construct(
         int $id,
         int $date,
@@ -59,29 +65,6 @@ class Message extends Entity
         $this->id = $id;
         $this->date = $date;
         $this->chat = $chat;
-    }
-
-    public function setReplyTo(Message $message)
-    {
-        $this->replyTo = $message;
-    }
-
-    public function setText(string $text)
-    {
-        $this->text = $text;
-    }
-
-    public function setFrom(User $from)
-    {
-        $this->from = $from;
-    }
-
-    /**
-     * @param MessageEntity[] $entities
-     */
-    public function setEntities(array $entities = [])
-    {
-        $this->entities = $entities;
     }
 
     public function getId(): int
@@ -146,5 +129,38 @@ class Message extends Entity
     public function getReplyTo():? Message
     {
         return $this->replyTo;
+    }
+
+    public function getAudio():? Audio
+    {
+        return $this->audio;
+    }
+
+    public function setReplyTo(Message $message = null)
+    {
+        $this->replyTo = $message;
+    }
+
+    public function setText(string $text = null)
+    {
+        $this->text = $text;
+    }
+
+    public function setFrom(User $from = null)
+    {
+        $this->from = $from;
+    }
+
+    /**
+     * @param MessageEntity[] $entities
+     */
+    public function setEntities(array $entities = [])
+    {
+        $this->entities = $entities;
+    }
+
+    public function setAudio(Audio $audio = null)
+    {
+        $this->audio = $audio;
     }
 }
