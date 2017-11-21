@@ -18,11 +18,11 @@ class Response
         $this->config = $config;
     }
 
-    public function sendMessage(Chat $chat, string $message): void
+    public function sendMessage(Chat $chat, string $text): void
     {
         $this->sendGet('sendMessage', [
             'chat_id' => $chat->getId(),
-            'text' => $message,
+            'text' => $text,
         ]);
     }
 
