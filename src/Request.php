@@ -3,7 +3,6 @@
 namespace Telegram;
 
 use Exception;
-use Telegram\Collection\PhotoCollection;
 use Telegram\Entity\Audio;
 use Telegram\Entity\Chat;
 use Telegram\Entity\Message;

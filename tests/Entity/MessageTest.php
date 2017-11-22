@@ -7,6 +7,7 @@ use Telegram\Entity\Audio;
 use Telegram\Entity\Chat;
 use Telegram\Entity\Message;
 use Telegram\Entity\MessageEntity;
+use Telegram\Entity\Photo;
 use Telegram\Entity\User;
 
 final class MessageTest extends TestCase
@@ -38,15 +39,18 @@ final class MessageTest extends TestCase
         $this->assertNull($message->from);
         $this->assertNull($message->text);
         $this->assertNull($message->replyTo);
+        $this->assertEmpty($message->photos);
 
         $message->text = 'test';
         $message->audio = new Audio('test', 1234);
         $message->entities = [new MessageEntity('hashtag', 0, 5)];
         $message->from = new User(1, 'test', 'test', 'test', 'en', false);
         $message->replyTo = new Message(1, 2, new Chat(2, 'private'));
+        $message->photos = [new Photo('test', 1, 1)];
 
         $this->assertEquals('test', $message->text);
         $this->assertNotEmpty($message->entities);
+        $this->assertNotEmpty($message->photos);
 
         $this->assertInstanceOf(Audio::class, $message->audio);
         $this->assertInstanceOf(User::class, $message->from);

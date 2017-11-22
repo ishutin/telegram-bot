@@ -175,7 +175,6 @@ class Message extends Entity
         $this->audio = $audio;
     }
 
-
     public function setPhotos(array $photos = []): void
     {
         $this->photos = $photos;
