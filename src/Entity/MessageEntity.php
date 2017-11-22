@@ -4,17 +4,17 @@ namespace Telegram\Entity;
 
 class MessageEntity extends Entity
 {
-    const TYPE_MENTION = 'mention';
-    const TYPE_BOT_COMMAND = 'bot_command';
-    const TYPE_HASHTAG = 'hashtag';
-    const TYPE_URL = 'url';
-    const TYPE_EMAIL = 'email';
-    const TYPE_BOLD = 'bold';
-    const TYPE_ITALIC = 'italic';
-    const TYPE_CODE = 'code';
-    const TYPE_PRE = 'pre';
-    const TYPE_TEXT_LINK = 'text_link';
-    const TYPE_TEXT_MENTION = 'text_mention';
+    public const TYPE_MENTION = 'mention';
+    public const TYPE_BOT_COMMAND = 'bot_command';
+    public const TYPE_HASHTAG = 'hashtag';
+    public const TYPE_URL = 'url';
+    public const TYPE_EMAIL = 'email';
+    public const TYPE_BOLD = 'bold';
+    public const TYPE_ITALIC = 'italic';
+    public const TYPE_CODE = 'code';
+    public const TYPE_PRE = 'pre';
+    public const TYPE_TEXT_LINK = 'text_link';
+    public const TYPE_TEXT_MENTION = 'text_mention';
 
     /**
      * @var string
