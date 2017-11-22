@@ -1,6 +1,7 @@
 {
     "name": "ishutin/telegram-bot",
-    "description": "Simple Telegram bot API",
+    "description": "Telegram bot API",
+    "keywords": ["telegram", "bot", "api", "library"],
     "type": "library",
     "license": "MIT",
     "authors": [
