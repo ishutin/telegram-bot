@@ -6,6 +6,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\ClientException;
 use Telegram\Entity\Chat;
+use Telegram\Entity\Message;
 use Telegram\Exception\ResponseException;
 
 class Response implements ResponseInterface
@@ -38,6 +39,19 @@ class Response implements ResponseInterface
         $this->sendGet('sendMessage', [
             'chat_id' => $chat->getId(),
             'text' => $text,
+        ]);
+    }
+
+    public function forwardMessage(
+        Message $message,
+        Chat $toChat,
+        $disableNotification = false
+    ): void {
+        $this->sendGet('forwardMessage', [
+            'chat_id' => $toChat->getId(),
+            'from_chat_id' => $message->getChat()->getId(),
+            'message_id' => $message->getId(),
+            'disable_notification' => $disableNotification,
         ]);
     }
 
