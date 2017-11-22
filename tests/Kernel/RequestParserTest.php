@@ -5,6 +5,7 @@ namespace Test\Kernel;
 use PHPUnit\Framework\TestCase;
 use Telegram\Entity\Audio;
 use Telegram\Entity\Chat;
+use Telegram\Entity\Document;
 use Telegram\Entity\User;
 use Telegram\Kernel\RequestParser;
 
@@ -60,6 +61,7 @@ final class RequestParserTest extends TestCase
                 'username' => 'unit_test2',
                 'type' => 'private',
             ],
+            'document' => ['file_id' => 'xxx-xxx'],
         ],
     ];
 
@@ -112,6 +114,10 @@ final class RequestParserTest extends TestCase
         $this->assertInstanceOf(Chat::class, $chat);
         $this->assertEquals($chat->getId(), $request['message']['forward_from_chat']['id']);
         $this->assertEquals($chat->getType(), $chat::TYPE_PRIVATE_CHAT);
+
+        $document = $message->getDocument();
+        $this->assertInstanceOf(Document::class, $document);
+        $this->assertEquals($document->getFileId(), $request['message']['document']['file_id']);
     }
 
 }

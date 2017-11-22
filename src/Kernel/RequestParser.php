@@ -5,6 +5,7 @@ namespace Telegram\Kernel;
 use Telegram\Entity\Audio;
 use Telegram\Entity\Chat;
 use Telegram\Entity\ChatPhoto;
+use Telegram\Entity\Document;
 use Telegram\Entity\Message;
 use Telegram\Entity\MessageEntity;
 use Telegram\Entity\Photo;
@@ -59,7 +60,7 @@ class RequestParser
             $photos = [];
 
             foreach ($data['photo'] as $photoData) {
-                $photos[] = $this->parsePhotos($photoData);
+                $photos[] = $this->parsePhoto($photoData);
             }
 
             $message->setPhotos($photos);
@@ -71,6 +72,10 @@ class RequestParser
 
         if (!empty($data['forward_from_chat'])) {
             $message->setForwardFromChat($this->parseChat($data['forward_from_chat']));
+        }
+
+        if (!empty($data['document'])) {
+            $message->setDocument($this->parseDocument($data['document']));
         }
 
         return $message;
@@ -125,7 +130,7 @@ class RequestParser
         return $audio;
     }
 
-    public function parsePhotos(array $data): Photo
+    public function parsePhoto(array $data): Photo
     {
         $photo = new Photo($data['file_id'], $data['width'], $data['height']);
 
@@ -142,5 +147,20 @@ class RequestParser
     public function parseMessageEntity(array $data): MessageEntity
     {
         return new MessageEntity($data['type'], $data['offset'], $data['length']);
+    }
+
+    public function parseDocument(array $data): Document
+    {
+        $document = new Document($data['file_id']);
+
+        $document->setFileName($data['file_name'] ?? null);
+        $document->setFileSize($data['file_size'] ?? null);
+        $document->setMimeType($data['mime_type'] ?? null);
+
+        if (!empty($data['thumb'])) {
+            $document->setThumb($this->parsePhoto($data['thumb']));
+        }
+
+        return $document;
     }
 }

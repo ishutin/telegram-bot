@@ -59,6 +59,11 @@ class Message extends Entity
      */
     private $forwardFromChat = null;
 
+    /**
+     * @var Document
+     */
+    private $document;
+
     public function __construct(int $id, int $date, Chat $chat)
     {
         $this->id = $id;
@@ -153,6 +158,11 @@ class Message extends Entity
         return $this->forwardFromChat;
     }
 
+    public function getDocument():? Document
+    {
+        return $this->document;
+    }
+
     public function setReplyTo(Message $message = null): void
     {
         $this->replyTo = $message;
@@ -194,5 +204,10 @@ class Message extends Entity
     public function setForwardFromChat(Chat $chat = null): void
     {
         $this->forwardFromChat = $chat;
+    }
+
+    public function setDocument(Document $document = null): void
+    {
+        $this->document = $document;
     }
 }

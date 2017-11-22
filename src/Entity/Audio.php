@@ -2,14 +2,18 @@
 
 namespace Telegram\Entity;
 
+use Telegram\Entity\Traits\FileSizeAttributeTrait;
+use Telegram\Entity\Traits\MimeAttributeTrait;
+
 class Audio extends Entity
 {
-    use FileSizeEntityTrait;
+    use FileSizeAttributeTrait;
+    use MimeAttributeTrait;
 
     /**
      * @var string
      */
-    private $id;
+    private $fileId;
 
     /**
      * @var int
@@ -25,11 +29,6 @@ class Audio extends Entity
      * @var string
      */
     private $title;
-
-    /**
-     * @var string
-     */
-    private $mimeType;
 
     public function __construct(string $fileId, int $duration)
     {
@@ -57,11 +56,6 @@ class Audio extends Entity
         return $this->title;
     }
 
-    public function getMimeType():? string
-    {
-        return $this->mimeType;
-    }
-
     public function setPerformer(string $performer = null): void
     {
         $this->performer = $performer;
@@ -70,10 +64,5 @@ class Audio extends Entity
     public function setTitle(string $title = null): void
     {
         $this->title = $title;
-    }
-
-    public function setMimeType(string $mimeType = null): void
-    {
-        $this->mimeType = $mimeType;
     }
 }

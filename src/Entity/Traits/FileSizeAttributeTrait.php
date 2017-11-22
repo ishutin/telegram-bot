@@ -1,8 +1,8 @@
 <?php
 
-namespace Telegram\Entity;
+namespace Telegram\Entity\Traits;
 
-trait FileSizeEntityTrait
+trait FileSizeAttributeTrait
 {
     /**
      * @var int
