@@ -4,6 +4,7 @@ namespace Telegram\Kernel;
 
 use Telegram\Entity\Audio;
 use Telegram\Entity\Chat;
+use Telegram\Entity\ChatPhoto;
 use Telegram\Entity\Message;
 use Telegram\Entity\MessageEntity;
 use Telegram\Entity\Photo;
@@ -85,7 +86,30 @@ class RequestParser
 
     public function parseChat(array $data): Chat
     {
-        return new Chat($data['id'], $data['type']);
+        $chat = new Chat(
+            $data['id'],
+            $data['type']
+        );
+
+        $chat->title = $data['title'] ?? null;
+        $chat->username = $data['username'] ?? null;
+        $chat->firstName = $data['first_name'] ?? null;
+        $chat->lastName = $data['last_name'] ?? null;
+        $chat->allMembersAreAdministrators = $data['all_members_are_administrators'] ?? null;
+        $chat->description = $data['description'] ?? null;
+        $chat->inviteLink = $data['invite_link'] ?? null;
+        $chat->stickerSetName = $data['sticker_set_name'] ?? null;
+        $chat->canSetStickerSet = $data['can_set_sticker_set'] ?? null;
+
+        $chat->pinnedMessage = !empty($data['pinned_message'])
+            ? $this->parseMessage($data['pinned_message'])
+            : null;
+
+        $chat->photo = !empty($data['photo'])
+            ? $this->parseChatPhoto($data['photo']) :
+            null;
+
+        return $chat;
     }
 
     public function parseUser(array $data): User
@@ -117,5 +141,10 @@ class RequestParser
         $photo->fileSize = $data['file_size'] ?? null;
 
         return $photo;
+    }
+
+    public function parseChatPhoto(array $data): ChatPhoto
+    {
+        return new ChatPhoto($data['small_file_id'], $data['big_file_id']);
     }
 }
