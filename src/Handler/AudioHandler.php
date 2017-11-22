@@ -20,7 +20,7 @@ class AudioHandler implements HandlerInterface
         }
 
         if ($request->getMessage()->audio) {
-            $this->action->handle($request, $response);
+            $this->action->action($request, $response);
         }
     }
 

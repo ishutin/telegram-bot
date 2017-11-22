@@ -25,7 +25,7 @@ $commandHandler = new \Telegram\Handler\CommandHandler();
 // handle '/test' command
 $commandHandler->on('/test', new class implements \Telegram\Handler\ActionInterface
 {
-    public function handle(\Telegram\Kernel\RequestInterface $request, \Telegram\Kernel\ResponseInterface $response): void
+    public function action(\Telegram\Kernel\RequestInterface $request, \Telegram\Kernel\ResponseInterface $response): void
     {
         $response->sendMessage(
             $request->getMessage()->chat,
@@ -39,7 +39,7 @@ $textHandler = new \Telegram\Handler\TextHandler();
 // handler all text messages
 $textHandler->on(new class implements \Telegram\Handler\ActionInterface
 {
-    public function handle(\Telegram\Kernel\RequestInterface $request, \Telegram\Kernel\ResponseInterface $response): void
+    public function action(\Telegram\Kernel\RequestInterface $request, \Telegram\Kernel\ResponseInterface $response): void
     {
         $response->sendMessage(
             $request->getMessage()->chat,
@@ -47,6 +47,8 @@ $textHandler->on(new class implements \Telegram\Handler\ActionInterface
         );
     }
 });
+
+// ... and more handlers (and your own realisation \Telegram\Handler\HandlerInterface)
 
 // register handlers
 $kernel->pushHandler($commandHandler);

@@ -7,5 +7,5 @@ use Telegram\Kernel\ResponseInterface;
 
 interface ActionInterface
 {
-    public function handle(RequestInterface $request, ResponseInterface $response): void;
+    public function action(RequestInterface $request, ResponseInterface $response): void;
 }
