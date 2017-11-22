@@ -25,7 +25,7 @@ final class AudioTest extends TestCase
     /**
      * @var string
      */
-    private $title = 'ymphony No. 25 in G minor, K. 183';
+    private $title = 'Symphony No. 25 in G minor, K. 183';
 
     /**
      * @var string
