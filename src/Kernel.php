@@ -30,7 +30,7 @@ class Kernel
 
     public function run(): bool
     {
-        $this->listenHandlers();
+        $this->runHandlers();
 
         return true;
     }
@@ -50,11 +50,11 @@ class Kernel
         $this->handlers[get_class($event)] = $event;
     }
 
-    private function listenHandlers(): void
+    private function runHandlers(): void
     {
         try {
             foreach ($this->handlers as $event) {
-                $event->listen($this->request, $this->response);
+                $event->handle($this->request, $this->response);
             }
         } catch (HandlerException $e) {
             throw $e;

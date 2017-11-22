@@ -45,7 +45,7 @@ final class KernelTest extends TestCase
 
         $event = new class implements HandlerInterface
         {
-            public function listen(RequestInterface $request, ResponseInterface $response): void
+            public function handle(RequestInterface $request, ResponseInterface $response): void
             {
             }
         };

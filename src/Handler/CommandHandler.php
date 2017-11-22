@@ -3,18 +3,17 @@
 namespace Telegram\Handler;
 
 use Telegram\Entity\MessageEntity;
-use Telegram\EventInterface;
 use Telegram\RequestInterface;
 use Telegram\ResponseInterface;
 
 class CommandHandler implements HandlerInterface
 {
     /**
-     * @var EventInterface[]
+     * @var ActionInterface[]
      */
     private $commandEventsList = [];
 
-    public function listen(RequestInterface $request, ResponseInterface $response): void
+    public function handle(RequestInterface $request, ResponseInterface $response): void
     {
         $message = $request->getMessage();
 
@@ -29,7 +28,7 @@ class CommandHandler implements HandlerInterface
         }
     }
 
-    public function on(string $command, EventInterface $event): void
+    public function on(string $command, ActionInterface $event): void
     {
         $this->commandEventsList[$command] = $event;
     }

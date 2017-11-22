@@ -3,19 +3,17 @@
 namespace Telegram\Handler;
 
 use Telegram\Exception\HandlerException;
-use Telegram\Exception\TextHandlerException;
-use Telegram\EventInterface;
 use Telegram\RequestInterface;
 use Telegram\ResponseInterface;
 
 class TextHandler implements HandlerInterface
 {
     /**
-     * @var EventInterface
+     * @var ActionInterface
      */
     private $event;
 
-    public function listen(RequestInterface $request, ResponseInterface $response): void
+    public function handle(RequestInterface $request, ResponseInterface $response): void
     {
         if (empty($this->event)) {
             throw new HandlerException('Invalid handler');
@@ -37,7 +35,7 @@ class TextHandler implements HandlerInterface
         }
     }
 
-    public function on(EventInterface $event): void
+    public function on(ActionInterface $event): void
     {
         $this->event = $event;
     }
