@@ -31,7 +31,7 @@ class TextHandler implements HandlerInterface
         }
 
         if ($text = $message->text && !$isCommand) {
-            $this->action->action($request, $response);
+            $this->action->execute($request, $response);
         }
     }
 

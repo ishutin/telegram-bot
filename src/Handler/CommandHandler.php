@@ -28,7 +28,7 @@ class CommandHandler implements HandlerInterface
         foreach ($commands as $command) {
             if (isset($this->commandActionsList[$command])) {
                 $handler = $this->commandActionsList[$command];
-                $handler->action($request, $response);
+                $handler->execute($request, $response);
             }
         }
     }

@@ -35,7 +35,7 @@ $commandHandler = new \Telegram\Handler\CommandHandler();
 // handle '/test' command
 $commandHandler->on('/test', new class implements \Telegram\Handler\ActionInterface
 {
-    public function action(
+    public function execute(
         \Telegram\Kernel\RequestInterface $request, 
         \Telegram\Kernel\ResponseInterface $response
         
@@ -52,7 +52,7 @@ $textHandler = new \Telegram\Handler\TextHandler();
 // handler all text messages
 $textHandler->on(new class implements \Telegram\Handler\ActionInterface
 {
-    public function action(
+    public function execute(
         \Telegram\Kernel\RequestInterface $request, 
         \Telegram\Kernel\ResponseInterface $response
         
