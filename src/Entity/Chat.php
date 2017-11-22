@@ -161,57 +161,57 @@ class Chat extends Entity
         return $this->canSetStickerSet;
     }
 
-    public function setTitle(string $title = null)
+    public function setTitle(string $title = null): void
     {
         $this->title = $title;
     }
 
-    public function setUsername(string $username = null)
+    public function setUsername(string $username = null): void
     {
         $this->username = $username;
     }
 
-    public function setFirstName(string $firstName = null)
+    public function setFirstName(string $firstName = null): void
     {
         $this->firstName = $firstName;
     }
 
-    public function setLastName(string $lastName = null)
+    public function setLastName(string $lastName = null): void
     {
         $this->lastName = $lastName;
     }
 
-    public function setDescription(string $description = null)
+    public function setDescription(string $description = null): void
     {
         $this->description = $description;
     }
 
-    public function setAllMembersAreAdministrators(bool $flag = null)
+    public function setAllMembersAreAdministrators(bool $flag = null): void
     {
         $this->allMembersAreAdministrators = $flag;
     }
 
-    public function setPhoto(ChatPhoto $photo = null)
+    public function setPhoto(ChatPhoto $photo = null): void
     {
         $this->photo = $photo;
     }
 
-    public function setInviteLink(string $link = null)
+    public function setInviteLink(string $link = null): void
     {
         $this->inviteLink = $link;
     }
 
-    public function setPinnedMessage(Message $message = null)
+    public function setPinnedMessage(Message $message = null): void
     {
         $this->pinnedMessage = $message;
     }
 
-    public function setStickerSetName(string $name = null)
+    public function setStickerSetName(string $name = null): void
     {
         $this->stickerSetName = $name;
     }
 
-    public function setCanSetStickerSet(bool $flag = null)
+    public function setCanSetStickerSet(bool $flag = null): void
     {
         $this->canSetStickerSet = $flag;
     }

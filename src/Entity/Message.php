@@ -202,12 +202,12 @@ class Message extends Entity
         $this->photos = $photos;
     }
 
-    public function setLeftChatMember(User $user = null)
+    public function setLeftChatMember(User $user = null): void
     {
         $this->leftChatMember = $user;
     }
 
-    public function setForwardFromChat(Chat $chat = null)
+    public function setForwardFromChat(Chat $chat = null): void
     {
         $this->forwardFromChat = $chat;
     }

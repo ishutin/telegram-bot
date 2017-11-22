@@ -24,7 +24,7 @@ class AudioHandler implements HandlerInterface
         }
     }
 
-    public function on(ActionInterface $action)
+    public function on(ActionInterface $action): void
     {
         $this->action = $action;
     }
