@@ -2,10 +2,10 @@
 
 namespace Telegram\Handler;
 
+use Telegram\Entity\Update;
 use Telegram\Kernel\RequestInterface;
-use Telegram\Kernel\ResponseInterface;
 
 interface HandlerInterface
 {
-    public function handle(RequestInterface $request, ResponseInterface $response): void;
+    public function handle(RequestInterface $request, Update $update): void;
 }

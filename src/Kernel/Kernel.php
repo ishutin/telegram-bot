@@ -2,62 +2,54 @@
 
 namespace Telegram\Kernel;
 
+use Telegram\Entity\Update;
 use Telegram\Handler\HandlerInterface;
-use Telegram\Exception\HandlerException;
+use Telegram\Kernel\Handler\UpdateHandlerInterface;
 
 class Kernel
 {
-    /**
-     * @var HandlerInterface[]
-     */
-    private $handlers = [];
-
     /**
      * @var RequestInterface
      */
     private $request;
 
     /**
-     * @var ResponseInterface
+     * @var UpdateHandlerInterface
      */
-    private $response;
+    private $updateHandler;
 
-    public function __construct(RequestInterface $request, ResponseInterface $response)
-    {
+    /**
+     * @var HandlerInterface[]
+     */
+    private $handlers = [];
+
+    public function __construct(
+        RequestInterface $request,
+        UpdateHandlerInterface $updateHandler
+    ) {
         $this->request = $request;
-        $this->response = $response;
+        $this->updateHandler = $updateHandler;
     }
 
-    public function run(): bool
+    public function attachHandler(HandlerInterface $handler): void
     {
-        $this->runHandlers();
-
-        return true;
+        $this->handlers[get_class($handler)] = $handler;
     }
 
-    public function getRequest(): RequestInterface
+    public function detachHandler(HandlerInterface $handler): void
     {
-        return $this->request;
-    }
-
-    public function getResponse(): ResponseInterface
-    {
-        return $this->response;
-    }
-
-    public function pushHandler(HandlerInterface $event): void
-    {
-        $this->handlers[get_class($event)] = $event;
-    }
-
-    private function runHandlers(): void
-    {
-        try {
-            foreach ($this->handlers as $event) {
-                $event->handle($this->request, $this->response);
-            }
-        } catch (HandlerException $e) {
-            throw $e;
+        $key = get_class($handler);
+        if (isset($this->handlers[$key])) {
+            unset($this->handlers[$key]);
         }
+    }
+
+    public function run(): void
+    {
+        $this->updateHandler->handle($this->request, function (Update $update) {
+            foreach ($this->handlers as $handler) {
+                $handler->handle($this->request, $update);
+            }
+        });
     }
 }

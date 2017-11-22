@@ -2,10 +2,10 @@
 
 namespace Telegram\Handler;
 
+use Telegram\Entity\Update;
 use Telegram\Kernel\RequestInterface;
-use Telegram\Kernel\ResponseInterface;
 
 interface ActionInterface
 {
-    public function execute(RequestInterface $request, ResponseInterface $response): void;
+    public function run(RequestInterface $request, Update $update): void;
 }

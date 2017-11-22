@@ -6,10 +6,12 @@ use PHPUnit\Framework\TestCase;
 use Telegram\Entity\Audio;
 use Telegram\Entity\Chat;
 use Telegram\Entity\Document;
+use Telegram\Entity\Message;
+use Telegram\Entity\Update;
 use Telegram\Entity\User;
-use Telegram\Kernel\RequestParser;
+use Telegram\Kernel\EntityParser;
 
-final class RequestParserTest extends TestCase
+final class EntityParserTest extends TestCase
 {
     /**
      * @var array
@@ -61,17 +63,20 @@ final class RequestParserTest extends TestCase
                 'username' => 'unit_test2',
                 'type' => 'private',
             ],
-            'document' => ['file_id' => 'xxx-xxx'],
+            'document' => ['file_id' => 'xxx-xxx-xxx-xxx'],
         ],
     ];
 
     public function testMessageParser(): void
     {
-        $parser = new RequestParser();
+        $parser = new EntityParser();
         $request = $this->testRequest;
 
-        $message = $parser->parseMessage($request['message']);
+        $update = $parser->parseUpdate($request);
+        $this->assertInstanceOf(Update::class, $update);
 
+        $message = $update->getMessage();
+        $this->assertInstanceOf(Message::class, $message);
         $this->assertEquals($message->getId(), $request['message']['message_id']);
         $this->assertEquals($message->getDate(), $request['message']['date']);
 

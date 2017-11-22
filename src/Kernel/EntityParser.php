@@ -9,23 +9,53 @@ use Telegram\Entity\Document;
 use Telegram\Entity\Message;
 use Telegram\Entity\MessageEntity;
 use Telegram\Entity\Photo;
+use Telegram\Entity\Update;
 use Telegram\Entity\User;
-use Telegram\Exception\RequestParserException;
+use Telegram\Exception\EntityParserException;
 
-class RequestParser
+class EntityParser
 {
+    public function parseUpdate(array $response): Update
+    {
+        if (empty($response['update_id'])) {
+            throw new EntityParserException('Invalid response: empty update_id');
+        }
+
+        $update = new Update($response['update_id']);
+
+        if (!empty($response['message'])) {
+            $update->setMessage($this->parseMessage($response['message']));
+        }
+
+        if (!empty($response['edited_message'])) {
+            $update->setEditedMessage($this->parseMessage($response['edited_message']));
+        }
+
+        if (!empty($response['channel_post'])) {
+            $update->setChannelPost($this->parseMessage($response['channel_post']));
+        }
+
+        if (!empty($response['edited_channel_post'])) {
+            $update->setEditedChannelPost($this->parseMessage($response['edited_channel_post']));
+        }
+
+        // ToDo: add parse all Update fields
+
+        return $update;
+    }
+
     public function parseMessage(array $data): Message
     {
         if (empty($data['message_id'])) {
-            throw new RequestParserException('Invalid request: empty message.message_id');
+            throw new EntityParserException('Invalid request: empty message.message_id');
         }
 
         if (empty($data['chat'])) {
-            throw new RequestParserException('Invalid request: empty message.chat');
+            throw new EntityParserException('Invalid request: empty message.chat');
         }
 
         if (empty($data['date'])) {
-            throw new RequestParserException('Invalid request: empty message.date');
+            throw new EntityParserException('Invalid request: empty message.date');
         }
 
         $message = new Message($data['message_id'], $data['date'], $this->parseChat($data['chat']));
