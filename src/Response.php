@@ -2,20 +2,35 @@
 
 namespace Telegram;
 
+use GuzzleHttp\Client;
+use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\ClientException;
 use Telegram\Entity\Chat;
 use Telegram\Exception\ResponseException;
 
-class Response
+class Response implements ResponseInterface
 {
     /**
-     * @var Config
+     * @var ClientInterface
      */
-    private $config;
+    private $client;
 
-    public function __construct(Config $config)
+    /**
+     * @var string
+     */
+    private $token;
+
+    public function __construct(string $token, ClientInterface $client = null)
     {
-        $this->config = $config;
+        $this->token = $token;
+
+        if (is_null($client)) {
+            $client = new Client([
+                'base_uri' => self::TELEGRAM_API_URL,
+            ]);
+        }
+
+        $this->client = $client;
     }
 
     public function sendMessage(Chat $chat, string $text): void
@@ -29,7 +44,7 @@ class Response
     private function sendGet(string $method, array $params): void
     {
         try {
-            $this->config->getHttpClient()->request(
+            $this->client->request(
                 'GET',
                 $this->getUri($method),
                 ['query' => $params]
@@ -41,6 +56,6 @@ class Response
 
     private function getUri(string $method): string
     {
-        return "/bot{$this->config->getToken()}/$method";
+        return "/bot{$this->token}/$method";
     }
 }

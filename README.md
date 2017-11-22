@@ -12,22 +12,21 @@ composer require ishutin/telegram-bot:dev-master
 require_once 'vendor/autoload.php';
 
 $token = 'XXX-XXX-XXX-XXX'; // use bot token
-$config = new \Telegram\Config($token);
-$bot = new \Telegram\Bot($config);
-$request = new \Telegram\Request(
-    json_decode(file_get_contents('php://input'), true)
-);
 
 // use \Telegram\Request class or your own realisation \Telegram\RequestInterface
-$bot->initRequest($request);
+$request = new \Telegram\Request(json_decode(file_get_contents('php://input'), true));
+// use \Telegram\Response class or your own realisation \Telegram\ResponseInterface
+$response = new \Telegram\Response($token);
+
+$kernel = new \Telegram\Kernel($request, $response);
 
 // commands handler
-$commandHandler = new \Telegram\Handler\CommandHandler($bot);
+$commandHandler = new \Telegram\Handler\CommandHandler();
 
 // handle '/test' command
 $commandHandler->on('/test', new class implements \Telegram\EventInterface
 {
-    public function handle(\Telegram\Request $request, \Telegram\Response $response): void
+    public function handle(\Telegram\RequestInterface $request, \Telegram\ResponseInterface $response): void
     {
         $response->sendMessage(
             $request->getMessage()->chat,
@@ -37,10 +36,10 @@ $commandHandler->on('/test', new class implements \Telegram\EventInterface
 });
 
 
-$textHandler = new \Telegram\Handler\TextHandler($bot);
+$textHandler = new \Telegram\Handler\TextHandler();
 $textHandler->on(new class implements \Telegram\EventInterface
 {
-    public function handle(\Telegram\Request $request, \Telegram\Response $response): void
+    public function handle(\Telegram\RequestInterface $request, \Telegram\ResponseInterface $response): void
     {
         $response->sendMessage(
             $request->getMessage()->chat,
@@ -50,8 +49,8 @@ $textHandler->on(new class implements \Telegram\EventInterface
 });
 
 // register handlers
-$bot->pushHandler($commandHandler);
-$bot->pushHandler($textHandler);
+$kernel->pushHandler($commandHandler);
+$kernel->pushHandler($textHandler);
 
-$bot->run();
+$kernel->run();
 ```

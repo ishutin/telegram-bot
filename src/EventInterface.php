@@ -4,5 +4,8 @@ namespace Telegram;
 
 interface EventInterface
 {
-    public function handle(Request $request, Response $response): void;
+    public function handle(
+        RequestInterface $request,
+        ResponseInterface $response
+    ): void;
 }
