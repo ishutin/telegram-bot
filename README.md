@@ -31,7 +31,7 @@ $commandHandler->on('/test', new class implements \Telegram\Handler\ActionInterf
         
     ): void {
         $response->sendMessage(
-            $request->getMessage()->chat,
+            $request->getMessage()->getChat(),
             'User send /test command'
         );
     }
@@ -48,7 +48,7 @@ $textHandler->on(new class implements \Telegram\Handler\ActionInterface
         
     ): void {
         $response->sendMessage(
-            $request->getMessage()->chat,
+            $request->getMessage()->getChat(),
             'User send some text. Answer him'
         );
     }
