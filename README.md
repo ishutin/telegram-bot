@@ -22,7 +22,6 @@ $kernel = new \Telegram\Kernel($request, $response);
 
 // commands handler
 $commandHandler = new \Telegram\Handler\CommandHandler();
-
 // handle '/test' command
 $commandHandler->on('/test', new class implements \Telegram\EventInterface
 {
@@ -35,8 +34,9 @@ $commandHandler->on('/test', new class implements \Telegram\EventInterface
     }
 });
 
-
+// text handler
 $textHandler = new \Telegram\Handler\TextHandler();
+// handler all text messages
 $textHandler->on(new class implements \Telegram\EventInterface
 {
     public function handle(\Telegram\RequestInterface $request, \Telegram\ResponseInterface $response): void
@@ -52,5 +52,6 @@ $textHandler->on(new class implements \Telegram\EventInterface
 $kernel->pushHandler($commandHandler);
 $kernel->pushHandler($textHandler);
 
+// run bot
 $kernel->run();
 ```
