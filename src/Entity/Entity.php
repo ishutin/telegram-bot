@@ -2,7 +2,6 @@
 
 namespace Telegram\Entity;
 
-use ReflectionMethod;
 use Telegram\Exception\EntityException;
 
 abstract class Entity
@@ -14,16 +13,14 @@ abstract class Entity
      */
     public function __get($name)
     {
-        $method = 'get' . ucfirst($name);
-
+        $method = "get$name";
         if (method_exists($this, $method)) {
-            $reflection = new ReflectionMethod($this, $method);
-            if ($reflection->isPublic()) {
-                return $this->$method();
-            }
+            $result = $this->$method();
+
+            return $result;
         }
 
-        throw new EntityException("Unknown getting property: $name");
+        throw new EntityException('Getting unknown property: ' . get_class($this) . '.' . $name);
     }
 
     /**
@@ -34,15 +31,14 @@ abstract class Entity
      */
     public function __set($name, $value)
     {
-        $method = 'set' . ucfirst($name);
+        $method = "set$name";
 
         if (method_exists($this, $method)) {
-            $reflection = new ReflectionMethod($this, $method);
-            if ($reflection->isPublic()) {
-                return $this->$method($value);
-            }
+            $this->$method($value);
+
+            return;
         }
 
-        throw new EntityException("Unknown property: $name");
+        throw new EntityException('Setting unknown property: ' . get_class($this) . '.' . $name);
     }
 }

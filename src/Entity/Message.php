@@ -14,6 +14,7 @@ namespace Telegram\Entity;
  * @property MessageEntity[] $entities
  * @property Message $replyTo
  * @property Audio $audio
+ * @property Photo[] $photos
  */
 class Message extends Entity
 {
@@ -55,7 +56,12 @@ class Message extends Entity
     /**
      * @var Audio
      */
-    private $audio;
+    private $audio = null;
+
+    /**
+     * @var Photo[]
+     */
+    private $photos = [];
 
     public function __construct(int $id, int $date, Chat $chat)
     {
@@ -133,6 +139,14 @@ class Message extends Entity
         return $this->audio;
     }
 
+    /**
+     * @return Photo[]
+     */
+    public function getPhotos(): array
+    {
+        return $this->photos;
+    }
+
     public function setReplyTo(Message $message = null): void
     {
         $this->replyTo = $message;
@@ -159,5 +173,11 @@ class Message extends Entity
     public function setAudio(Audio $audio = null): void
     {
         $this->audio = $audio;
+    }
+
+
+    public function setPhotos(array $photos = []): void
+    {
+        $this->photos = $photos;
     }
 }

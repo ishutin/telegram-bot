@@ -3,10 +3,12 @@
 namespace Telegram;
 
 use Exception;
+use Telegram\Collection\PhotoCollection;
 use Telegram\Entity\Audio;
 use Telegram\Entity\Chat;
 use Telegram\Entity\Message;
 use Telegram\Entity\MessageEntity;
+use Telegram\Entity\Photo;
 use Telegram\Entity\User;
 use Telegram\Exception\RequestException;
 
@@ -101,6 +103,16 @@ class Request implements RequestInterface
             $message->audio = $this->createAudio($data['audio']);
         }
 
+        if (!empty($data['photo'])) {
+            $photos = [];
+
+            foreach ($data['photo'] as $photoData) {
+                $photos[] = $this->createPhoto($photoData);
+            }
+
+            $message->photos = $photos;
+        }
+
         return $message;
     }
 
@@ -130,5 +142,13 @@ class Request implements RequestInterface
         $audio->fileSize = $data['file_size'] ?? null;
 
         return $audio;
+    }
+
+    private function createPhoto(array $data): Photo
+    {
+        $photo = new Photo($data['file_id'], $data['width'], $data['height']);
+        $photo->fileSize = $data['file_size'] ?? null;
+
+        return $photo;
     }
 }

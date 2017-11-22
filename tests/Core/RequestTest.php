@@ -43,6 +43,9 @@ final class RequestTest extends TestCase
                 'file_id' => 'jwegjkwnl',
                 'duration' => 4321,
             ],
+            'photo' => [
+                ['file_id' => 'asdasd', 'width' => 100, 'height' => 200],
+            ],
         ],
     ];
 
@@ -88,6 +91,9 @@ final class RequestTest extends TestCase
         $this->assertInstanceOf(Audio::class, $audio);
         $this->assertEquals($audio->id, $testReq['message']['audio']['file_id']);
         $this->assertEquals($audio->duration, $testReq['message']['audio']['duration']);
+
+        $photos = $message->photos;
+        $this->assertNotEmpty($photos);
     }
 
     public function testAttachedRequest(): void
