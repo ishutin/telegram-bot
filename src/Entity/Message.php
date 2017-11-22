@@ -16,6 +16,7 @@ namespace Telegram\Entity;
  * @property Audio $audio
  * @property Photo[] $photos
  * @property User $leftChatMember
+ * @property Chat $forwardFromChat
  */
 class Message extends Entity
 {
@@ -65,9 +66,14 @@ class Message extends Entity
     private $photos = [];
 
     /**
-     * @var null
+     * @var User
      */
     private $leftChatMember = null;
+
+    /**
+     * @var Chat
+     */
+    private $forwardFromChat = null;
 
     public function __construct(int $id, int $date, Chat $chat)
     {
@@ -158,6 +164,11 @@ class Message extends Entity
         return $this->leftChatMember;
     }
 
+    public function getForwardFromChat():? Chat
+    {
+        return $this->forwardFromChat;
+    }
+
     public function setReplyTo(Message $message = null): void
     {
         $this->replyTo = $message;
@@ -191,8 +202,13 @@ class Message extends Entity
         $this->photos = $photos;
     }
 
-    public function setLeftChatMember(User $user)
+    public function setLeftChatMember(User $user = null)
     {
         $this->leftChatMember = $user;
+    }
+
+    public function setForwardFromChat(Chat $chat = null)
+    {
+        $this->forwardFromChat = $chat;
     }
 }

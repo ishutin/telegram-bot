@@ -76,6 +76,10 @@ class RequestParser
             $message->leftChatMember = $this->parseUser($data['left_chat_member']);
         }
 
+        if (!empty($data['forward_from_chat'])) {
+            $message->forwardFromChat = $this->parseChat($data['forward_from_chat']);
+        }
+
         return $message;
     }
 

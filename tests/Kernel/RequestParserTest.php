@@ -53,6 +53,13 @@ final class RequestParserTest extends TestCase
                 'username' => 'unit_test2',
                 'language_code' => 'en',
             ],
+            'forward_from_chat' => [
+                'id' => 666,
+                'first_name' => 'Test2',
+                'last_name' => 'Unit2',
+                'username' => 'unit_test2',
+                'type' => 'private',
+            ],
         ],
     ];
 
@@ -100,6 +107,11 @@ final class RequestParserTest extends TestCase
         $this->assertEquals($leftMember->lastName, $request['message']['left_chat_member']['last_name']);
         $this->assertEquals($leftMember->username, $request['message']['left_chat_member']['username']);
         $this->assertEquals($leftMember->lang, $request['message']['left_chat_member']['language_code']);
+
+        $chat = $message->forwardFromChat;
+        $this->assertInstanceOf(Chat::class, $chat);
+        $this->assertEquals($chat->type, $chat::TYPE_PRIVATE_CHAT);
+        $this->assertEquals($chat->id, $request['message']['forward_from_chat']['id']);
     }
 
 }
