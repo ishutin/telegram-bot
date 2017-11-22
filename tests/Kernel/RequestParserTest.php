@@ -44,6 +44,15 @@ final class RequestParserTest extends TestCase
             'photo' => [
                 ['file_id' => 'asdasd', 'width' => 100, 'height' => 200],
             ],
+
+            'left_chat_member' => [
+                'id' => 4444,
+                'is_bot' => false,
+                'first_name' => 'Test2',
+                'last_name' => 'Unit2',
+                'username' => 'unit_test2',
+                'language_code' => 'en',
+            ],
         ],
     ];
 
@@ -82,6 +91,15 @@ final class RequestParserTest extends TestCase
 
         $photos = $message->photos;
         $this->assertNotEmpty($photos);
+
+        $leftMember = $message->leftChatMember;
+        $this->assertInstanceOf(User::class, $leftMember);
+        $this->assertEquals($leftMember->id, $request['message']['left_chat_member']['id']);
+        $this->assertEquals($leftMember->isBot, $request['message']['left_chat_member']['is_bot']);
+        $this->assertEquals($leftMember->firstName, $request['message']['left_chat_member']['first_name']);
+        $this->assertEquals($leftMember->lastName, $request['message']['left_chat_member']['last_name']);
+        $this->assertEquals($leftMember->username, $request['message']['left_chat_member']['username']);
+        $this->assertEquals($leftMember->lang, $request['message']['left_chat_member']['language_code']);
     }
 
 }

@@ -72,6 +72,10 @@ class RequestParser
             $message->photos = $photos;
         }
 
+        if (!empty($data['left_chat_member'])) {
+            $message->leftChatMember = $this->parseUser($data['left_chat_member']);
+        }
+
         return $message;
     }
 
