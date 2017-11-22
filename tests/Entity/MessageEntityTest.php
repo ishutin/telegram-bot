@@ -7,27 +7,16 @@ use Telegram\Entity\MessageEntity;
 
 final class MessageEntityTest extends TestCase
 {
-    /**
-     * @var string
-     */
-    private $type = 'hashtag';
-
-    /**
-     * @var int
-     */
-    private $offset = 0;
-
-    /**
-     * @var int
-     */
-    private $length = 5;
-
     public function testProperties(): void
     {
-        $entity = new MessageEntity($this->type, $this->offset, $this->length);
+        $type = 'hashtag';
+        $offset = 0;
+        $length = 5;
 
-        $this->assertEquals($this->type, $entity->getType());
-        $this->assertEquals($this->offset, $entity->getOffset());
-        $this->assertEquals($this->length, $entity->getLength());
+        $entity = new MessageEntity($type, $offset, $length);
+
+        $this->assertEquals($type, $entity->getType());
+        $this->assertEquals($offset, $entity->getOffset());
+        $this->assertEquals($length, $entity->getLength());
     }
 }

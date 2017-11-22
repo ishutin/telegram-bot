@@ -12,22 +12,21 @@ use Telegram\Entity\User;
 
 final class MessageTest extends TestCase
 {
-    /**
-     * @var int
-     */
-    private $id = 4;
-
-    /**
-     * @var int
-     */
-    private $date = 12341234;
-
     public function testProperties(): void
     {
-        $message = new Message($this->id, $this->date, new Chat(1, 'private'));
+        $id = 4;
+        $date = 43134134;
+        $text = 'test_text';
+        $audio = new Audio('test', 1234);
+        $entities = [new MessageEntity('hashtag', 0, 5)];
+        $from = new User(1, 'test', 'test', 'test', 'en', false);
+        $replyTo = new Message(1, 2, new Chat(2, 'private'));
+        $photos = [new Photo('test', 1, 1)];
 
-        $this->assertEquals($this->id, $message->getId());
-        $this->assertEquals($this->date, $message->getDate());
+        $message = new Message($id, $date, new Chat(1, 'private'));
+
+        $this->assertEquals($id, $message->getId());
+        $this->assertEquals($date, $message->getDate());
         $this->assertInstanceOf(Chat::class, $message->getChat());
 
         $this->assertEmpty($message->getEntities());
@@ -37,16 +36,20 @@ final class MessageTest extends TestCase
         $this->assertNull($message->getReplyTo());
         $this->assertEmpty($message->getPhotos());
 
-        $message->setText('test');
-        $message->setAudio(new Audio('test', 1234));
-        $message->setEntities([new MessageEntity('hashtag', 0, 5)]);
-        $message->setFrom(new User(1, 'test', 'test', 'test', 'en', false));
-        $message->setReplyTo(new Message(1, 2, new Chat(2, 'private')));
-        $message->setPhotos([new Photo('test', 1, 1)]);
 
-        $this->assertEquals('test', $message->getText());
-        $this->assertNotEmpty($message->getEntities());
-        $this->assertNotEmpty($message->getPhotos());
+        $message->setText($text);
+        $message->setAudio($audio);
+        $message->setEntities($entities);
+        $message->setFrom($from);
+        $message->setReplyTo($replyTo);
+        $message->setPhotos($photos);
+
+        $this->assertEquals($text, $message->getText());
+        $this->assertEquals($audio, $message->getAudio());
+        $this->assertEquals($entities, $message->getEntities());
+        $this->assertEquals($from, $message->getFrom());
+        $this->assertEquals($replyTo, $message->getReplyTo());
+        $this->assertEquals($photos, $message->getPhotos());
 
         $this->assertInstanceOf(Audio::class, $message->getAudio());
         $this->assertInstanceOf(User::class, $message->getFrom());
@@ -55,7 +58,10 @@ final class MessageTest extends TestCase
 
     public function testGetEntitiesValues(): void
     {
-        $message = new Message($this->id, $this->date, new Chat(1, 'private'));
+        $id = 4;
+        $date = 43134134;
+
+        $message = new Message($id, $date, new Chat(1, 'private'));
 
         $message->setText('#test super text');
         $message->setEntities([new MessageEntity('hashtag', 0, 5)]);
