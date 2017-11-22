@@ -14,18 +14,18 @@ require_once 'vendor/autoload.php';
 $token = 'XXX-XXX-XXX-XXX'; // use bot token
 
 // use \Telegram\Request class or your own realisation \Telegram\RequestInterface
-$request = new \Telegram\Request(json_decode(file_get_contents('php://input'), true));
+$request = new \Telegram\Kernel\Request(json_decode(file_get_contents('php://input'), true));
 // use \Telegram\Response class or your own realisation \Telegram\ResponseInterface
-$response = new \Telegram\Response($token);
+$response = new \Telegram\Kernel\Response($token);
 
-$kernel = new \Telegram\Kernel($request, $response);
+$kernel = new \Telegram\Kernel\Kernel($request, $response);
 
 // commands handler
 $commandHandler = new \Telegram\Handler\CommandHandler();
 // handle '/test' command
 $commandHandler->on('/test', new class implements \Telegram\Handler\ActionInterface
 {
-    public function handle(\Telegram\RequestInterface $request, \Telegram\ResponseInterface $response): void
+    public function handle(\Telegram\Kernel\RequestInterface $request, \Telegram\Kernel\ResponseInterface $response): void
     {
         $response->sendMessage(
             $request->getMessage()->chat,
@@ -39,7 +39,7 @@ $textHandler = new \Telegram\Handler\TextHandler();
 // handler all text messages
 $textHandler->on(new class implements \Telegram\Handler\ActionInterface
 {
-    public function handle(\Telegram\RequestInterface $request, \Telegram\ResponseInterface $response): void
+    public function handle(\Telegram\Kernel\RequestInterface $request, \Telegram\Kernel\ResponseInterface $response): void
     {
         $response->sendMessage(
             $request->getMessage()->chat,

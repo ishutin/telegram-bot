@@ -1,15 +1,15 @@
 <?php
 
-namespace Test\Core;
+namespace Test\Kernel;
 
 use PHPUnit\Framework\TestCase;
 use Telegram\Handler\HandlerInterface;
-use Telegram\Kernel;
+use Telegram\Kernel\Kernel;
 use Telegram\Entity\Chat;
 use Telegram\Entity\Message;
-use Telegram\RequestInterface;
-use Telegram\Response;
-use Telegram\ResponseInterface;
+use Telegram\Kernel\RequestInterface;
+use Telegram\Kernel\Response;
+use Telegram\Kernel\ResponseInterface;
 
 final class KernelTest extends TestCase
 {

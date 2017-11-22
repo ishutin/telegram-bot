@@ -1,6 +1,6 @@
 <?php
 
-namespace Telegram;
+namespace Telegram\Kernel;
 
 use Telegram\Entity\Audio;
 use Telegram\Entity\Chat;

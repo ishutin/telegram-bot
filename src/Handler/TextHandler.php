@@ -3,8 +3,8 @@
 namespace Telegram\Handler;
 
 use Telegram\Exception\HandlerException;
-use Telegram\RequestInterface;
-use Telegram\ResponseInterface;
+use Telegram\Kernel\RequestInterface;
+use Telegram\Kernel\ResponseInterface;
 
 class TextHandler implements HandlerInterface
 {

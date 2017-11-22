@@ -1,14 +1,11 @@
 <?php
 
-namespace Test\Core;
+namespace Test\Kernel;
 
 use PHPUnit\Framework\TestCase;
-use Telegram\Entity\Audio;
-use Telegram\Entity\Chat;
 use Telegram\Entity\Message;
-use Telegram\Entity\User;
-use Telegram\Request;
-use Telegram\RequestInterface;
+use Telegram\Kernel\Request;
+use Telegram\Kernel\RequestInterface;
 
 final class RequestTest extends TestCase
 {

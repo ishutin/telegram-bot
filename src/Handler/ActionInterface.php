@@ -2,8 +2,8 @@
 
 namespace Telegram\Handler;
 
-use Telegram\RequestInterface;
-use Telegram\ResponseInterface;
+use Telegram\Kernel\RequestInterface;
+use Telegram\Kernel\ResponseInterface;
 
 interface ActionInterface
 {

@@ -1,12 +1,12 @@
 <?php
 
-namespace Test\Core;
+namespace Test\Kernel;
 
 use PHPUnit\Framework\TestCase;
 use Telegram\Entity\Audio;
 use Telegram\Entity\Chat;
 use Telegram\Entity\User;
-use Telegram\RequestParser;
+use Telegram\Kernel\RequestParser;
 
 final class RequestParserTest extends TestCase
 {

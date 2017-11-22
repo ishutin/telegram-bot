@@ -1,9 +1,11 @@
 <?php
 
-namespace Telegram;
+namespace Telegram\Kernel;
 
 use Telegram\Handler\HandlerInterface;
 use Telegram\Exception\HandlerException;
+use Telegram\Kernel\RequestInterface;
+use Telegram\Kernel\ResponseInterface;
 
 class Kernel
 {

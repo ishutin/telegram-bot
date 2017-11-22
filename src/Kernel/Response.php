@@ -1,12 +1,13 @@
 <?php
 
-namespace Telegram;
+namespace Telegram\Kernel;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\ClientException;
 use Telegram\Entity\Chat;
 use Telegram\Exception\ResponseException;
+use Telegram\Kernel\ResponseInterface;
 
 class Response implements ResponseInterface
 {
