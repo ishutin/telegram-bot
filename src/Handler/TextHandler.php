@@ -11,12 +11,12 @@ class TextHandler implements HandlerInterface
     /**
      * @var ActionInterface
      */
-    private $event;
+    private $action;
 
     public function handle(RequestInterface $request, ResponseInterface $response): void
     {
-        if (empty($this->event)) {
-            throw new HandlerException('Invalid handler');
+        if (empty($this->action)) {
+            throw new HandlerException('Invalid handler action');
         }
 
         $message = $request->getMessage();
@@ -31,12 +31,12 @@ class TextHandler implements HandlerInterface
         }
 
         if ($text = $message->text && !$isCommand) {
-            $this->event->handle($request, $response);
+            $this->action->handle($request, $response);
         }
     }
 
-    public function on(ActionInterface $event): void
+    public function on(ActionInterface $action): void
     {
-        $this->event = $event;
+        $this->action = $action;
     }
 }

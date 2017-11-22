@@ -3,6 +3,7 @@
 namespace Telegram\Handler;
 
 use Telegram\Entity\MessageEntity;
+use Telegram\Exception\HandlerException;
 use Telegram\Kernel\RequestInterface;
 use Telegram\Kernel\ResponseInterface;
 
@@ -11,26 +12,30 @@ class CommandHandler implements HandlerInterface
     /**
      * @var ActionInterface[]
      */
-    private $commandEventsList = [];
+    private $commandActionsList = [];
 
     public function handle(RequestInterface $request, ResponseInterface $response): void
     {
+        if (empty($this->commandActionsList)) {
+            throw new HandlerException('Invalid handler actions');
+        }
+
         $message = $request->getMessage();
 
         // commands in request
         $commands = $message->getEntitiesValues(MessageEntity::TYPE_BOT_COMMAND);
 
         foreach ($commands as $command) {
-            if (isset($this->commandEventsList[$command])) {
-                $handler = $this->commandEventsList[$command];
+            if (isset($this->commandActionsList[$command])) {
+                $handler = $this->commandActionsList[$command];
                 $handler->handle($request, $response);
             }
         }
     }
 
-    public function on(string $command, ActionInterface $event): void
+    public function on(string $command, ActionInterface $action): void
     {
-        $this->commandEventsList[$command] = $event;
+        $this->commandActionsList[$command] = $action;
     }
 
 }
