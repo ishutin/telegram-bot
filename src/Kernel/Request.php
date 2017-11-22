@@ -5,8 +5,6 @@ namespace Telegram\Kernel;
 use Exception;
 use Telegram\Entity\Message;
 use Telegram\Exception\RequestException;
-use Telegram\Kernel\RequestInterface;
-use Telegram\Kernel\RequestParser;
 
 class Request implements RequestInterface
 {
