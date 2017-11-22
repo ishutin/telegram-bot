@@ -27,40 +27,32 @@ class RequestParser
             throw new RequestParserException('Invalid request: empty message.date');
         }
 
-        $message = new Message(
-            $data['message_id'],
-            $data['date'],
-            $this->parseChat($data['chat'])
-        );
+        $message = new Message($data['message_id'], $data['date'], $this->parseChat($data['chat']));
 
         if (!empty($data['text'])) {
-            $message->text = $data['text'];
+            $message->setText($data['text']);
         }
 
         if (!empty($data['from'])) {
-            $message->from = $this->parseUser($data['from']);
+            $message->setFrom($this->parseUser($data['from']));
         }
 
         if (!empty($data['entities'])) {
             $messageEntities = [];
 
             foreach ($data['entities'] as $messageEntity) {
-                $messageEntities[] = new MessageEntity(
-                    $messageEntity['type'],
-                    $messageEntity['offset'],
-                    $messageEntity['length']
-                );
+                $messageEntities[] = $this->parseMessageEntity($messageEntity);
             }
 
-            $message->entities = $messageEntities;
+            $message->setEntities($messageEntities);
         }
 
         if (!empty($data['forward_from'])) {
-            $message->replyTo = $this->parseMessage($data['forward_from']);
+            $message->setReplyTo($this->parseMessage($data['forward_from']));
         }
 
         if (!empty($data['audio'])) {
-            $message->audio = $this->parseAudio($data['audio']);
+            $message->setAudio($this->parseAudio($data['audio']));
         }
 
         if (!empty($data['photo'])) {
@@ -70,15 +62,15 @@ class RequestParser
                 $photos[] = $this->parsePhotos($photoData);
             }
 
-            $message->photos = $photos;
+            $message->setPhotos($photos);
         }
 
         if (!empty($data['left_chat_member'])) {
-            $message->leftChatMember = $this->parseUser($data['left_chat_member']);
+            $message->setLeftChatMember($this->parseUser($data['left_chat_member']));
         }
 
         if (!empty($data['forward_from_chat'])) {
-            $message->forwardFromChat = $this->parseChat($data['forward_from_chat']);
+            $message->setForwardFromChat($this->parseChat($data['forward_from_chat']));
         }
 
         return $message;
@@ -86,28 +78,25 @@ class RequestParser
 
     public function parseChat(array $data): Chat
     {
-        $chat = new Chat(
-            $data['id'],
-            $data['type']
-        );
+        $chat = new Chat($data['id'], $data['type']);
 
-        $chat->title = $data['title'] ?? null;
-        $chat->username = $data['username'] ?? null;
-        $chat->firstName = $data['first_name'] ?? null;
-        $chat->lastName = $data['last_name'] ?? null;
-        $chat->allMembersAreAdministrators = $data['all_members_are_administrators'] ?? null;
-        $chat->description = $data['description'] ?? null;
-        $chat->inviteLink = $data['invite_link'] ?? null;
-        $chat->stickerSetName = $data['sticker_set_name'] ?? null;
-        $chat->canSetStickerSet = $data['can_set_sticker_set'] ?? null;
+        $chat->setTitle($data['title'] ?? null);
+        $chat->setUsername($data['username'] ?? null);
+        $chat->setFirstName($data['first_name'] ?? null);
+        $chat->setLastName($data['last_name'] ?? null);
+        $chat->setAllMembersAreAdministrators($data['all_members_are_administrators'] ?? null);
+        $chat->setDescription($data['description'] ?? null);
+        $chat->setInviteLink($data['invite_link'] ?? null);
+        $chat->setStickerSetName($data['sticker_set_name'] ?? null);
+        $chat->setCanSetStickerSet($data['can_set_sticker_set'] ?? null);
 
-        $chat->pinnedMessage = !empty($data['pinned_message'])
-            ? $this->parseMessage($data['pinned_message'])
-            : null;
+        if (!empty($data['pinned_message'])) {
+            $chat->setPinnedMessage($this->parseMessage($data['pinned_message']));
+        }
 
-        $chat->photo = !empty($data['photo'])
-            ? $this->parseChatPhoto($data['photo']) :
-            null;
+        if (!empty($data['photo'])) {
+            $chat->setPhoto($this->parseChatPhoto($data['photo']));
+        }
 
         return $chat;
     }
@@ -127,10 +116,11 @@ class RequestParser
     public function parseAudio(array $data): Audio
     {
         $audio = new Audio($data['file_id'], $data['duration']);
-        $audio->performer = $data['performer'] ?? null;
-        $audio->title = $data['title'] ?? null;
-        $audio->mimeType = $data['mime_type'] ?? null;
-        $audio->fileSize = $data['file_size'] ?? null;
+
+        $audio->setPerformer($data['performer'] ?? null);
+        $audio->setTitle($data['title'] ?? null);
+        $audio->setMimeType($data['mime_type'] ?? null);
+        $audio->setFileSize($data['file_size'] ?? null);
 
         return $audio;
     }
@@ -138,7 +128,8 @@ class RequestParser
     public function parsePhotos(array $data): Photo
     {
         $photo = new Photo($data['file_id'], $data['width'], $data['height']);
-        $photo->fileSize = $data['file_size'] ?? null;
+
+        $photo->setFileSize($data['file_size'] ?? null);
 
         return $photo;
     }
@@ -146,5 +137,10 @@ class RequestParser
     public function parseChatPhoto(array $data): ChatPhoto
     {
         return new ChatPhoto($data['small_file_id'], $data['big_file_id']);
+    }
+
+    public function parseMessageEntity(array $data): MessageEntity
+    {
+        return new MessageEntity($data['type'], $data['offset'], $data['length']);
     }
 }

@@ -48,11 +48,11 @@ final class UserTest extends TestCase
             $this->isBot
         );
 
-        $this->assertEquals($this->id, $user->id);
-        $this->assertEquals($this->firstName, $user->firstName);
-        $this->assertEquals($this->lastName, $user->lastName);
-        $this->assertEquals($this->username, $user->username);
-        $this->assertEquals($this->lang, $user->lang);
-        $this->assertEquals($this->isBot, $user->isBot);
+        $this->assertEquals($this->id, $user->getId());
+        $this->assertEquals($this->firstName, $user->getFirstName());
+        $this->assertEquals($this->lastName, $user->getLastName());
+        $this->assertEquals($this->username, $user->getUsername());
+        $this->assertEquals($this->lang, $user->getLang());
+        $this->assertEquals($this->isBot, $user->getIsBot());
     }
 }

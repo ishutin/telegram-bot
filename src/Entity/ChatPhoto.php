@@ -2,13 +2,6 @@
 
 namespace Telegram\Entity;
 
-/**
- * Class ChatPhoto
- * @package Telegram\Entity
- *
- * @property string $smallFileId
- * @property string $bigFileId
- */
 class ChatPhoto extends Entity
 {
     /**

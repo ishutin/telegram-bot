@@ -70,48 +70,48 @@ final class RequestParserTest extends TestCase
 
         $message = $parser->parseMessage($request['message']);
 
-        $this->assertEquals($message->id, $request['message']['message_id']);
-        $this->assertEquals($message->date, $request['message']['date']);
+        $this->assertEquals($message->getId(), $request['message']['message_id']);
+        $this->assertEquals($message->getDate(), $request['message']['date']);
 
-        $chat = $message->chat;
+        $chat = $message->getChat();
         $this->assertInstanceOf(Chat::class, $chat);
-        $this->assertEquals($chat->type, $chat::TYPE_PRIVATE_CHAT);
-        $this->assertEquals($chat->id, $request['message']['chat']['id']);
+        $this->assertEquals($chat->getId(), $request['message']['chat']['id']);
+        $this->assertEquals($chat->getType(), $chat::TYPE_PRIVATE_CHAT);
 
-        $from = $message->from;
+        $from = $message->getFrom();
         $this->assertInstanceOf(User::class, $from);
-        $this->assertEquals($from->id, $request['message']['from']['id']);
-        $this->assertEquals($from->isBot, $request['message']['from']['is_bot']);
-        $this->assertEquals($from->firstName, $request['message']['from']['first_name']);
-        $this->assertEquals($from->lastName, $request['message']['from']['last_name']);
-        $this->assertEquals($from->username, $request['message']['from']['username']);
-        $this->assertEquals($from->lang, $request['message']['from']['language_code']);
+        $this->assertEquals($from->getId(), $request['message']['from']['id']);
+        $this->assertEquals($from->getIsBot(), $request['message']['from']['is_bot']);
+        $this->assertEquals($from->getFirstName(), $request['message']['from']['first_name']);
+        $this->assertEquals($from->getLastName(), $request['message']['from']['last_name']);
+        $this->assertEquals($from->getUsername(), $request['message']['from']['username']);
+        $this->assertEquals($from->getLang(), $request['message']['from']['language_code']);
 
-        $this->assertEquals($message->text, $request['message']['text']);
+        $this->assertEquals($message->getText(), $request['message']['text']);
 
-        $this->assertNotEmpty($message->entities);
+        $this->assertNotEmpty($message->getEntities());
 
-        $audio = $message->audio;
+        $audio = $message->getAudio();
         $this->assertInstanceOf(Audio::class, $audio);
-        $this->assertEquals($audio->id, $request['message']['audio']['file_id']);
-        $this->assertEquals($audio->duration, $request['message']['audio']['duration']);
+        $this->assertEquals($audio->getFileId(), $request['message']['audio']['file_id']);
+        $this->assertEquals($audio->getDuration(), $request['message']['audio']['duration']);
 
-        $photos = $message->photos;
+        $photos = $message->getPhotos();
         $this->assertNotEmpty($photos);
 
-        $leftMember = $message->leftChatMember;
+        $leftMember = $message->getLeftChatMember();
         $this->assertInstanceOf(User::class, $leftMember);
-        $this->assertEquals($leftMember->id, $request['message']['left_chat_member']['id']);
-        $this->assertEquals($leftMember->isBot, $request['message']['left_chat_member']['is_bot']);
-        $this->assertEquals($leftMember->firstName, $request['message']['left_chat_member']['first_name']);
-        $this->assertEquals($leftMember->lastName, $request['message']['left_chat_member']['last_name']);
-        $this->assertEquals($leftMember->username, $request['message']['left_chat_member']['username']);
-        $this->assertEquals($leftMember->lang, $request['message']['left_chat_member']['language_code']);
+        $this->assertEquals($leftMember->getId(), $request['message']['left_chat_member']['id']);
+        $this->assertEquals($leftMember->getIsBot(), $request['message']['left_chat_member']['is_bot']);
+        $this->assertEquals($leftMember->getFirstName(), $request['message']['left_chat_member']['first_name']);
+        $this->assertEquals($leftMember->getLastName(), $request['message']['left_chat_member']['last_name']);
+        $this->assertEquals($leftMember->getUsername(), $request['message']['left_chat_member']['username']);
+        $this->assertEquals($leftMember->getLang(), $request['message']['left_chat_member']['language_code']);
 
-        $chat = $message->forwardFromChat;
+        $chat = $message->getForwardFromChat();
         $this->assertInstanceOf(Chat::class, $chat);
-        $this->assertEquals($chat->type, $chat::TYPE_PRIVATE_CHAT);
-        $this->assertEquals($chat->id, $request['message']['forward_from_chat']['id']);
+        $this->assertEquals($chat->getId(), $request['message']['forward_from_chat']['id']);
+        $this->assertEquals($chat->getType(), $chat::TYPE_PRIVATE_CHAT);
     }
 
 }

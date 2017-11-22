@@ -41,22 +41,21 @@ final class AudioTest extends TestCase
     {
         $audio = new Audio($this->fileId, $this->duration);
 
-        $this->assertEquals($this->fileId, $audio->id);
-        $this->assertEquals($this->duration, $audio->duration);
-        $this->assertNull($audio->performer);
-        $this->assertNull($audio->title);
-        $this->assertNull($audio->mimeType);
-        $this->assertNull($audio->fileSize);
+        $this->assertEquals($this->fileId, $audio->getFileId());
+        $this->assertEquals($this->duration, $audio->getDuration());
+        $this->assertNull($audio->getPerformer());
+        $this->assertNull($audio->getTitle());
+        $this->assertNull($audio->getMimeType());
+        $this->assertNull($audio->getFileSize());
 
+        $audio->setPerformer($this->performer);
+        $audio->setTitle($this->title);
+        $audio->setMimeType($this->mimeType);
+        $audio->setFileSize($this->fileSize);
 
-        $audio->performer = $this->performer;
-        $audio->title = $this->title;
-        $audio->mimeType = $this->mimeType;
-        $audio->fileSize = $this->fileSize;
-
-        $this->assertEquals($this->performer, $audio->performer);
-        $this->assertEquals($this->title, $audio->title);
-        $this->assertEquals($this->mimeType, $audio->mimeType);
-        $this->assertEquals($this->fileSize, $audio->fileSize);
+        $this->assertEquals($this->performer, $audio->getPerformer());
+        $this->assertEquals($this->title, $audio->getTitle());
+        $this->assertEquals($this->mimeType, $audio->getMimeType());
+        $this->assertEquals($this->fileSize, $audio->getFileSize());
     }
 }

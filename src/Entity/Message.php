@@ -2,22 +2,6 @@
 
 namespace Telegram\Entity;
 
-/**
- * Class Message
- * @package Telegram\Entity
- *
- * @property int $id
- * @property Chat $chat
- * @property int $date
- * @property User $from
- * @property string $text
- * @property MessageEntity[] $entities
- * @property Message $replyTo
- * @property Audio $audio
- * @property Photo[] $photos
- * @property User $leftChatMember
- * @property Chat $forwardFromChat
- */
 class Message extends Entity
 {
     /**
@@ -126,14 +110,14 @@ class Message extends Entity
 
         if (!empty($this->entities)) {
             foreach ($this->entities as $entity) {
-                if ($entity->type != $type) {
+                if ($entity->getType() != $type) {
                     continue;
                 }
 
                 $result[] = substr(
                     $this->text,
-                    $entity->offset,
-                    $entity->length
+                    $entity->getOffset(),
+                    $entity->getLength()
                 );
             }
         }

@@ -2,17 +2,6 @@
 
 namespace Telegram\Entity;
 
-/**
- * Class User
- * @package Telegram\Entity
- *
- * @property int $id
- * @property string $firstName
- * @property string $lastName
- * @property string $username
- * @property string $lang
- * @property bool $isBot
- */
 class User extends Entity
 {
     /**

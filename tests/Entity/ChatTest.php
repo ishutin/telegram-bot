@@ -21,7 +21,7 @@ final class ChatTest extends TestCase
     {
         $chat = new Chat($this->id, $this->type);
 
-        $this->assertEquals($this->id, $chat->id);
-        $this->assertEquals($this->type, $chat->type);
+        $this->assertEquals($this->id, $chat->getId());
+        $this->assertEquals($this->type, $chat->getType());
     }
 }

@@ -2,24 +2,6 @@
 
 namespace Telegram\Entity;
 
-/**
- * Class Chat
- * @package Telegram\Entity
- *
- * @property int $id
- * @property string $type
- * @property string $title
- * @property string $username
- * @property string $firstName
- * @property string $lastName
- * @property bool $allMembersAreAdministrators
- * @property ChatPhoto $photo
- * @property string $description
- * @property string $inviteLink
- * @property Message $pinnedMessage
- * @property string $stickerSetName
- * @property bool $canSetStickerSet
- */
 class Chat extends Entity
 {
     const TYPE_PRIVATE_CHAT = 'private';

@@ -10,7 +10,7 @@ final class PhotoTest extends TestCase
     /**
      * @var string
      */
-    private $id = 'etlh53j53he9tn35i-h35';
+    private $fileId = 'etlh53j53he9tn35i-h35';
 
     /**
      * @var int
@@ -22,20 +22,23 @@ final class PhotoTest extends TestCase
      */
     private $height = 400;
 
+    /**
+     * @var int
+     */
     private $fileSize = 1234135;
 
     public function testAttributes()
     {
-        $photo = new Photo($this->id, $this->width, $this->height);
+        $photo = new Photo($this->fileId, $this->width, $this->height);
 
-        $this->assertNull($photo->fileSize);
+        $this->assertNull($photo->getFileSize());
 
-        $this->assertEquals($this->id, $photo->id);
-        $this->assertEquals($this->width, $photo->width);
-        $this->assertEquals($this->height, $photo->height);
+        $this->assertEquals($this->fileId, $photo->getFileId());
+        $this->assertEquals($this->width, $photo->getWidth());
+        $this->assertEquals($this->height, $photo->getHeight());
 
-        $photo->fileSize = $this->fileSize;
+        $photo->setFileSize($this->fileSize);
 
-        $this->assertEquals($this->fileSize, $photo->fileSize);
+        $this->assertEquals($this->fileSize, $photo->getFileSize());
     }
 }

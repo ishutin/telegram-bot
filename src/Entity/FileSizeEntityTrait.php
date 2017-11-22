@@ -2,12 +2,6 @@
 
 namespace Telegram\Entity;
 
-/**
- * Trait FileEntityTrait
- * @package Telegram\Entity
- *
- * @property int $fileSize
- */
 trait FileSizeEntityTrait
 {
     /**

@@ -24,14 +24,10 @@ final class MessageEntityTest extends TestCase
 
     public function testProperties(): void
     {
-        $entity = new MessageEntity(
-            $this->type,
-            $this->offset,
-            $this->length
-        );
+        $entity = new MessageEntity($this->type, $this->offset, $this->length);
 
-        $this->assertEquals($this->type, $entity->type);
-        $this->assertEquals($this->offset, $entity->offset);
-        $this->assertEquals($this->length, $entity->length);
+        $this->assertEquals($this->type, $entity->getType());
+        $this->assertEquals($this->offset, $entity->getOffset());
+        $this->assertEquals($this->length, $entity->getLength());
     }
 }
