@@ -53,11 +53,16 @@ class Request implements RequestInterface
         }
     }
 
-    public function parseJson(ResponseInterface $response, bool $assoc = true): array
+    public function parseJson(ResponseInterface $response): array
     {
-        $body = json_decode($response->getBody(), $assoc);
+        $body = json_decode($response->getBody(), false);
+
         if (json_last_error() !== JSON_ERROR_NONE) {
             throw new RequestException('JsonParse: ' . json_last_error_msg());
+        }
+
+        if (empty($body['ok']) || (!empty($body['ok'] && $body['ok'] == false))) {
+            throw new RequestException('ResponseError: ' . $body['description'] ?? 'unknown');
         }
 
         return $body['result'];
