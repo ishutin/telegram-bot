@@ -13,9 +13,9 @@ require_once 'vendor/autoload.php';
 
 $token = 'XXX-XXX-XXX-XXX'; // use bot token
 
-// use \Telegram\Request class or your own realisation \Telegram\RequestInterface
+// use \Telegram\Kernel\Request class or your own realisation \Telegram\Kernel\RequestInterface
 $request = new \Telegram\Kernel\Request(json_decode(file_get_contents('php://input'), true));
-// use \Telegram\Response class or your own realisation \Telegram\ResponseInterface
+// use \Telegram\Kernel\Response class or your own realisation \Telegram\Kernel\ResponseInterface
 $response = new \Telegram\Kernel\Response($token);
 
 $kernel = new \Telegram\Kernel\Kernel($request, $response);
