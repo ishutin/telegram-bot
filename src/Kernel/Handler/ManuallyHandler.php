@@ -66,10 +66,11 @@ class ManuallyHandler implements UpdateHandlerInterface
 
         $updates = [];
         if ($response->getStatusCode() === 200) {
-            $updatesData = $request->parseJson($response);
+            $updatesData = \GuzzleHttp\json_decode($response->getBody(), true);
+
             $parser = new EntityParser();
 
-            foreach ($updatesData as $updateData) {
+            foreach ($updatesData['result'] ?? [] as $updateData) {
                 $updates[] = $parser->parseUpdate($updateData);
             }
         }

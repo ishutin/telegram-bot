@@ -81,7 +81,7 @@ class Request implements RequestInterface
         return $response->getStatusCode() === 200;
     }
 
-    public function sendGet(string $method, array $params = []): ResponseInterface
+    private function sendGet(string $method, array $params = []): ResponseInterface
     {
         try {
             return $this->client->request(
@@ -92,21 +92,6 @@ class Request implements RequestInterface
         } catch (ClientException $e) {
             throw new RequestException($e->getMessage());
         }
-    }
-
-    public function parseJson(ResponseInterface $response): array
-    {
-        $body = json_decode($response->getBody(), true);
-
-        if (json_last_error() !== JSON_ERROR_NONE) {
-            throw new RequestException('JsonParse: ' . json_last_error_msg());
-        }
-
-        if (empty($body['ok']) || (!empty($body['ok'] && $body['ok'] == false))) {
-            throw new RequestException('ResponseError: ' . $body['description'] ?? 'Unknown');
-        }
-
-        return $body['result'];
     }
 
     private function getRequestUri(string $method): string

@@ -19,11 +19,7 @@ class WebHookHandler implements UpdateHandlerInterface
         $this->response = $response;
 
         if (is_null($this->response)) {
-            $this->response = new Response(
-                200,
-                [],
-                file_get_contents('php://input')
-            );
+            $this->response = new Response(200, [], file_get_contents('php://input'));
         }
     }
 
@@ -31,9 +27,9 @@ class WebHookHandler implements UpdateHandlerInterface
     {
         $parser = new EntityParser();
 
-        $updateData = $request->parseJson($this->response);
+        $updateData = \GuzzleHttp\json_decode($this->response->getBody(), true);
 
-        if ($update = $parser->parseUpdate($updateData)) {
+        if ($update = $parser->parseUpdate($updateData['result'] ?? [])) {
             $callback($update);
         }
     }
