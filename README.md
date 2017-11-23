@@ -15,7 +15,7 @@ composer require ishutin/telegram-bot:dev-master
 ```
 
 
-## Usage
+## Example
 
 ```php
 <?php
@@ -33,29 +33,27 @@ require_once 'vendor/autoload.php';
 // class Request can be used singly for requests
 $request = new Request('487878994:AAGTwRIljsXImb2No_fBfqQ4yd_1dqqTMQs');
 
-// you can use ManuallyHandler or WebHookHandler
+// you can use ManualHandler or WebHookHandler
 $updateHandler = new WebHookHandler();
 $app = new Kernel($request, $updateHandler);
 
+// an anonymous class is used for an example
+$actionHandler = new class implements ActionInterface
+{
+    public function run(RequestInterface $request, Update $update): void
+    {
+        $toChat = $update->getMessage()->getChat();
+
+        $request->sendMessage($toChat, 'Hello, world!');
+    }
+};
+
 $handler = (new UpdateEventHandler())
-    ->on(
-        UpdateEventHandler::EVENT_MESSAGE,
-        new class implements ActionInterface
-        {
-            public function run(
-                RequestInterface $request,
-                Update $update
-            ): void {
-                $request->sendMessage(
-                    $update->getMessage()->getChat(),
-                    'Hello, world!'
-                );
-            }
-        }
-    );
+    ->on(UpdateEventHandler::EVENT_MESSAGE, $actionHandler); // Handle all messages
 
 // Attach UpdateEventHandler to app
 $app->attachHandler($handler);
 
 $app->run();
+
 ```

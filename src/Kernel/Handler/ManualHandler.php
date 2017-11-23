@@ -7,7 +7,7 @@ use Telegram\Helper\HttpCode;
 use Telegram\Kernel\RequestInterface;
 use Telegram\Kernel\EntityParser;
 
-class ManuallyHandler implements UpdateHandlerInterface
+class ManualHandler implements UpdateHandlerInterface
 {
     /**
      * @var int
