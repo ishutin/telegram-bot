@@ -3,7 +3,6 @@
 namespace Telegram\Handler;
 
 use Telegram\Entity\Update;
-use Telegram\Exception\UpdateEventException;
 use Telegram\Kernel\RequestInterface;
 
 class UpdateEventHandler extends AbstractHandler
@@ -19,8 +18,6 @@ class UpdateEventHandler extends AbstractHandler
 
     public function handle(RequestInterface $request, Update $update): void
     {
-        $events = $this->events;
-
         if ($action = $this->getAction(self::EVENT_MESSAGE)) {
             if ($update->getMessage()) {
                 $action->run($request, $update);
