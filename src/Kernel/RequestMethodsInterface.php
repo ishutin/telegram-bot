@@ -12,7 +12,7 @@ interface RequestMethodsInterface
         int $offset = null,
         int $limit = null,
         int $timeout = null,
-        bool $allowedUpdates = null
+        array $allowedUpdates = null
     ): ResponseInterface;
 
     public function sendMessage(Chat $chat, string $text): bool;

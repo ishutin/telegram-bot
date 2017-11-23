@@ -9,6 +9,7 @@ use Psr\Http\Message\ResponseInterface;
 use Telegram\Entity\Chat;
 use Telegram\Entity\Message;
 use Telegram\Exception\RequestException;
+use Telegram\Helper\HttpCode;
 
 class Request implements RequestInterface
 {
@@ -40,7 +41,7 @@ class Request implements RequestInterface
         int $offset = null,
         int $limit = null,
         int $timeout = null,
-        bool $allowedUpdates = null
+        array $allowedUpdates = null
     ): ResponseInterface {
         $query = [
             'offset' => $offset,
@@ -63,7 +64,7 @@ class Request implements RequestInterface
             'text' => $text,
         ]);
 
-        return $response->getStatusCode() === 200;
+        return $response->getStatusCode() === HttpCode::OK;
     }
 
     public function forwardMessage(
@@ -78,7 +79,7 @@ class Request implements RequestInterface
             'message_id' => $message->getId(),
         ]);
 
-        return $response->getStatusCode() === 200;
+        return $response->getStatusCode() === HttpCode::OK;
     }
 
     private function sendGet(string $method, array $params = []): ResponseInterface
