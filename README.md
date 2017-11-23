@@ -34,7 +34,7 @@ $token = 'xxxx-xxxx-xxxx-xxxx';
 // class Request can be used singly for requests
 $request = new Request($token);
 
-// you can use ManualHandler or WebHookHandler
+// you can use ManualHandler or WebHookHandler. More details https://core.telegram.org/bots/api#getting-updates
 $updateHandler = new WebHookHandler();
 $app = new Kernel($request, $updateHandler);
 
