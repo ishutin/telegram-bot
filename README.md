@@ -30,8 +30,9 @@ use Telegram\Kernel\RequestInterface;
 
 require_once 'vendor/autoload.php';
 
+$token = 'xxxx-xxxx-xxxx-xxxx';
 // class Request can be used singly for requests
-$request = new Request('487878994:AAGTwRIljsXImb2No_fBfqQ4yd_1dqqTMQs');
+$request = new Request($token);
 
 // you can use ManualHandler or WebHookHandler
 $updateHandler = new WebHookHandler();
