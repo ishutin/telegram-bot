@@ -42,46 +42,43 @@ class Request implements RequestInterface
         int $timeout = null,
         bool $allowedUpdates = null
     ): ResponseInterface {
-        $query = [];
+        $query = [
+            'offset' => $offset,
+            'limit' => $limit,
+            'timeout' => $timeout,
+            'allowed_updates' => $allowedUpdates,
+        ];
 
-        if (!is_null($offset)) {
-            $query['offset'] = $offset;
-        }
-
-        if (!is_null($limit)) {
-            $query['$limit'] = $limit;
-        }
-
-        if (!is_null($timeout)) {
-            $query['timeout'] = $timeout;
-        }
-
-        if (!is_null($allowedUpdates)) {
-            $query['allowed_updates'] = $allowedUpdates;
-        }
+        $query = array_filter($query, function ($var) {
+            return !is_null($var);
+        });
 
         return $this->sendGet('getUpdates', $query);
     }
 
-    public function sendMessage(Chat $chat, string $text): void
+    public function sendMessage(Chat $chat, string $text): bool
     {
-        $this->sendGet('sendMessage', [
+        $response = $this->sendGet('sendMessage', [
             'chat_id' => $chat->getId(),
             'text' => $text,
         ]);
+
+        return $response->getStatusCode() === 200;
     }
 
     public function forwardMessage(
         Message $message,
         Chat $toChat,
         bool $disableNotification = false
-    ): void {
-        $this->sendGet('forwardMessage', [
+    ): bool {
+        $response = $this->sendGet('forwardMessage', [
             'chat_id' => $toChat->getId(),
             'from_chat_id' => $message->getChat()->getId(),
             'disable_notification' => $disableNotification,
             'message_id' => $message->getId(),
         ]);
+
+        return $response->getStatusCode() === 200;
     }
 
     public function sendGet(string $method, array $params = []): ResponseInterface

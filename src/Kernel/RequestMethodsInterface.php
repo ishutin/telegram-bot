@@ -15,11 +15,11 @@ interface RequestMethodsInterface
         bool $allowedUpdates = null
     ): ResponseInterface;
 
-    public function sendMessage(Chat $chat, string $text): void;
+    public function sendMessage(Chat $chat, string $text): bool;
 
     public function forwardMessage(
         Message $message,
         Chat $toChat,
         bool $disableNotification = false
-    ): void;
+    ): bool;
 }
