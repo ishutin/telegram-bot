@@ -57,27 +57,11 @@ class ManuallyHandler implements UpdateHandlerInterface
      */
     private function getUpdates(RequestInterface $request): array
     {
-        $query = [];
-
-        if (!is_null($this->offset)) {
-            $query['offset'] = $this->offset;
-        }
-
-        if (!is_null($this->limit)) {
-            $query['$limit'] = $this->limit;
-        }
-
-        if (!is_null($this->timeout)) {
-            $query['timeout'] = $this->timeout;
-        }
-
-        if (!is_null($this->allowedUpdates)) {
-            $query['allowed_updates'] = $this->allowedUpdates;
-        }
-
-        $response = $request->sendGet(
-            'getUpdates',
-            $query
+        $response = $request->getUpdates(
+            $this->offset,
+            $this->limit,
+            $this->timeout,
+            $this->allowedUpdates
         );
 
         $updates = [];

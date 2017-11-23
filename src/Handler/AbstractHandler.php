@@ -5,12 +5,14 @@ namespace Telegram\Handler;
 abstract class AbstractHandler implements HandlerInterface
 {
     /**
-     * @var ActionInterface
+     * @var ActionInterface[]
      */
-    protected $action;
+    protected $events;
 
-    public function __construct(ActionInterface $action)
+    public function on(string $event, ActionInterface $action): HandlerInterface
     {
-        $this->action = $action;
+        $this->events[$event] = $action;
+
+        return $this;
     }
 }

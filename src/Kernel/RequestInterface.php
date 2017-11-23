@@ -4,9 +4,7 @@ namespace Telegram\Kernel;
 
 use Psr\Http\Message\ResponseInterface;
 
-interface RequestInterface
+interface RequestInterface extends RequestMethodsInterface
 {
-    public function sendGet(string $method, array $params): ResponseInterface;
-
     public function parseJson(ResponseInterface $response): array;
 }
