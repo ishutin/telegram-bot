@@ -35,7 +35,7 @@ $token = 'xxxx-xxxx-xxxx-xxxx';
 $request = new Request($token);
 
 // you can use ManualHandler or WebHookHandler
-// More details https://core.telegram.org/bots/api#getting-updates
+// more details https://core.telegram.org/bots/api#getting-updates
 $updateHandler = new WebHookHandler();
 $app = new Kernel($request, $updateHandler);
 
@@ -53,7 +53,7 @@ $actionHandler = new class implements ActionInterface
 $handler = (new UpdateEventHandler())
     ->on(UpdateEventHandler::EVENT_MESSAGE, $actionHandler); // Handle all messages
 
-// Attach UpdateEventHandler to app
+// attach UpdateEventHandler to app
 $app->attachHandler($handler);
 
 $app->run();
