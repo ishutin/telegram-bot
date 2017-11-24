@@ -4,8 +4,10 @@ namespace Telegram\Entity;
 
 class Chat extends Entity
 {
-    const TYPE_PRIVATE_CHAT = 'private';
-    const TYPE_GROUP_CHAT = 'group';
+    public const TYPE_PRIVATE_CHAT = 'private';
+    public const TYPE_GROUP_CHAT = 'group';
+    public const TYPE_SUPERGROUP = 'supergroup';
+    public const TYPE_CHANNEL = 'channel';
 
     /**
      * @var int
