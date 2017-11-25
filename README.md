@@ -21,12 +21,12 @@ composer require ishutin/telegram-bot:dev-master
 <?php
 
 use Telegram\Entity\Update;
-use Telegram\Handler\ActionInterface;
-use Telegram\Handler\UpdateEventHandler;
-use Telegram\Kernel\Handler\WebHookHandler;
-use Telegram\Kernel\Kernel;
-use Telegram\Kernel\Request;
-use Telegram\Kernel\RequestInterface;
+use Telegram\Handler\{
+    ActionInterface, UpdateEventHandler
+};
+use Telegram\Kernel\{
+    Handler\WebHookHandler, Kernel, Request, RequestInterface
+};
 
 require_once 'vendor/autoload.php';
 
