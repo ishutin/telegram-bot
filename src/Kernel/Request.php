@@ -37,6 +37,14 @@ class Request implements RequestInterface
         }
     }
 
+    /**
+     * @param int|null $offset
+     * @param int|null $limit
+     * @param int|null $timeout
+     * @param string[]|null $allowedUpdates
+     * @return ResponseInterface
+     * @throws RequestException
+     */
     public function getUpdates(
         int $offset = null,
         int $limit = null,
@@ -57,6 +65,12 @@ class Request implements RequestInterface
         return $this->sendGet('getUpdates', $query);
     }
 
+    /**
+     * @param Chat $chat
+     * @param string $text
+     * @return bool
+     * @throws RequestException
+     */
     public function sendMessage(Chat $chat, string $text): bool
     {
         $response = $this->sendGet('sendMessage', [
@@ -67,6 +81,13 @@ class Request implements RequestInterface
         return $response->getStatusCode() === HttpCode::OK;
     }
 
+    /**
+     * @param Message $message
+     * @param Chat $toChat
+     * @param bool $disableNotification
+     * @return bool
+     * @throws RequestException
+     */
     public function forwardMessage(
         Message $message,
         Chat $toChat,
@@ -82,6 +103,12 @@ class Request implements RequestInterface
         return $response->getStatusCode() === HttpCode::OK;
     }
 
+    /**
+     * @param string $method
+     * @param array $params
+     * @return ResponseInterface
+     * @throws RequestException
+     */
     private function sendGet(string $method, array $params = []): ResponseInterface
     {
         try {
