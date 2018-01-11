@@ -3,7 +3,7 @@
 namespace Telegram\Kernel\Handler;
 
 use Telegram\Entity\Update;
-use Telegram\Helper\HttpCode;
+use HttpHelper\StatusCode;
 use Telegram\Kernel\RequestInterface;
 use Telegram\Kernel\EntityParser;
 
@@ -76,7 +76,7 @@ class ManualHandler implements UpdateHandlerInterface
 
         $updates = [];
 
-        if ($response->getStatusCode() === HttpCode::OK) {
+        if ($response->getStatusCode() === StatusCode::OK) {
             $updatesData = \GuzzleHttp\json_decode($response->getBody(), true);
 
             $parser = new EntityParser();

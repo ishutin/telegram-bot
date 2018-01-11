@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "9c28d59d033aae35a6b17f6cf6f583c4",
+    "content-hash": "e4dac94df5c1e44f081c89d41d043e81",
     "packages": [
         {
             "name": "guzzlehttp/guzzle",
@@ -186,6 +186,39 @@
                 "url"
             ],
             "time": "2017-03-20T17:10:46+00:00"
+        },
+        {
+            "name": "ishutin/http-helper",
+            "version": "v1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ishutin/http-helper.git",
+                "reference": "8d9892c6713ed24bab29421375ebd93bfd5d0a8a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ishutin/http-helper/zipball/8d9892c6713ed24bab29421375ebd93bfd5d0a8a",
+                "reference": "8d9892c6713ed24bab29421375ebd93bfd5d0a8a",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "HttpHelper\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Aleksey Ishutin",
+                    "email": "ishutin.alexey@gmail.com"
+                }
+            ],
+            "description": "HTTP helper for PHP",
+            "time": "2018-01-11T14:43:21+00:00"
         },
         {
             "name": "psr/http-message",

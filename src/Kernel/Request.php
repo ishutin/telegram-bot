@@ -9,7 +9,7 @@ use Psr\Http\Message\ResponseInterface;
 use Telegram\Entity\Chat;
 use Telegram\Entity\Message;
 use Telegram\Exception\RequestException;
-use Telegram\Helper\HttpCode;
+use HttpHelper\StatusCode;
 
 class Request implements RequestInterface
 {
@@ -78,7 +78,7 @@ class Request implements RequestInterface
             'text' => $text,
         ]);
 
-        return $response->getStatusCode() === HttpCode::OK;
+        return $response->getStatusCode() === StatusCode::OK;
     }
 
     /**
@@ -100,7 +100,7 @@ class Request implements RequestInterface
             'message_id' => $message->getId(),
         ]);
 
-        return $response->getStatusCode() === HttpCode::OK;
+        return $response->getStatusCode() === StatusCode::OK;
     }
 
     /**
