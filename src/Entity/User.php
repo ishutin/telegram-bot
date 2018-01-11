@@ -7,32 +7,32 @@ class User extends Entity
     /**
      * @var int
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string
      */
-    private $firstName;
+    protected $firstName;
 
     /**
      * @var string
      */
-    private $lastName;
+    protected $lastName;
 
     /**
      * @var string
      */
-    private $username;
+    protected $username;
 
     /**
      * @var string
      */
-    private $lang;
+    protected $lang;
 
     /**
      * @var bool
      */
-    private $isBot;
+    protected $isBot;
 
     public function __construct(
         int $id,

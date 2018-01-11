@@ -11,17 +11,17 @@ class Photo extends Entity
     /**
      * @var string
      */
-    private $fileId;
+    protected $fileId;
 
     /**
      * @var int
      */
-    private $width;
+    protected $width;
 
     /**
      * @var int
      */
-    private $height;
+    protected $height;
 
     public function __construct(
         string $fileId,

@@ -7,7 +7,7 @@ trait MimeAttributeTrait
     /**
      * @var int
      */
-    private $mimeType;
+    protected $mimeType;
 
     public function setMimeType(string $type = null): void
     {

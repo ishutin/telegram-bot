@@ -7,12 +7,12 @@ class ChatPhoto extends Entity
     /**
      * @var string
      */
-    private $smallFileId;
+    protected $smallFileId;
 
     /**
      * @var string
      */
-    private $bigFileId;
+    protected $bigFileId;
 
     public function __construct(string $smallFileId, string $bigFileId)
     {

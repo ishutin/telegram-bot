@@ -11,47 +11,47 @@ class Update
     /**
      * @var int
      */
-    private $updateId;
+    protected $updateId;
 
     /**
      * @var Message
      */
-    private $message;
+    protected $message;
 
     /**
      * @var Message
      */
-    private $channelPost;
+    protected $channelPost;
 
     /**
      * @var Message
      */
-    private $editedMessage;
+    protected $editedMessage;
 
     /**
      * @var Message
      */
-    private $editedChannelPost;
+    protected $editedChannelPost;
 
     /**
      * @var InlineQuery
      */
-    private $inlineQuery;
+    protected $inlineQuery;
 
     /**
      * @var ChosenInlineResult
      */
-    private $chosenInlineResult;
+    protected $chosenInlineResult;
 
     /**
      * @var CallbackQuery
      */
-    private $callbackQuery;
+    protected $callbackQuery;
 
     /**
      * @var PreCheckoutQuery
      */
-    private $preCheckoutQuery;
+    protected $preCheckoutQuery;
 
     public function __construct(int $updateId)
     {
@@ -63,42 +63,42 @@ class Update
         return $this->updateId;
     }
 
-    public function getMessage():? Message
+    public function getMessage(): ? Message
     {
         return $this->message;
     }
 
-    public function getChannelPost():? Message
+    public function getChannelPost(): ? Message
     {
         return $this->channelPost;
     }
 
-    public function getEditedMessage():? Message
+    public function getEditedMessage(): ? Message
     {
         return $this->editedMessage;
     }
 
-    public function getEditedChannelPost():? Message
+    public function getEditedChannelPost(): ? Message
     {
         return $this->editedChannelPost;
     }
 
-    public function getInlineQuery():? InlineQuery
+    public function getInlineQuery(): ? InlineQuery
     {
         return $this->inlineQuery;
     }
 
-    public function getChosenInlineResult():? ChosenInlineResult
+    public function getChosenInlineResult(): ? ChosenInlineResult
     {
         return $this->chosenInlineResult;
     }
 
-    public function getCallbackQuery():? CallbackQuery
+    public function getCallbackQuery(): ? CallbackQuery
     {
         return $this->callbackQuery;
     }
 
-    public function getPreCheckoutQuery():? PreCheckoutQuery
+    public function getPreCheckoutQuery(): ? PreCheckoutQuery
     {
         return $this->preCheckoutQuery;
     }
@@ -142,5 +142,4 @@ class Update
     {
         $this->editedMessage = $editedMessage;
     }
-
 }

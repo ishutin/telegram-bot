@@ -7,62 +7,62 @@ class Message extends Entity
     /**
      * @var int
      */
-    private $id;
+    protected $id;
 
     /**
      * @var Chat
      */
-    private $chat;
+    protected $chat;
 
     /**
      * @var int
      */
-    private $date;
+    protected $date;
 
     /**
      * @var User
      */
-    private $from = null;
+    protected $from = null;
 
     /**
      * @var string
      */
-    private $text = null;
+    protected $text = null;
 
     /**
      * @var MessageEntity[]
      */
-    private $entities = [];
+    protected $entities = [];
 
     /**
      * @var Message
      */
-    private $replyTo = null;
+    protected $replyTo = null;
 
     /**
      * @var Audio
      */
-    private $audio = null;
+    protected $audio = null;
 
     /**
      * @var Photo[]
      */
-    private $photos = [];
+    protected $photos = [];
 
     /**
      * @var User
      */
-    private $leftChatMember = null;
+    protected $leftChatMember = null;
 
     /**
      * @var Chat
      */
-    private $forwardFromChat = null;
+    protected $forwardFromChat = null;
 
     /**
      * @var Document
      */
-    private $document;
+    protected $document;
 
     public function __construct(int $id, int $date, Chat $chat)
     {

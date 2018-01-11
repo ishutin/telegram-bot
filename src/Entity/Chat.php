@@ -12,67 +12,67 @@ class Chat extends Entity
     /**
      * @var int
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string
      */
-    private $type;
+    protected $type;
 
     /**
      * @var string
      */
-    private $title;
+    protected $title;
 
     /**
      * @var string
      */
-    private $username;
+    protected $username;
 
     /**
      * @var string
      */
-    private $firstName;
+    protected $firstName;
 
     /**
      * @var string
      */
-    private $lastName;
+    protected $lastName;
 
     /**
      * @var bool
      */
-    private $allMembersAreAdministrators;
+    protected $allMembersAreAdministrators;
 
     /**
      * @var ChatPhoto
      */
-    private $photo;
+    protected $photo;
 
     /**
      * @var String
      */
-    private $description;
+    protected $description;
 
     /**
      * @var string
      */
-    private $inviteLink;
+    protected $inviteLink;
 
     /**
      * @var Message
      */
-    private $pinnedMessage;
+    protected $pinnedMessage;
 
     /**
      * @var string
      */
-    private $stickerSetName;
+    protected $stickerSetName;
 
     /**
      * @var bool
      */
-    private $canSetStickerSet;
+    protected $canSetStickerSet;
 
     public function __construct(int $id, string $type)
     {

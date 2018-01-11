@@ -7,7 +7,7 @@ trait FileSizeAttributeTrait
     /**
      * @var int
      */
-    private $fileSize;
+    protected $fileSize;
 
     public function setFileSize(int $fileSize = null): void
     {

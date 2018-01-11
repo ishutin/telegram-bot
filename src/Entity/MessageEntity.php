@@ -19,17 +19,17 @@ class MessageEntity extends Entity
     /**
      * @var string
      */
-    private $type;
+    protected $type;
 
     /**
      * @var int
      */
-    private $offset;
+    protected $offset;
 
     /**
      * @var int
      */
-    private $length;
+    protected $length;
 
     public function __construct(string $type, int $offset, int $length)
     {

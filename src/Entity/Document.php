@@ -13,17 +13,17 @@ class Document extends Entity
     /**
      * @var string
      */
-    private $fileId;
+    protected $fileId;
 
     /**
      * @var Photo
      */
-    private $thumb;
+    protected $thumb;
 
     /**
      * @var string
      */
-    private $fileName;
+    protected $fileName;
 
     public function __construct(string $fileId)
     {

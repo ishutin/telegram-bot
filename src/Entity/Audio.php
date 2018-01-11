@@ -13,22 +13,22 @@ class Audio extends Entity
     /**
      * @var string
      */
-    private $fileId;
+    protected $fileId;
 
     /**
      * @var int
      */
-    private $duration;
+    protected $duration;
 
     /**
      * @var string
      */
-    private $performer;
+    protected $performer;
 
     /**
      * @var string
      */
-    private $title;
+    protected $title;
 
     public function __construct(string $fileId, int $duration)
     {
