@@ -26,6 +26,11 @@ class WebHookHandler implements UpdateHandlerInterface
         }
     }
 
+    /**
+     * @param RequestInterface $request
+     * @param callable $callback
+     * @throws \Telegram\Exception\EntityParserException
+     */
     public function handle(RequestInterface $request, callable $callback): void
     {
         if ($this->response) {

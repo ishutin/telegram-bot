@@ -29,6 +29,13 @@ class ManualHandler implements UpdateHandlerInterface
      */
     private $allowedUpdates = null;
 
+    /**
+     * ManualHandler constructor.
+     * @param int|null $offset
+     * @param int|null $limit
+     * @param int|null $timeout
+     * @param string[]|string|null $allowedUpdates
+     */
     public function __construct(
         int $offset = null,
         int $limit = null,
@@ -41,6 +48,11 @@ class ManualHandler implements UpdateHandlerInterface
         $this->allowedUpdates = $allowedUpdates;
     }
 
+    /**
+     * @param RequestInterface $request
+     * @param callable $callback
+     * @throws \Telegram\Exception\EntityParserException
+     */
     public function handle(RequestInterface $request, callable $callback): void
     {
         foreach ($this->getUpdates($request) as $update) {
@@ -49,12 +61,9 @@ class ManualHandler implements UpdateHandlerInterface
     }
 
     /**
-     * @param int|null $offset
-     * @param int|null $limit
-     * @param int|null $timeout
-     * @param array|string $allowedUpdates
-     *
+     * @param RequestInterface $request
      * @return Update[]
+     * @throws \Telegram\Exception\EntityParserException
      */
     private function getUpdates(RequestInterface $request): array
     {

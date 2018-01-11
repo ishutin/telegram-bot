@@ -15,6 +15,11 @@ use Telegram\Exception\EntityParserException;
 
 class EntityParser
 {
+    /**
+     * @param array $response
+     * @return Update
+     * @throws EntityParserException
+     */
     public function parseUpdate(array $response): Update
     {
         if (empty($response['update_id'])) {
@@ -44,6 +49,11 @@ class EntityParser
         return $update;
     }
 
+    /**
+     * @param array $data
+     * @return Message
+     * @throws EntityParserException
+     */
     public function parseMessage(array $data): Message
     {
         if (empty($data['message_id'])) {
@@ -111,6 +121,11 @@ class EntityParser
         return $message;
     }
 
+    /**
+     * @param array $data
+     * @return Chat
+     * @throws EntityParserException
+     */
     public function parseChat(array $data): Chat
     {
         $chat = new Chat($data['id'], $data['type']);
