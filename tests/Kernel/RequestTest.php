@@ -64,18 +64,12 @@ final class RequestTest extends TestCase
             new Response(400, [], '{"ok":false}'),
         ]));
 
-        $result = $request->sendMessage(
-            new Chat(1, 'private'),
-            'hello'
-        );
+        $result = $request->sendMessage('example-chat-id', 'hello');
 
         $this->assertTrue($result);
 
         $this->expectException(RequestException::class);
-        $request->sendMessage(
-            new Chat(1, 'private'),
-            'hello'
-        );
+        $request->sendMessage('example-chat-id', 'hello');
     }
 
     /**
