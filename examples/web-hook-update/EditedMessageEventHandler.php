@@ -1,8 +1,8 @@
 <?php
 
-use Telegram\{
-    Entity\Update, Handler\Update\EventHandlerInterface, Kernel\RequestInterface
-};
+use Telegram\Entity\Update;
+use Telegram\Handler\Update\EventHandlerInterface;
+use Telegram\Kernel\RequestInterface;
 
 class EditedMessageEventHandler implements EventHandlerInterface
 {
