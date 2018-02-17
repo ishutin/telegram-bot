@@ -8,8 +8,8 @@ class MessageEventHandler implements EventHandlerInterface
 {
     public function handle(RequestInterface $request, Update $update): void
     {
-        $toChat = $update->getMessage()->getChat();
+        $chat = $update->getMessage()->getChat();
 
-        $request->sendMessage($toChat, 'Hello, world!');
+        $request->sendMessage($chat->getId(), 'Hello, world!');
     }
 }

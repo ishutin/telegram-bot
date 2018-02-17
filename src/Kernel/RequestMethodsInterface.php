@@ -8,14 +8,21 @@ use Telegram\Entity\Message;
 
 interface RequestMethodsInterface
 {
+    /**
+     * @param int|null $offset
+     * @param int|null $limit
+     * @param int|null $timeout
+     * @param string|string[]|null $allowedUpdates
+     * @return ResponseInterface
+     */
     public function getUpdates(
         int $offset = null,
         int $limit = null,
         int $timeout = null,
-        array $allowedUpdates = null
+        $allowedUpdates = null
     ): ResponseInterface;
 
-    public function sendMessage(Chat $chat, string $text): bool;
+    public function sendMessage(string $chatId, string $text): bool;
 
     public function forwardMessage(
         Message $message,

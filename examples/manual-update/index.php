@@ -1,5 +1,6 @@
 <?php
 
+use Telegram\Exception\EntityParserException;
 use Telegram\Handler\Update\AbstractUpdateHandler;
 use Telegram\Handler\Update\ManualUpdateHandler;
 use Telegram\Kernel\Request;
@@ -16,4 +17,8 @@ $updateHandler
     ->on(AbstractUpdateHandler::EVENT_MESSAGE, new MessageEventHandler())
     ->on(AbstractUpdateHandler::EVENT_EDITED_MESSAGE, new EditedMessageEventHandler());
 
-$updateHandler->handle();
+try {
+    $updateHandler->handle();
+} catch (EntityParserException $e) {
+    // exception handle
+}

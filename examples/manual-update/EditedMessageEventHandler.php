@@ -8,8 +8,8 @@ class EditedMessageEventHandler implements EventHandlerInterface
 {
     public function handle(RequestInterface $request, Update $update): void
     {
-        $toChat = $update->getMessage()->getChat();
+        $chat = $update->getMessage()->getChat();
 
-        $request->sendMessage($toChat, 'You changed message!');
+        $request->sendMessage($chat->getId(), 'You changed message!');
     }
 }

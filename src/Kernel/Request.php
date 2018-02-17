@@ -41,7 +41,7 @@ class Request implements RequestInterface
      * @param int|null $offset
      * @param int|null $limit
      * @param int|null $timeout
-     * @param string[]|null $allowedUpdates
+     * @param string|string[]|null $allowedUpdates
      * @return ResponseInterface
      * @throws RequestException
      */
@@ -49,16 +49,14 @@ class Request implements RequestInterface
         int $offset = null,
         int $limit = null,
         int $timeout = null,
-        array $allowedUpdates = null
+        $allowedUpdates = null
     ): ResponseInterface {
-        $query = [
+        $query = array_filter([
             'offset' => $offset,
             'limit' => $limit,
             'timeout' => $timeout,
             'allowed_updates' => $allowedUpdates,
-        ];
-
-        $query = array_filter($query, function ($var) {
+        ], function ($var) {
             return !is_null($var);
         });
 
@@ -66,15 +64,15 @@ class Request implements RequestInterface
     }
 
     /**
-     * @param Chat $chat
+     * @param string $chatId
      * @param string $text
      * @return bool
      * @throws RequestException
      */
-    public function sendMessage(Chat $chat, string $text): bool
+    public function sendMessage(string $chatId, string $text): bool
     {
         $response = $this->sendGet('sendMessage', [
-            'chat_id' => $chat->getId(),
+            'chat_id' => $chatId,
             'text' => $text,
         ]);
 
