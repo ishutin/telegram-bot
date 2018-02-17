@@ -1,8 +1,7 @@
 <?php
 
-use Telegram\{
-    Entity\Chat, Kernel\Request
-};
+use Telegram\Entity\Chat;
+use Telegram\Kernel\Request;
 
 require_once '../../vendor/autoload.php';
 
