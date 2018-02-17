@@ -7,12 +7,12 @@ use Telegram\Kernel\Request;
 
 require_once '../../vendor/autoload.php';
 
-$token = 'xxxx-xxxx-xxxx-xxxx';
-
-$request = new Request($token);
-
 // Init app
-$app = new Kernel($request);
+$app = new Kernel();
+
+// Create requester class
+$token = 'xxxx-xxxx-xxxx-xxxx';
+$request = new Request($token);
 
 $updateHandler = new ManualUpdateHandler($request);
 

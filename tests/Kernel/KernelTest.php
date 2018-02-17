@@ -6,15 +6,12 @@ use Exception;
 use PHPUnit\Framework\TestCase;
 use Telegram\Kernel\HandlerInterface;
 use Telegram\Kernel\Kernel;
-use Telegram\Kernel\Request;
-use Telegram\Kernel\RequestInterface;
 
 final class KernelTest extends TestCase
 {
     public function testHandler(): void
     {
-        $request = new Request('xxxx-xxxx-xxxx-xxxx');
-        $kernel = new Kernel($request);
+        $kernel = new Kernel();
 
         $exampleHandler = $this->getExampleHandler();
 

@@ -9,19 +9,9 @@ use Telegram\Kernel\Handler\UpdateHandlerInterface;
 class Kernel
 {
     /**
-     * @var RequestInterface
-     */
-    private $request;
-
-    /**
      * @var HandlerInterface[]
      */
     private $handlers = [];
-
-    public function __construct(RequestInterface $request)
-    {
-        $this->request = $request;
-    }
 
     public function attachHandler(HandlerInterface $handler): void
     {
