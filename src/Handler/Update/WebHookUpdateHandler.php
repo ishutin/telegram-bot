@@ -1,14 +1,15 @@
 <?php
 
-namespace Telegram\Kernel\Handler;
+namespace Telegram\Handler\Update;
 
 use GuzzleHttp\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
 use HttpHelper\StatusCode;
 use Telegram\Kernel\EntityParser;
+use Telegram\Kernel\HandlerInterface;
 use Telegram\Kernel\RequestInterface;
 
-class WebHookHandler implements UpdateHandlerInterface
+class WebHookUpdateHandler extends AbstractUpdateHandler implements HandlerInterface
 {
     /**
      * @var ResponseInterface
@@ -28,17 +29,16 @@ class WebHookHandler implements UpdateHandlerInterface
 
     /**
      * @param RequestInterface $request
-     * @param callable $callback
      * @throws \Telegram\Exception\EntityParserException
      */
-    public function handle(RequestInterface $request, callable $callback): void
+    public function handle(RequestInterface $request): void
     {
         if ($this->response) {
             $parser = new EntityParser();
             $updateData = \GuzzleHttp\json_decode($this->response->getBody(), true);
 
             if ($update = $parser->parseUpdate($updateData['result'] ?? [])) {
-                $callback($update);
+                $this->handleUpdate($request, $update);
             }
         }
     }

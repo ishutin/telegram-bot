@@ -14,21 +14,12 @@ class Kernel
     private $request;
 
     /**
-     * @var UpdateHandlerInterface
-     */
-    private $updateHandler;
-
-    /**
      * @var HandlerInterface[]
      */
     private $handlers = [];
 
-    public function __construct(
-        RequestInterface $request,
-        UpdateHandlerInterface $updateHandler
-    ) {
+    public function __construct(RequestInterface $request) {
         $this->request = $request;
-        $this->updateHandler = $updateHandler;
     }
 
     public function attachHandler(HandlerInterface $handler): void
@@ -46,10 +37,8 @@ class Kernel
 
     public function run(): void
     {
-        $this->updateHandler->handle($this->request, function (Update $update) {
-            foreach ($this->handlers as $handler) {
-                $handler->handle($this->request, $update);
-            }
-        });
+        foreach ($this->handlers as $handler) {
+            $handler->handle($this->request);
+        }
     }
 }

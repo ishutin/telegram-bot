@@ -1,6 +1,6 @@
 <?php
 
-namespace Telegram\Handler;
+namespace Telegram\Handler\Update;
 
 use Telegram\Entity\Update;
 use Telegram\Kernel\RequestInterface;

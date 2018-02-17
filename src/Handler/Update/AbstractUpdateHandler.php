@@ -1,12 +1,11 @@
 <?php
 
-namespace Telegram\Handler;
+namespace Telegram\Handler\Update;
 
 use Telegram\Entity\Update;
-use Telegram\Kernel\HandlerInterface;
 use Telegram\Kernel\RequestInterface;
 
-class Event implements HandlerInterface
+abstract class AbstractUpdateHandler
 {
     public const EVENT_ALL = 'all';
     public const EVENT_MESSAGE = 'message';
@@ -19,11 +18,11 @@ class Event implements HandlerInterface
     public const EVENT_PRE_CHECKOUT_QUERY = 'pre_checkout_query';
 
     /**
-     * @var HandlerInterface[]
+     * @var EventHandlerInterface[]
      */
-    private $events;
+    private $handlers;
 
-    public function handle(RequestInterface $request, Update $update): void
+    public function handleUpdate(RequestInterface $request, Update $update): void
     {
         if ($handler = $this->getHandler(self::EVENT_ALL)) {
             $handler->handle($request, $update);
@@ -64,15 +63,15 @@ class Event implements HandlerInterface
         }
     }
 
-    public function on(string $event, EventHandlerInterface $handler): HandlerInterface
+    public function on(string $event, EventHandlerInterface $handler): self
     {
-        $this->events[$event] = $handler;
+        $this->handlers[$event] = $handler;
 
         return $this;
     }
 
-    private function getHandler(string $event): ? HandlerInterface
+    private function getHandler(string $event):? EventHandlerInterface
     {
-        return $this->events[$event] ?? null;
+        return $this->handlers[$event] ?? null;
     }
 }

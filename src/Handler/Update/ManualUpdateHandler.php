@@ -1,13 +1,14 @@
 <?php
 
-namespace Telegram\Kernel\Handler;
+namespace Telegram\Handler\Update;
 
 use Telegram\Entity\Update;
 use HttpHelper\StatusCode;
+use Telegram\Kernel\HandlerInterface;
 use Telegram\Kernel\RequestInterface;
 use Telegram\Kernel\EntityParser;
 
-class ManualHandler implements UpdateHandlerInterface
+class ManualUpdateHandler extends AbstractUpdateHandler implements HandlerInterface
 {
     /**
      * @var int
@@ -50,13 +51,12 @@ class ManualHandler implements UpdateHandlerInterface
 
     /**
      * @param RequestInterface $request
-     * @param callable $callback
      * @throws \Telegram\Exception\EntityParserException
      */
-    public function handle(RequestInterface $request, callable $callback): void
+    public function handle(RequestInterface $request): void
     {
         foreach ($this->getUpdates($request) as $update) {
-            $callback($update);
+            $this->handleUpdate($request, $update);
         }
     }
 
