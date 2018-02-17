@@ -2,7 +2,6 @@
 
 use Telegram\Handler\Update\AbstractUpdateHandler;
 use Telegram\Handler\Update\ManualUpdateHandler;
-use Telegram\Kernel\Kernel;
 use Telegram\Kernel\Request;
 
 require_once '../../vendor/autoload.php';
