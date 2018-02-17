@@ -22,6 +22,9 @@ final class RequestTest extends TestCase
         $this->assertInstanceOf(Request::class, $request);
     }
 
+    /**
+     * @throws RequestException
+     */
     public function testGetUpdates(): void
     {
         $mockData = json_encode([
@@ -51,6 +54,9 @@ final class RequestTest extends TestCase
         $this->assertEquals($mockData, $response->getBody());
     }
 
+    /**
+     * @throws RequestException
+     */
     public function testSendMessage()
     {
         $request = new Request('xxxx', $this->clientMock([
