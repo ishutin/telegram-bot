@@ -1,11 +1,9 @@
-<?
+<?php
 
-use Telegram\{
-    Handler\Update\AbstractUpdateHandler,
-    Handler\Update\WebHookUpdateHandler,
-    Kernel\Kernel,
-    Kernel\Request
-};
+use Telegram\Handler\Update\AbstractUpdateHandler;
+use Telegram\Handler\Update\ManualUpdateHandler;
+use Telegram\Kernel\Kernel;
+use Telegram\Kernel\Request;
 
 require_once '../../vendor/autoload.php';
 
@@ -16,7 +14,7 @@ $request = new Request($token);
 // Init app
 $app = new Kernel($request);
 
-$updateHandler = new WebHookUpdateHandler();
+$updateHandler = new ManualUpdateHandler();
 
 // handlers listen events MESSAGE and EDITED MESSAGE
 $updateHandler
