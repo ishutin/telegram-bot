@@ -4,7 +4,7 @@
 
 High-performance library for [Telegram Bot API](https://core.telegram.org/bots/api).
 
-Flexible and without "trash". 
+Simple, flexible and without "trash". 
 
 ## Installing
 
