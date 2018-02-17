@@ -2,23 +2,16 @@
 
 namespace Telegram\Entity;
 
-use Telegram\Entity\Traits\FileSizeAttributeTrait;
-use Telegram\Entity\Traits\MimeAttributeTrait;
+use Telegram\Entity\Traits\{
+    FileDurationTrait, FileSizeTrait, FileMimeTrait, FileTrait
+};
 
 class Audio extends Entity
 {
-    use FileSizeAttributeTrait;
-    use MimeAttributeTrait;
-
-    /**
-     * @var string
-     */
-    protected $fileId;
-
-    /**
-     * @var int
-     */
-    protected $duration;
+    use FileTrait;
+    use FileDurationTrait;
+    use FileSizeTrait;
+    use FileMimeTrait;
 
     /**
      * @var string
@@ -34,16 +27,6 @@ class Audio extends Entity
     {
         $this->fileId = $fileId;
         $this->duration = $duration;
-    }
-
-    public function getFileId(): string
-    {
-        return $this->fileId;
-    }
-
-    public function getDuration(): int
-    {
-        return $this->duration;
     }
 
     public function getPerformer():? string

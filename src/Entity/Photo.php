@@ -2,49 +2,20 @@
 
 namespace Telegram\Entity;
 
-use Telegram\Entity\Traits\FileSizeAttributeTrait;
+use Telegram\Entity\Traits\{
+    FileSizeTrait, FileTrait, FileWidthAndHeightTrait
+};
 
 class Photo extends Entity
 {
-    use FileSizeAttributeTrait;
+    use FileTrait;
+    use FileSizeTrait;
+    use FileWidthAndHeightTrait;
 
-    /**
-     * @var string
-     */
-    protected $fileId;
-
-    /**
-     * @var int
-     */
-    protected $width;
-
-    /**
-     * @var int
-     */
-    protected $height;
-
-    public function __construct(
-        string $fileId,
-        int $width,
-        int $height
-    ) {
+    public function __construct(string $fileId, int $width, int $height)
+    {
         $this->fileId = $fileId;
         $this->width = $width;
         $this->height = $height;
-    }
-
-    public function getFileId(): string
-    {
-        return $this->fileId;
-    }
-
-    public function getWidth(): int
-    {
-        return $this->width;
-    }
-
-    public function getHeight(): int
-    {
-        return $this->height;
     }
 }

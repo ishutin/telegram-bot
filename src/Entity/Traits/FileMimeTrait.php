@@ -2,7 +2,7 @@
 
 namespace Telegram\Entity\Traits;
 
-trait MimeAttributeTrait
+trait FileMimeTrait
 {
     /**
      * @var int

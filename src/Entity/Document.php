@@ -2,18 +2,15 @@
 
 namespace Telegram\Entity;
 
-use Telegram\Entity\Traits\FileSizeAttributeTrait;
-use Telegram\Entity\Traits\MimeAttributeTrait;
+use Telegram\Entity\Traits\{
+    FileSizeTrait, FileMimeTrait, FileTrait
+};
 
 class Document extends Entity
 {
-    use FileSizeAttributeTrait;
-    use MimeAttributeTrait;
-
-    /**
-     * @var string
-     */
-    protected $fileId;
+    use FileTrait;
+    use FileSizeTrait;
+    use FileMimeTrait;
 
     /**
      * @var Photo
@@ -28,11 +25,6 @@ class Document extends Entity
     public function __construct(string $fileId)
     {
         $this->fileId = $fileId;
-    }
-
-    public function getFileId(): string
-    {
-        return $this->fileId;
     }
 
     public function getThumb():? Photo

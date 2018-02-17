@@ -2,7 +2,7 @@
 
 namespace Telegram\Entity\Traits;
 
-trait FileSizeAttributeTrait
+trait FileSizeTrait
 {
     /**
      * @var int
