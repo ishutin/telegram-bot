@@ -12,6 +12,6 @@ $token = 'xxxx-xxxx-xxxx-xxxx';
 $request = new Request($token);
 
 // Chat entity
-$chat = new Chat('example-chat-id', Chat::TYPE_PRIVATE_CHAT);
+$chat = new Chat('examples-chat-id', Chat::TYPE_PRIVATE_CHAT);
 
 $request->sendMessage($chat, 'hello world');

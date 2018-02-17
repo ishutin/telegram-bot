@@ -2,7 +2,7 @@
 
 ## Description
 
-High-performance and flexible library for[Telegram Bot API](https://core.telegram.org/bots/api).
+High-performance and flexible library for [Telegram Bot API](https://core.telegram.org/bots/api).
 
 
 ## Installing
@@ -15,4 +15,4 @@ composer require ishutin/telegram-bot:dev-master
 
 ## Example
 
-Check[examples](https://github.com/ishutin/telegram-bot/tree/master/example)of using.
+Check [examples](https://github.com/ishutin/telegram-bot/tree/master/examples) of using.
