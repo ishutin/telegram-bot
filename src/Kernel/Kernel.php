@@ -2,10 +2,6 @@
 
 namespace Telegram\Kernel;
 
-use Telegram\Entity\Update;
-use Telegram\Kernel\HandlerInterface;
-use Telegram\Kernel\Handler\UpdateHandlerInterface;
-
 class Kernel
 {
     /**

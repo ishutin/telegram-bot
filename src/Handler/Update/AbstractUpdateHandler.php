@@ -18,14 +18,14 @@ abstract class AbstractUpdateHandler
     public const EVENT_PRE_CHECKOUT_QUERY = 'pre_checkout_query';
 
     /**
-     * @var EventHandlerInterface[]
-     */
-    private $handlers;
-
-    /**
      * @var RequestInterface
      */
     protected $request;
+
+    /**
+     * @var EventHandlerInterface[]
+     */
+    private $handlers;
 
     public function __construct(RequestInterface $request)
     {
