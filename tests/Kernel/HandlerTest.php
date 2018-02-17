@@ -7,26 +7,16 @@ use PHPUnit\Framework\TestCase;
 use Telegram\Kernel\HandlerInterface;
 use Telegram\Kernel\Kernel;
 
-final class KernelTest extends TestCase
+final class HandlerTest extends TestCase
 {
     public function testHandler(): void
     {
-        $kernel = new Kernel();
-
-        $exampleHandler = $this->getExampleHandler();
-
-        $kernel->attachHandler($exampleHandler);
-        $kernel->detachHandler($exampleHandler);
-        $kernel->run();
-
-        $kernel->attachHandler($exampleHandler);
+        $handler = $this->getExampleHandler();
 
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Handler is worked');
 
-        $kernel->run();
-
-        $kernel->detachHandler($exampleHandler);
+        $handler->handle();
     }
 
     private function getExampleHandler(): HandlerInterface
