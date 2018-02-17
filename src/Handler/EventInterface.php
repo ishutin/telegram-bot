@@ -5,7 +5,7 @@ namespace Telegram\Handler;
 use Telegram\Entity\Update;
 use Telegram\Kernel\RequestInterface;
 
-interface ActionInterface
+interface EventInterface
 {
-    public function run(RequestInterface $request, Update $update): void;
+    public function handle(RequestInterface $request, Update $update): void;
 }
