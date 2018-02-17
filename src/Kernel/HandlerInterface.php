@@ -1,11 +1,10 @@
 <?php
 
-namespace Telegram\Handler;
+namespace Telegram\Kernel;
 
 use Telegram\Entity\Update;
-use Telegram\Kernel\RequestInterface;
 
-interface EventInterface
+interface HandlerInterface
 {
     public function handle(RequestInterface $request, Update $update): void;
 }

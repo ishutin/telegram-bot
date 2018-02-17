@@ -3,7 +3,7 @@
 namespace Telegram\Kernel;
 
 use Telegram\Entity\Update;
-use Telegram\Handler\EventHandlerInterface;
+use Telegram\Kernel\HandlerInterface;
 use Telegram\Kernel\Handler\UpdateHandlerInterface;
 
 class Kernel
@@ -19,7 +19,7 @@ class Kernel
     private $updateHandler;
 
     /**
-     * @var EventHandlerInterface[]
+     * @var HandlerInterface[]
      */
     private $handlers = [];
 
@@ -31,12 +31,12 @@ class Kernel
         $this->updateHandler = $updateHandler;
     }
 
-    public function attachHandler(EventHandlerInterface $handler): void
+    public function attachHandler(HandlerInterface $handler): void
     {
         $this->handlers[get_class($handler)] = $handler;
     }
 
-    public function detachHandler(EventHandlerInterface $handler): void
+    public function detachHandler(HandlerInterface $handler): void
     {
         $key = get_class($handler);
         if (isset($this->handlers[$key])) {

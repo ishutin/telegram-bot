@@ -1,7 +1,7 @@
 <?
 
 use Telegram\{
-    Handler\EventHandler, Kernel\Handler\WebHookHandler, Kernel\Kernel, Kernel\Request
+    Handler\Event, Kernel\Handler\WebHookHandler, Kernel\Kernel, Kernel\Request
 };
 
 require_once '../../vendor/autoload.php';
@@ -14,10 +14,10 @@ $updateHandler = new WebHookHandler();
 // Init app
 $app = new Kernel($request, $updateHandler);
 
-// handler listen events MESSAGE and EDITED MESSAGE
-$handler = (new EventHandler())
-    ->on(EventHandler::EVENT_MESSAGE, new MessageEvent())
-    ->on(EventHandler::EVENT_EDITED_MESSAGE, new EditedMessageEvent());
+// handlers listen events MESSAGE and EDITED MESSAGE
+$handler = (new Event())
+    ->on(Event::EVENT_MESSAGE, new MessageEventHandler())
+    ->on(Event::EVENT_EDITED_MESSAGE, new EditedMessageEventHandler());
 
 // attach event handler to app
 $app->attachHandler($handler);

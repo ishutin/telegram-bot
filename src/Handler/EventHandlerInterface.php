@@ -8,6 +8,4 @@ use Telegram\Kernel\RequestInterface;
 interface EventHandlerInterface
 {
     public function handle(RequestInterface $request, Update $update): void;
-
-    public function on(string $event, EventInterface $action): EventHandlerInterface;
 }

@@ -1,10 +1,10 @@
 <?php
 
 use Telegram\{
-    Entity\Update, Handler\EventInterface, Kernel\RequestInterface
+    Entity\Update, Handler\EventHandlerInterface, Kernel\RequestInterface
 };
 
-class EditedMessageEvent implements EventInterface
+class EditedMessageEventHandler implements EventHandlerInterface
 {
     public function handle(RequestInterface $request, Update $update): void
     {
