@@ -36,11 +36,7 @@ final class KernelTest extends TestCase
     {
         return new class implements HandlerInterface
         {
-            /**
-             * @param RequestInterface $request
-             * @throws Exception
-             */
-            public function handle(RequestInterface $request): void
+            public function handle(): void
             {
                 throw new Exception('Handler is worked');
             }

@@ -4,5 +4,5 @@ namespace Telegram\Kernel;
 
 interface HandlerInterface
 {
-    public function handle(RequestInterface $request): void;
+    public function handle(): void;
 }

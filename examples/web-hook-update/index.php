@@ -14,7 +14,7 @@ $request = new Request($token);
 // Init app
 $app = new Kernel($request);
 
-$updateHandler = new WebHookUpdateHandler();
+$updateHandler = new WebHookUpdateHandler($request);
 
 // handlers listen events MESSAGE and EDITED MESSAGE
 $updateHandler

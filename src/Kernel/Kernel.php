@@ -39,7 +39,7 @@ class Kernel
     public function run(): void
     {
         foreach ($this->handlers as $handler) {
-            $handler->handle($this->request);
+            $handler->handle();
         }
     }
 }

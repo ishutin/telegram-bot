@@ -31,33 +31,77 @@ class ManualUpdateHandler extends AbstractUpdateHandler implements HandlerInterf
     private $allowedUpdates = null;
 
     /**
-     * ManualHandler constructor.
-     * @param int|null $offset
-     * @param int|null $limit
-     * @param int|null $timeout
-     * @param string[]|string|null $allowedUpdates
+     * @throws \Telegram\Exception\EntityParserException
      */
-    public function __construct(
-        int $offset = null,
-        int $limit = null,
-        int $timeout = null,
-        array $allowedUpdates = null
-    ) {
-        $this->offset = $offset;
-        $this->limit = $limit;
-        $this->timeout = $timeout;
-        $this->allowedUpdates = $allowedUpdates;
+    public function handle(): void
+    {
+        foreach ($this->getUpdates($this->request) as $update) {
+            $this->handleUpdate($this->request, $update);
+        }
     }
 
     /**
-     * @param RequestInterface $request
-     * @throws \Telegram\Exception\EntityParserException
+     * @return int
      */
-    public function handle(RequestInterface $request): void
+    public function getOffset(): int
     {
-        foreach ($this->getUpdates($request) as $update) {
-            $this->handleUpdate($request, $update);
-        }
+        return $this->offset;
+    }
+
+    /**
+     * @param int $offset
+     */
+    public function setOffset(int $offset): void
+    {
+        $this->offset = $offset;
+    }
+
+    /**
+     * @return int
+     */
+    public function getLimit(): int
+    {
+        return $this->limit;
+    }
+
+    /**
+     * @param int $limit
+     */
+    public function setLimit(int $limit): void
+    {
+        $this->limit = $limit;
+    }
+
+    /**
+     * @return int
+     */
+    public function getTimeout(): int
+    {
+        return $this->timeout;
+    }
+
+    /**
+     * @param int $timeout
+     */
+    public function setTimeout(int $timeout): void
+    {
+        $this->timeout = $timeout;
+    }
+
+    /**
+     * @return string|string[]
+     */
+    public function getAllowedUpdates()
+    {
+        return $this->allowedUpdates;
+    }
+
+    /**
+     * @param string|string[] $allowedUpdates
+     */
+    public function setAllowedUpdates($allowedUpdates): void
+    {
+        $this->allowedUpdates = $allowedUpdates;
     }
 
     /**

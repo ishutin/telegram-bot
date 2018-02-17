@@ -22,6 +22,16 @@ abstract class AbstractUpdateHandler
      */
     private $handlers;
 
+    /**
+     * @var RequestInterface
+     */
+    protected $request;
+
+    public function __construct(RequestInterface $request)
+    {
+        $this->request = $request;
+    }
+
     public function handleUpdate(RequestInterface $request, Update $update): void
     {
         if ($handler = $this->getHandler(self::EVENT_ALL)) {

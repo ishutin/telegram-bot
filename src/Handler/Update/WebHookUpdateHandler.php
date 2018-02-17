@@ -16,8 +16,10 @@ class WebHookUpdateHandler extends AbstractUpdateHandler implements HandlerInter
      */
     private $response;
 
-    public function __construct(ResponseInterface $response = null)
+    public function __construct(RequestInterface $request, ResponseInterface $response = null)
     {
+        parent::__construct($request);
+
         $this->response = $response;
 
         if (is_null($this->response)) {
@@ -28,17 +30,16 @@ class WebHookUpdateHandler extends AbstractUpdateHandler implements HandlerInter
     }
 
     /**
-     * @param RequestInterface $request
      * @throws \Telegram\Exception\EntityParserException
      */
-    public function handle(RequestInterface $request): void
+    public function handle(): void
     {
         if ($this->response) {
             $parser = new EntityParser();
             $updateData = \GuzzleHttp\json_decode($this->response->getBody(), true);
 
             if ($update = $parser->parseUpdate($updateData['result'] ?? [])) {
-                $this->handleUpdate($request, $update);
+                $this->handleUpdate($this->request, $update);
             }
         }
     }

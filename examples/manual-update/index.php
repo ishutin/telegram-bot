@@ -14,7 +14,7 @@ $request = new Request($token);
 // Init app
 $app = new Kernel($request);
 
-$updateHandler = new ManualUpdateHandler();
+$updateHandler = new ManualUpdateHandler($request);
 
 // handlers listen events MESSAGE and EDITED MESSAGE
 $updateHandler
