@@ -13,7 +13,7 @@
     "require": {
         "php": ">=7.1",
         "guzzlehttp/guzzle": "^6.3",
-        "ishutin/http-helper": "^1.0"
+        "fig/http-message-util": "^1.1"
     },
     "autoload": {
         "psr-4": {

@@ -2,9 +2,9 @@
 
 namespace Telegram\Handler\Update;
 
+use Fig\Http\Message\StatusCodeInterface;
 use GuzzleHttp\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
-use HttpHelper\StatusCode;
 use Telegram\Kernel\EntityParser;
 use Telegram\Kernel\HandlerInterface;
 use Telegram\Kernel\RequestInterface;
@@ -24,7 +24,11 @@ class WebHookUpdateHandler extends AbstractUpdateHandler implements HandlerInter
 
         if (is_null($this->response)) {
             if ($content = file_get_contents('php://input')) {
-                $this->response = new Response(StatusCode::OK, [], $content);
+                $this->response = new Response(
+                    StatusCodeInterface::STATUS_OK,
+                    [],
+                    $content
+                );
             }
         }
     }

@@ -2,6 +2,7 @@
 
 namespace Telegram\Kernel;
 
+use Fig\Http\Message\StatusCodeInterface;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\ClientException;
@@ -9,7 +10,6 @@ use Psr\Http\Message\ResponseInterface;
 use Telegram\Entity\Chat;
 use Telegram\Entity\Message;
 use Telegram\Exception\RequestException;
-use HttpHelper\StatusCode;
 
 class Request implements RequestInterface
 {
@@ -76,7 +76,7 @@ class Request implements RequestInterface
             'text' => $text,
         ]);
 
-        return $response->getStatusCode() === StatusCode::OK;
+        return $response->getStatusCode() === StatusCodeInterface::STATUS_OK;
     }
 
     /**
@@ -98,7 +98,7 @@ class Request implements RequestInterface
             'message_id' => $message->getId(),
         ]);
 
-        return $response->getStatusCode() === StatusCode::OK;
+        return $response->getStatusCode() === StatusCodeInterface::STATUS_OK;
     }
 
     /**
