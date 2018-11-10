@@ -5,7 +5,6 @@ namespace Test\Kernel;
 use Exception;
 use PHPUnit\Framework\TestCase;
 use Telegram\Kernel\HandlerInterface;
-use Telegram\Kernel\Kernel;
 
 final class HandlerTest extends TestCase
 {
@@ -23,6 +22,9 @@ final class HandlerTest extends TestCase
     {
         return new class implements HandlerInterface
         {
+            /**
+             * @throws Exception
+             */
             public function handle(): void
             {
                 throw new Exception('Handler is worked');

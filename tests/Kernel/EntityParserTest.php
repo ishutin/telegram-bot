@@ -7,7 +7,6 @@ use Telegram\Entity\Audio;
 use Telegram\Entity\Chat;
 use Telegram\Entity\Document;
 use Telegram\Entity\Message;
-use Telegram\Entity\Update;
 use Telegram\Entity\User;
 use Telegram\Kernel\EntityParser;
 
@@ -67,13 +66,15 @@ final class EntityParserTest extends TestCase
         ],
     ];
 
+    /**
+     * @throws \Telegram\Exception\EntityParserException
+     */
     public function testMessageParser(): void
     {
         $parser = new EntityParser();
         $request = $this->testRequest;
 
         $update = $parser->parseUpdate($request);
-        $this->assertInstanceOf(Update::class, $update);
 
         $message = $update->getMessage();
         $this->assertInstanceOf(Message::class, $message);

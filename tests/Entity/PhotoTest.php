@@ -7,9 +7,7 @@ use Telegram\Entity\Photo;
 
 final class PhotoTest extends TestCase
 {
-
-
-    public function testAttributes()
+    public function testAttributes(): void
     {
         $fileId = 'etlh53j53he9tn35i-h35';
         $width = 600;

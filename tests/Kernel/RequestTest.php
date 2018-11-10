@@ -9,7 +9,6 @@ use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
-use Telegram\Entity\Chat;
 use Telegram\Exception\RequestException;
 use Telegram\Kernel\Request;
 
@@ -50,7 +49,6 @@ final class RequestTest extends TestCase
         );
 
         $response = $request->getUpdates();
-        $this->assertInstanceOf(ResponseInterface::class, $response);
         $this->assertEquals($mockData, $response->getBody());
     }
 

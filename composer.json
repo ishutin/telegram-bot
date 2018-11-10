@@ -13,7 +13,8 @@
     "require": {
         "php": ">=7.1",
         "guzzlehttp/guzzle": "^6.3",
-        "fig/http-message-util": "^1.1"
+        "fig/http-message-util": "^1.1",
+        "ext-json": "*"
     },
     "autoload": {
         "psr-4": {

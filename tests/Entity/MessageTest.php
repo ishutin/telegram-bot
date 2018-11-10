@@ -27,7 +27,6 @@ final class MessageTest extends TestCase
 
         $this->assertEquals($id, $message->getId());
         $this->assertEquals($date, $message->getDate());
-        $this->assertInstanceOf(Chat::class, $message->getChat());
 
         $this->assertEmpty($message->getEntities());
         $this->assertNull($message->getAudio());
