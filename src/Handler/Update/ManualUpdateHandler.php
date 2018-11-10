@@ -28,7 +28,7 @@ class ManualUpdateHandler extends AbstractUpdateHandler implements HandlerInterf
     /**
      * @var string|string[]
      */
-    private $allowedUpdates = null;
+    private $allowedUpdates;
 
     /**
      * @throws \Telegram\Exception\EntityParserException

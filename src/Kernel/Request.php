@@ -6,6 +6,7 @@ use Fig\Http\Message\StatusCodeInterface;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Exception\GuzzleException;
 use Psr\Http\Message\ResponseInterface;
 use Telegram\Entity\Chat;
 use Telegram\Entity\Message;
@@ -13,8 +14,6 @@ use Telegram\Exception\RequestException;
 
 class Request implements RequestInterface
 {
-    private const API_URL = 'https://api.telegram.org/';
-
     /**
      * @var string
      */
@@ -25,16 +24,31 @@ class Request implements RequestInterface
      */
     private $client;
 
+    /**
+     * @var string
+     */
+    private $apiUrl = 'https://api.telegram.org/';
+
     public function __construct(string $token, ClientInterface $client = null)
     {
         $this->token = $token;
         $this->client = $client;
 
-        if (is_null($this->client)) {
+        if ($this->client === null) {
             $this->client = new Client([
-                'base_uri' => self::API_URL,
+                'base_uri' => $this->apiUrl,
             ]);
         }
+    }
+
+    public function setApiUrl(string $url): void
+    {
+        $this->apiUrl = $url;
+    }
+
+    public function getApiUrl(): ?string
+    {
+        return $this->apiUrl;
     }
 
     /**
@@ -57,7 +71,7 @@ class Request implements RequestInterface
             'timeout' => $timeout,
             'allowed_updates' => $allowedUpdates,
         ], function ($var) {
-            return !is_null($var);
+            return $var !== null;
         });
 
         return $this->sendGet('getUpdates', $query);
@@ -115,7 +129,7 @@ class Request implements RequestInterface
                 $this->getRequestUri($method),
                 ['query' => $params]
             );
-        } catch (ClientException $e) {
+        } catch (ClientException | GuzzleException $e) {
             throw new RequestException($e->getMessage());
         }
     }

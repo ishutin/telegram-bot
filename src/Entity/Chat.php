@@ -90,57 +90,57 @@ class Chat extends Entity
         return $this->type;
     }
 
-    public function getTitle():? string
+    public function getTitle(): ?string
     {
         return $this->title;
     }
 
-    public function getUsername():? string
+    public function getUsername(): ?string
     {
         return $this->username;
     }
 
-    public function getFirstName():? string
+    public function getFirstName(): ?string
     {
         return $this->firstName;
     }
 
-    public function getLastName():? string
+    public function getLastName(): ?string
     {
         return $this->lastName;
     }
 
-    public function getDescription():? string
+    public function getDescription(): ?string
     {
         return $this->description;
     }
 
-    public function getAllMembersAreAdministrators():? bool
+    public function getAllMembersAreAdministrators(): ?bool
     {
         return $this->allMembersAreAdministrators;
     }
 
-    public function getPhoto():? ChatPhoto
+    public function getPhoto(): ?ChatPhoto
     {
         return $this->photo;
     }
 
-    public function getInviteLink():? string
+    public function getInviteLink(): ?string
     {
         return $this->inviteLink;
     }
 
-    public function getPinnedMessage():? Message
+    public function getPinnedMessage(): ?Message
     {
         return $this->pinnedMessage;
     }
 
-    public function getStickerSetName():? string
+    public function getStickerSetName(): ?string
     {
         return $this->stickerSetName;
     }
 
-    public function getCanSetStickerSet():? bool
+    public function getCanSetStickerSet(): ?bool
     {
         return $this->canSetStickerSet;
     }

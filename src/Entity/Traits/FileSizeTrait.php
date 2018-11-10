@@ -14,7 +14,7 @@ trait FileSizeTrait
         $this->fileSize = $fileSize;
     }
 
-    public function getFileSize():? int
+    public function getFileSize(): ?int
     {
         return $this->fileSize;
     }

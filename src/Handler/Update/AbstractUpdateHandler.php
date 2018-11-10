@@ -36,39 +36,37 @@ abstract class AbstractUpdateHandler
     {
         if ($handler = $this->getHandler(self::EVENT_ALL)) {
             $handler->handle($request, $update);
-        } else {
-            if ($handler = $this->getHandler(self::EVENT_MESSAGE)) {
-                if ($update->getMessage()) {
-                    $handler->handle($request, $update);
-                }
-            } elseif ($handler = $this->getHandler(self::EVENT_CHANNEL_POST)) {
-                if ($update->getChannelPost()) {
-                    $handler->handle($request, $update);
-                }
-            } elseif ($handler = $this->getHandler(self::EVENT_EDITED_MESSAGE)) {
-                if ($update->getEditedMessage()) {
-                    $handler->handle($request, $update);
-                }
-            } elseif ($handler = $this->getHandler(self::EVENT_EDITED_CHANNEL_POST)) {
-                if ($update->getEditedChannelPost()) {
-                    $handler->handle($request, $update);
-                }
-            } elseif ($handler = $this->getHandler(self::EVENT_INLINE_QUERY)) {
-                if ($update->getInlineQuery()) {
-                    $handler->handle($request, $update);
-                }
-            } elseif ($handler = $this->getHandler(self::EVENT_CHOSEN_INLINE_RESULT)) {
-                if ($update->getChosenInlineResult()) {
-                    $handler->handle($request, $update);
-                }
-            } elseif ($handler = $this->getHandler(self::EVENT_CALLBACK_QUERY)) {
-                if ($update->getCallbackQuery()) {
-                    $handler->handle($request, $update);
-                }
-            } elseif ($handler = $this->getHandler(self::EVENT_PRE_CHECKOUT_QUERY)) {
-                if ($update->getPreCheckoutQuery()) {
-                    $handler->handle($request, $update);
-                }
+        } elseif ($handler = $this->getHandler(self::EVENT_MESSAGE)) {
+            if ($update->getMessage()) {
+                $handler->handle($request, $update);
+            }
+        } elseif ($handler = $this->getHandler(self::EVENT_CHANNEL_POST)) {
+            if ($update->getChannelPost()) {
+                $handler->handle($request, $update);
+            }
+        } elseif ($handler = $this->getHandler(self::EVENT_EDITED_MESSAGE)) {
+            if ($update->getEditedMessage()) {
+                $handler->handle($request, $update);
+            }
+        } elseif ($handler = $this->getHandler(self::EVENT_EDITED_CHANNEL_POST)) {
+            if ($update->getEditedChannelPost()) {
+                $handler->handle($request, $update);
+            }
+        } elseif ($handler = $this->getHandler(self::EVENT_INLINE_QUERY)) {
+            if ($update->getInlineQuery()) {
+                $handler->handle($request, $update);
+            }
+        } elseif ($handler = $this->getHandler(self::EVENT_CHOSEN_INLINE_RESULT)) {
+            if ($update->getChosenInlineResult()) {
+                $handler->handle($request, $update);
+            }
+        } elseif ($handler = $this->getHandler(self::EVENT_CALLBACK_QUERY)) {
+            if ($update->getCallbackQuery()) {
+                $handler->handle($request, $update);
+            }
+        } elseif ($handler = $this->getHandler(self::EVENT_PRE_CHECKOUT_QUERY)) {
+            if ($update->getPreCheckoutQuery()) {
+                $handler->handle($request, $update);
             }
         }
     }
@@ -80,7 +78,7 @@ abstract class AbstractUpdateHandler
         return $this;
     }
 
-    private function getHandler(string $event):? EventHandlerInterface
+    private function getHandler(string $event): ?EventHandlerInterface
     {
         return $this->handlers[$event] ?? null;
     }

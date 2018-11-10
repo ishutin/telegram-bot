@@ -29,12 +29,12 @@ class Audio extends Entity
         $this->duration = $duration;
     }
 
-    public function getPerformer():? string
+    public function getPerformer(): ?string
     {
         return $this->performer;
     }
 
-    public function getTitle():? string
+    public function getTitle(): ?string
     {
         return $this->title;
     }

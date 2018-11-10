@@ -6,7 +6,6 @@ use PHPUnit\Framework\TestCase;
 use Telegram\Entity\Chat;
 use Telegram\Entity\ChatPhoto;
 use Telegram\Entity\Message;
-use Telegram\Entity\Photo;
 
 final class ChatTest extends TestCase
 {

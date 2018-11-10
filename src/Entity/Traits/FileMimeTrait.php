@@ -14,7 +14,7 @@ trait FileMimeTrait
         $this->mimeType = $type;
     }
 
-    public function getMimeType():? string
+    public function getMimeType(): ?string
     {
         return $this->mimeType;
     }

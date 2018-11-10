@@ -20,5 +20,5 @@ $updateHandler
 try {
     $updateHandler->handle();
 } catch (EntityParserException $e) {
-    // exception handle
+    // catch exceptions
 }

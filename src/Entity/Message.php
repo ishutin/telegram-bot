@@ -22,12 +22,12 @@ class Message extends Entity
     /**
      * @var User
      */
-    protected $from = null;
+    protected $from;
 
     /**
      * @var string
      */
-    protected $text = null;
+    protected $text;
 
     /**
      * @var MessageEntity[]
@@ -37,12 +37,12 @@ class Message extends Entity
     /**
      * @var Message
      */
-    protected $replyTo = null;
+    protected $replyTo;
 
     /**
      * @var Audio
      */
-    protected $audio = null;
+    protected $audio;
 
     /**
      * @var Photo[]
@@ -52,12 +52,12 @@ class Message extends Entity
     /**
      * @var User
      */
-    protected $leftChatMember = null;
+    protected $leftChatMember;
 
     /**
      * @var Chat
      */
-    protected $forwardFromChat = null;
+    protected $forwardFromChat;
 
     /**
      * @var Document
@@ -115,7 +115,7 @@ class Message extends Entity
 
         if (!empty($this->entities)) {
             foreach ($this->entities as $entity) {
-                if ($entity->getType() != $type) {
+                if ($entity->getType() !== $type) {
                     continue;
                 }
 

@@ -22,14 +22,12 @@ class WebHookUpdateHandler extends AbstractUpdateHandler implements HandlerInter
 
         $this->response = $response;
 
-        if (is_null($this->response)) {
-            if ($content = file_get_contents('php://input')) {
-                $this->response = new Response(
-                    StatusCodeInterface::STATUS_OK,
-                    [],
-                    $content
-                );
-            }
+        if (($this->response === null) && $content = file_get_contents('php://input')) {
+            $this->response = new Response(
+                StatusCodeInterface::STATUS_OK,
+                [],
+                $content
+            );
         }
     }
 
