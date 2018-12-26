@@ -32,7 +32,7 @@ class WebHookUpdateHandler extends AbstractUpdateHandler implements HandlerInter
     }
 
     /**
-     * @throws \Telegram\Exception\EntityParserException
+     * @throws \Telegram\Kernel\Exception\EntityParserException
      */
     public function handle(): void
     {

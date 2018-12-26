@@ -31,7 +31,7 @@ class ManualUpdateHandler extends AbstractUpdateHandler implements HandlerInterf
     private $allowedUpdates;
 
     /**
-     * @throws \Telegram\Exception\EntityParserException
+     * @throws \Telegram\Kernel\Exception\EntityParserException
      */
     public function handle(): void
     {
@@ -107,7 +107,7 @@ class ManualUpdateHandler extends AbstractUpdateHandler implements HandlerInterf
     /**
      * @param RequestInterface $request
      * @return Update[]
-     * @throws \Telegram\Exception\EntityParserException
+     * @throws \Telegram\Kernel\Exception\EntityParserException
      */
     private function getUpdates(RequestInterface $request): array
     {

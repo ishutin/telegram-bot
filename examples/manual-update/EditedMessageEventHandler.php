@@ -25,6 +25,6 @@ class EditedMessageEventHandler implements EventHandlerInterface
             throw new Exception('Invalid chat');
         }
 
-        $request->sendMessage($chat->getId(), 'You changed message!');
+        $request->sendMessage($chat->getId(), 'Changed message!');
     }
 }

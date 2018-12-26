@@ -2,7 +2,9 @@
 
 namespace Telegram\Entity\Payment;
 
-class ShippingQuery
+use Telegram\Entity\Entity;
+
+class ShippingQuery extends Entity
 {
 
 }

@@ -2,7 +2,9 @@
 
 namespace Telegram\Entity\Inline;
 
-class InlineQuery
+use Telegram\Entity\Entity;
+
+class InlineQuery extends Entity
 {
 
 }

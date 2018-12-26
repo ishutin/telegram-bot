@@ -1,6 +1,6 @@
 <?php
 
-use Telegram\Exception\EntityParserException;
+use Telegram\Kernel\Exception\EntityParserException;
 use Telegram\Handler\Update\AbstractUpdateHandler;
 use Telegram\Handler\Update\ManualUpdateHandler;
 use Telegram\Kernel\Request;

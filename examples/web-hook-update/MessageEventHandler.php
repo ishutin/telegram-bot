@@ -16,13 +16,13 @@ class MessageEventHandler implements EventHandlerInterface
         $message = $update->getMessage();
 
         if (!$message instanceof Message) {
-            throw new Exception('Invalid message');
+            throw new TE('Invalid message');
         }
 
         $chat = $message->getChat();
 
         if (!$chat instanceof Chat) {
-            throw new Exception('Invalid chat');
+            throw new \Exception('Invalid chat');
         }
 
         $request->sendMessage($chat->getId(), 'Hello, world!');

@@ -2,7 +2,9 @@
 
 namespace Telegram\Entity\Payment;
 
-class PreCheckoutQuery
+use Telegram\Entity\Entity;
+
+class PreCheckoutQuery extends Entity
 {
 
 }

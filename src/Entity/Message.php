@@ -86,12 +86,12 @@ class Message extends Entity
         return $this->date;
     }
 
-    public function getFrom():? User
+    public function getFrom(): ?User
     {
         return $this->from;
     }
 
-    public function getText():? string
+    public function getText(): ?string
     {
         return $this->text;
     }
@@ -130,12 +130,12 @@ class Message extends Entity
         return $result;
     }
 
-    public function getReplyTo():? Message
+    public function getReplyTo(): ?Message
     {
         return $this->replyTo;
     }
 
-    public function getAudio():? Audio
+    public function getAudio(): ?Audio
     {
         return $this->audio;
     }
@@ -148,17 +148,17 @@ class Message extends Entity
         return $this->photos;
     }
 
-    public function getLeftChatMember():? User
+    public function getLeftChatMember(): ?User
     {
         return $this->leftChatMember;
     }
 
-    public function getForwardFromChat():? Chat
+    public function getForwardFromChat(): ?Chat
     {
         return $this->forwardFromChat;
     }
 
-    public function getDocument():? Document
+    public function getDocument(): ?Document
     {
         return $this->document;
     }

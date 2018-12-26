@@ -67,7 +67,7 @@ final class EntityParserTest extends TestCase
     ];
 
     /**
-     * @throws \Telegram\Exception\EntityParserException
+     * @throws \Telegram\Kernel\Exception\EntityParserException
      */
     public function testMessageParser(): void
     {

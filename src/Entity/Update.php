@@ -63,42 +63,42 @@ class Update
         return $this->updateId;
     }
 
-    public function getMessage(): ? Message
+    public function getMessage(): ?Message
     {
         return $this->message;
     }
 
-    public function getChannelPost(): ? Message
+    public function getChannelPost(): ?Message
     {
         return $this->channelPost;
     }
 
-    public function getEditedMessage(): ? Message
+    public function getEditedMessage(): ?Message
     {
         return $this->editedMessage;
     }
 
-    public function getEditedChannelPost(): ? Message
+    public function getEditedChannelPost(): ?Message
     {
         return $this->editedChannelPost;
     }
 
-    public function getInlineQuery(): ? InlineQuery
+    public function getInlineQuery(): ?InlineQuery
     {
         return $this->inlineQuery;
     }
 
-    public function getChosenInlineResult(): ? ChosenInlineResult
+    public function getChosenInlineResult(): ?ChosenInlineResult
     {
         return $this->chosenInlineResult;
     }
 
-    public function getCallbackQuery(): ? CallbackQuery
+    public function getCallbackQuery(): ?CallbackQuery
     {
         return $this->callbackQuery;
     }
 
-    public function getPreCheckoutQuery(): ? PreCheckoutQuery
+    public function getPreCheckoutQuery(): ?PreCheckoutQuery
     {
         return $this->preCheckoutQuery;
     }

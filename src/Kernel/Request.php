@@ -10,7 +10,7 @@ use GuzzleHttp\Exception\GuzzleException;
 use Psr\Http\Message\ResponseInterface;
 use Telegram\Entity\Chat;
 use Telegram\Entity\Message;
-use Telegram\Exception\RequestException;
+use Telegram\Kernel\Exception\RequestException;
 
 class Request implements RequestInterface
 {

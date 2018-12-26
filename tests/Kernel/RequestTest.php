@@ -9,7 +9,7 @@ use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
-use Telegram\Exception\RequestException;
+use Telegram\Kernel\Exception\RequestException;
 use Telegram\Kernel\Request;
 
 final class RequestTest extends TestCase

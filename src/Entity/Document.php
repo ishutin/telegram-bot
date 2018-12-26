@@ -27,7 +27,7 @@ class Document extends Entity
         $this->fileId = $fileId;
     }
 
-    public function getThumb():? Photo
+    public function getThumb(): ?Photo
     {
         return $this->thumb;
     }

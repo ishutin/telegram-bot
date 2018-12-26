@@ -1,6 +1,6 @@
 <?php
 
-use Telegram\Exception\RequestException;
+use Telegram\Kernel\Exception\RequestException;
 use Telegram\Kernel\Request;
 
 require_once '../../vendor/autoload.php';

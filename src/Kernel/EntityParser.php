@@ -11,7 +11,7 @@ use Telegram\Entity\MessageEntity;
 use Telegram\Entity\Photo;
 use Telegram\Entity\Update;
 use Telegram\Entity\User;
-use Telegram\Exception\EntityParserException;
+use Telegram\Kernel\Exception\EntityParserException;
 
 class EntityParser
 {

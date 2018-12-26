@@ -2,7 +2,9 @@
 
 namespace Telegram\Entity\Inline;
 
-class ChosenInlineResult
+use Telegram\Entity\Entity;
+
+class ChosenInlineResult extends Entity
 {
 
 }
