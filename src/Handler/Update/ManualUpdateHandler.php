@@ -111,12 +111,13 @@ class ManualUpdateHandler extends AbstractUpdateHandler implements HandlerInterf
      */
     private function getUpdates(RequestInterface $request): array
     {
-        $response = $request->getUpdates(
-            $this->offset,
-            $this->limit,
-            $this->timeout,
-            $this->allowedUpdates
-        );
+        $response = $request
+            ->getUpdates(
+                $this->offset,
+                $this->limit,
+                $this->timeout,
+                $this->allowedUpdates
+            );
 
         $updates = [];
 

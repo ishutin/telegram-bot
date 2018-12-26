@@ -36,7 +36,7 @@ class WebHookUpdateHandler extends AbstractUpdateHandler implements HandlerInter
      */
     public function handle(): void
     {
-        if ($this->response) {
+        if ($this->response instanceof ResponseInterface) {
             $parser = new EntityParser();
             $updateData = \GuzzleHttp\json_decode($this->response->getBody(), true);
 
