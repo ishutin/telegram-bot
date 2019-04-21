@@ -2,8 +2,8 @@
 
 namespace Test\Kernel;
 
-use Exception;
 use PHPUnit\Framework\TestCase;
+use RuntimeException;
 use Telegram\Kernel\HandlerInterface;
 
 final class HandlerTest extends TestCase
@@ -12,7 +12,7 @@ final class HandlerTest extends TestCase
     {
         $handler = $this->getExampleHandler();
 
-        $this->expectException(Exception::class);
+        $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('Handler is worked');
 
         $handler->handle();
@@ -23,11 +23,11 @@ final class HandlerTest extends TestCase
         return new class implements HandlerInterface
         {
             /**
-             * @throws Exception
+             * @throws RuntimeException
              */
             public function handle(): void
             {
-                throw new Exception('Handler is worked');
+                throw new RuntimeException('Handler is worked');
             }
         };
     }

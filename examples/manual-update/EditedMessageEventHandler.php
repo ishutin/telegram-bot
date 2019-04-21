@@ -16,13 +16,13 @@ class EditedMessageEventHandler implements EventHandlerInterface
         $message = $update->getMessage();
 
         if (!$message instanceof Message) {
-            throw new Exception('Invalid message');
+            throw new RuntimeException('Invalid message');
         }
 
         $chat = $message->getChat();
 
         if (!$chat instanceof Chat) {
-            throw new Exception('Invalid chat');
+            throw new RuntimeException('Invalid chat');
         }
 
         $request->sendMessage($chat->getId(), 'Changed message!');

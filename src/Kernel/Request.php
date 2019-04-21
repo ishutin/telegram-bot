@@ -70,7 +70,7 @@ class Request implements RequestInterface
             'limit' => $limit,
             'timeout' => $timeout,
             'allowed_updates' => $allowedUpdates,
-        ], function ($var) {
+        ], static function ($var) {
             return $var !== null;
         });
 

@@ -55,7 +55,7 @@ final class RequestTest extends TestCase
     /**
      * @throws RequestException
      */
-    public function testSendMessage()
+    public function testSendMessage(): void
     {
         $request = new Request('xxxx', $this->clientMock([
             new Response(200, [], '{"ok":true}'),

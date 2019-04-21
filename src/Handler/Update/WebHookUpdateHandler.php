@@ -6,6 +6,7 @@ use Fig\Http\Message\StatusCodeInterface;
 use GuzzleHttp\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
 use Telegram\Kernel\EntityParser;
+use Telegram\Kernel\Exception\EntityParserException;
 use Telegram\Kernel\HandlerInterface;
 use Telegram\Kernel\RequestInterface;
 
@@ -32,7 +33,7 @@ class WebHookUpdateHandler extends AbstractUpdateHandler implements HandlerInter
     }
 
     /**
-     * @throws \Telegram\Kernel\Exception\EntityParserException
+     * @throws EntityParserException
      */
     public function handle(): void
     {

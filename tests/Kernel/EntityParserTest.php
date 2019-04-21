@@ -9,6 +9,7 @@ use Telegram\Entity\Document;
 use Telegram\Entity\Message;
 use Telegram\Entity\User;
 use Telegram\Kernel\EntityParser;
+use Telegram\Kernel\Exception\EntityParserException;
 
 final class EntityParserTest extends TestCase
 {
@@ -67,7 +68,7 @@ final class EntityParserTest extends TestCase
     ];
 
     /**
-     * @throws \Telegram\Kernel\Exception\EntityParserException
+     * @throws EntityParserException
      */
     public function testMessageParser(): void
     {

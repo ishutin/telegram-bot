@@ -4,6 +4,7 @@ namespace Telegram\Handler\Update;
 
 use Fig\Http\Message\StatusCodeInterface;
 use Telegram\Entity\Update;
+use Telegram\Kernel\Exception\EntityParserException;
 use Telegram\Kernel\HandlerInterface;
 use Telegram\Kernel\RequestInterface;
 use Telegram\Kernel\EntityParser;
@@ -31,7 +32,7 @@ class ManualUpdateHandler extends AbstractUpdateHandler implements HandlerInterf
     private $allowedUpdates;
 
     /**
-     * @throws \Telegram\Kernel\Exception\EntityParserException
+     * @throws EntityParserException
      */
     public function handle(): void
     {
@@ -107,7 +108,7 @@ class ManualUpdateHandler extends AbstractUpdateHandler implements HandlerInterf
     /**
      * @param RequestInterface $request
      * @return Update[]
-     * @throws \Telegram\Kernel\Exception\EntityParserException
+     * @throws EntityParserException
      */
     private function getUpdates(RequestInterface $request): array
     {

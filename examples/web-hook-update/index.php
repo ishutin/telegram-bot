@@ -1,7 +1,6 @@
 <?php
 
 use Telegram\Kernel\Exception\EntityParserException;
-use Telegram\Handler\Update\AbstractUpdateHandler;
 use Telegram\Handler\Update\WebHookUpdateHandler;
 use Telegram\Kernel\Request;
 
@@ -14,8 +13,8 @@ $updateHandler = new WebHookUpdateHandler($request); // update handler
 
 // handlers listen events MESSAGE and EDITED MESSAGE
 $updateHandler
-    ->on(AbstractUpdateHandler::EVENT_MESSAGE, new MessageEventHandler())
-    ->on(AbstractUpdateHandler::EVENT_EDITED_MESSAGE, new EditedMessageEventHandler());
+    ->on(WebHookUpdateHandler::EVENT_MESSAGE, new MessageEventHandler())
+    ->on(WebHookUpdateHandler::EVENT_EDITED_MESSAGE, new EditedMessageEventHandler());
 
 try {
     $updateHandler->handle();
