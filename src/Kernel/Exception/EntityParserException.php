@@ -2,7 +2,9 @@
 
 namespace Telegram\Kernel\Exception;
 
-class EntityParserException extends \Exception implements TelegramException
+use Exception;
+
+class EntityParserException extends Exception implements TelegramException
 {
 
 }

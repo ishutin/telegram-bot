@@ -2,7 +2,9 @@
 
 namespace Telegram\Kernel\Exception;
 
-class RequestException extends \Exception implements TelegramException
+use Exception;
+
+class RequestException extends Exception implements TelegramException
 {
 
 }
