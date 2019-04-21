@@ -8,7 +8,7 @@ Simple, flexible and without "trash".
 
 ## Installing
 
-Minimal PHP version: **7.1**
+Minimal PHP version: **7.2**
 
 ```bash
 composer require ishutin/telegram-bot:dev-master
