@@ -2,9 +2,7 @@
 
 namespace Telegram\Entity;
 
-use Telegram\Entity\Traits\{
-    FileSizeTrait, FileMimeTrait, FileTrait
-};
+use Telegram\Entity\Traits\{FileMimeTrait, FileSizeTrait, FileTrait};
 
 class Document extends Entity
 {

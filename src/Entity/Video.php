@@ -2,7 +2,7 @@
 
 namespace Telegram\Entity;
 
-use Telegram\Entity\Traits\{FileDurationTrait, FileSizeTrait, FileTrait, FileMimeTrait, FileWidthAndHeightTrait};
+use Telegram\Entity\Traits\{FileDurationTrait, FileMimeTrait, FileSizeTrait, FileTrait, FileWidthAndHeightTrait};
 
 class Video extends Entity
 {

@@ -4,10 +4,10 @@ namespace Telegram\Handler\Update;
 
 use Fig\Http\Message\StatusCodeInterface;
 use Telegram\Entity\Update;
+use Telegram\Kernel\EntityParser;
 use Telegram\Kernel\Exception\EntityParserException;
 use Telegram\Kernel\HandlerInterface;
 use Telegram\Kernel\RequestInterface;
-use Telegram\Kernel\EntityParser;
 
 class ManualUpdateHandler extends AbstractUpdateHandler implements HandlerInterface
 {
