@@ -17,7 +17,7 @@ class EditedMessageEventHandler implements EventHandlerInterface
      */
     public function handle(RequestInterface $request, Update $update): void
     {
-        $message = $update->getMessage();
+        $message = $update->getEditedMessage();
 
         if (!$message instanceof Message) {
             throw new RuntimeException('Invalid message');
