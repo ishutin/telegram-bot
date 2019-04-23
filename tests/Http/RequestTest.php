@@ -1,6 +1,6 @@
 <?php
 
-namespace Test\Kernel;
+namespace Test\Http;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
