@@ -2,18 +2,14 @@
 
 namespace Telegram\Entity;
 
-use Telegram\Entity\Traits\{FileMimeTrait, FileSizeTrait, FileTrait};
+use Telegram\Entity\Traits\{FileMimeTrait, FileSizeTrait, FileThumbTrait, FileTrait};
 
 class Document
 {
     use FileTrait;
     use FileSizeTrait;
     use FileMimeTrait;
-
-    /**
-     * @var Photo
-     */
-    protected $thumb;
+    use FileThumbTrait;
 
     /**
      * @var string
@@ -25,19 +21,9 @@ class Document
         $this->fileId = $fileId;
     }
 
-    public function getThumb(): ?Photo
-    {
-        return $this->thumb;
-    }
-
     public function getFileName(): string
     {
         return $this->fileName;
-    }
-
-    public function setThumb(Photo $photo = null): void
-    {
-        $this->thumb = $photo;
     }
 
     public function setFileName(string $fileName = null): void

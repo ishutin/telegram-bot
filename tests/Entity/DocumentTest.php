@@ -4,14 +4,14 @@ namespace Test\Entity;
 
 use PHPUnit\Framework\TestCase;
 use Telegram\Entity\Document;
-use Telegram\Entity\Photo;
+use Telegram\Entity\PhotoSize;
 
 final class DocumentTest extends TestCase
 {
     public function testAttributes(): void
     {
         $fileId = 'xxxx-xxxx';
-        $thumb = new Photo('xxxx', 100, 100);
+        $thumb = new PhotoSize('xxxx', 100, 100);
         $mimeType = 'audio/mp3';
         $fileSize = 4625315;
 

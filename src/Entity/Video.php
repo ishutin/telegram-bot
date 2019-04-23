@@ -2,7 +2,12 @@
 
 namespace Telegram\Entity;
 
-use Telegram\Entity\Traits\{FileDurationTrait, FileMimeTrait, FileSizeTrait, FileTrait, FileWidthAndHeightTrait};
+use Telegram\Entity\Traits\FileDurationTrait;
+use Telegram\Entity\Traits\FileMimeTrait;
+use Telegram\Entity\Traits\FileSizeTrait;
+use Telegram\Entity\Traits\FileThumbTrait;
+use Telegram\Entity\Traits\FileTrait;
+use Telegram\Entity\Traits\FileWidthAndHeightTrait;
 
 class Video
 {
@@ -11,11 +16,7 @@ class Video
     use FileSizeTrait;
     use FileMimeTrait;
     use FileWidthAndHeightTrait;
-
-    /**
-     * @var Photo
-     */
-    protected $thumb;
+    use FileThumbTrait;
 
     public function __construct(
         string $fileId,
@@ -27,15 +28,5 @@ class Video
         $this->width = $width;
         $this->height = $height;
         $this->duration = $duration;
-    }
-
-    public function getThumb(): Photo
-    {
-        return $this->thumb;
-    }
-
-    public function setThumb(Photo $thumb): void
-    {
-        $this->thumb = $thumb;
     }
 }

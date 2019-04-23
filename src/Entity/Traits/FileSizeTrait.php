@@ -9,7 +9,7 @@ trait FileSizeTrait
      */
     protected $fileSize;
 
-    public function setFileSize(int $fileSize = null): void
+    public function setFileSize(?int $fileSize): void
     {
         $this->fileSize = $fileSize;
     }

@@ -17,7 +17,7 @@ use Telegram\Entity\Payment\OrderInfo;
 use Telegram\Entity\Payment\PreCheckoutQuery;
 use Telegram\Entity\Payment\ShippingAddress;
 use Telegram\Entity\Payment\ShippingQuery;
-use Telegram\Entity\Photo;
+use Telegram\Entity\PhotoSize;
 use Telegram\Entity\Poll;
 use Telegram\Entity\PollOption;
 use Telegram\Entity\Update;
@@ -109,13 +109,7 @@ class EntityFactory implements EntityFactoryInterface
         }
 
         if (!empty($data['entities'])) {
-            $messageEntities = [];
-
-            foreach ($data['entities'] as $messageEntity) {
-                $messageEntities[] = $this->createMessageEntity($messageEntity);
-            }
-
-            $message->setEntities($messageEntities);
+            $message->setEntities($this->getMessageEntities($data['entities']));
         }
 
         if (!empty($data['forward_from'])) {
@@ -127,13 +121,7 @@ class EntityFactory implements EntityFactoryInterface
         }
 
         if (!empty($data['photo'])) {
-            $photos = [];
-
-            foreach ($data['photo'] as $photoData) {
-                $photos[] = $this->createPhoto($photoData);
-            }
-
-            $message->setPhotos($photos);
+            $message->setPhoto($this->getPhotos($data['photo']));
         }
 
         if (!empty($data['left_chat_member'])) {
@@ -202,16 +190,11 @@ class EntityFactory implements EntityFactoryInterface
         $audio->setMimeType($data['mime_type'] ?? null);
         $audio->setFileSize($data['file_size'] ?? null);
 
+        if (!empty($data['thumb'])) {
+            $audio->setThumb($this->createPhotoSize($data['thumb']));
+        }
+
         return $audio;
-    }
-
-    private function createPhoto(array $data): Photo
-    {
-        $photo = new Photo($data['file_id'], $data['width'], $data['height']);
-
-        $photo->setFileSize($data['file_size'] ?? null);
-
-        return $photo;
     }
 
     private function createChatPhoto(array $data): ChatPhoto
@@ -221,7 +204,15 @@ class EntityFactory implements EntityFactoryInterface
 
     private function createMessageEntity(array $data): MessageEntity
     {
-        return new MessageEntity($data['type'], $data['offset'], $data['length']);
+        $messageEntity = new MessageEntity($data['type'], $data['offset'], $data['length']);
+
+        $messageEntity->setUrl($data['url'] ?? null);
+
+        if (!empty($data['user'])) {
+            $messageEntity->setUser($this->createUser($data['user']));
+        }
+
+        return $messageEntity;
     }
 
     private function createDocument(array $data): Document
@@ -233,7 +224,7 @@ class EntityFactory implements EntityFactoryInterface
         $document->setMimeType($data['mime_type'] ?? null);
 
         if (!empty($data['thumb'])) {
-            $document->setThumb($this->createPhoto($data['thumb']));
+            $document->setThumb($this->createPhotoSize($data['thumb']));
         }
 
         return $document;
@@ -364,5 +355,48 @@ class EntityFactory implements EntityFactoryInterface
     private function createPollOption(array $data): PollOption
     {
         return new PollOption($data['text'], $data['voter_count']);
+    }
+
+    /**
+     * @param array $data
+     * @return MessageEntity[]
+     */
+    private function getMessageEntities(array $data): array
+    {
+        $messageEntities = [];
+
+        foreach ($data as $messageEntity) {
+            $messageEntities[] = $this->createMessageEntity($messageEntity);
+        }
+
+        return $messageEntities;
+    }
+
+    /**
+     * @param array $data
+     * @return PhotoSize[]
+     */
+    private function getPhotos(array $data): array
+    {
+        $photos = [];
+
+        foreach ($data as $photoData) {
+            $photos[] = $this->createPhotoSize($photoData);
+        }
+
+        return $photos;
+    }
+
+    private function createPhotoSize(array $data): PhotoSize
+    {
+        $photo = new PhotoSize(
+            $data['file_id'],
+            $data['width'],
+            $data['height']
+        );
+
+        $photo->setFileSize($data['file_size'] ?? null);
+
+        return $photo;
     }
 }

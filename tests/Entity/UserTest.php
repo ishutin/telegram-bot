@@ -29,7 +29,7 @@ final class UserTest extends TestCase
         $this->assertEquals($firstName, $user->getFirstName());
         $this->assertEquals($lastName, $user->getLastName());
         $this->assertEquals($username, $user->getUsername());
-        $this->assertEquals($lang, $user->getLang());
+        $this->assertEquals($lang, $user->getLanguageCode());
         $this->assertEquals($isBot, $user->getIsBot());
     }
 }

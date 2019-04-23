@@ -12,11 +12,10 @@ class PhotoSize
     use FileWidthAndHeightTrait;
     use FileSizeTrait;
 
-    public function __construct(string $fileId, int $width, int $height, int $fileSize)
+    public function __construct(string $fileId, int $width, int $height)
     {
         $this->fileId = $fileId;
         $this->width = $width;
         $this->height = $height;
-        $this->fileSize = $fileSize;
     }
 }

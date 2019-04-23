@@ -9,7 +9,7 @@ trait FileMimeTrait
      */
     protected $mimeType;
 
-    public function setMimeType(string $type = null): void
+    public function setMimeType(?string $type): void
     {
         $this->mimeType = $type;
     }

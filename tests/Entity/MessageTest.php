@@ -7,7 +7,7 @@ use Telegram\Entity\Audio;
 use Telegram\Entity\Chat;
 use Telegram\Entity\Message;
 use Telegram\Entity\MessageEntity;
-use Telegram\Entity\Photo;
+use Telegram\Entity\PhotoSize;
 use Telegram\Entity\User;
 
 final class MessageTest extends TestCase
@@ -21,7 +21,7 @@ final class MessageTest extends TestCase
         $entities = [new MessageEntity('hashtag', 0, 5)];
         $from = new User(1, 'test', 'test', 'test', 'en', false);
         $replyTo = new Message(1, 2, new Chat(2, 'private'));
-        $photos = [new Photo('test', 1, 1)];
+        $photos = [new PhotoSize('test', 1, 1)];
 
         $message = new Message($id, $date, new Chat(1, 'private'));
 
@@ -33,7 +33,7 @@ final class MessageTest extends TestCase
         $this->assertNull($message->getFrom());
         $this->assertNull($message->getText());
         $this->assertNull($message->getReplyTo());
-        $this->assertEmpty($message->getPhotos());
+        $this->assertEmpty($message->getPhoto());
 
 
         $message->setText($text);
@@ -41,14 +41,14 @@ final class MessageTest extends TestCase
         $message->setEntities($entities);
         $message->setFrom($from);
         $message->setReplyTo($replyTo);
-        $message->setPhotos($photos);
+        $message->setPhoto($photos);
 
         $this->assertEquals($text, $message->getText());
         $this->assertEquals($audio, $message->getAudio());
         $this->assertEquals($entities, $message->getEntities());
         $this->assertEquals($from, $message->getFrom());
         $this->assertEquals($replyTo, $message->getReplyTo());
-        $this->assertEquals($photos, $message->getPhotos());
+        $this->assertEquals($photos, $message->getPhoto());
 
         $this->assertInstanceOf(Audio::class, $message->getAudio());
         $this->assertInstanceOf(User::class, $message->getFrom());

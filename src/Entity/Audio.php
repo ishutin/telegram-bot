@@ -2,7 +2,7 @@
 
 namespace Telegram\Entity;
 
-use Telegram\Entity\Traits\{FileDurationTrait, FileMimeTrait, FileSizeTrait, FileTrait};
+use Telegram\Entity\Traits\{FileDurationTrait, FileMimeTrait, FileSizeTrait, FileThumbTrait, FileTrait};
 
 class Audio
 {
@@ -10,6 +10,7 @@ class Audio
     use FileDurationTrait;
     use FileSizeTrait;
     use FileMimeTrait;
+    use FileThumbTrait;
 
     /**
      * @var string

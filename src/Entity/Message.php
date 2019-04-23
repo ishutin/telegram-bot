@@ -49,9 +49,9 @@ class Message
     protected $audio;
 
     /**
-     * @var Photo[]
+     * @var PhotoSize[]
      */
-    protected $photos = [];
+    protected $photo = [];
 
     /**
      * @var User
@@ -305,11 +305,11 @@ class Message
     }
 
     /**
-     * @return Photo[]
+     * @return PhotoSize[]
      */
-    public function getPhotos(): array
+    public function getPhoto(): array
     {
-        return $this->photos;
+        return $this->photo;
     }
 
     public function getLeftChatMember(): ?User
@@ -355,9 +355,12 @@ class Message
         $this->audio = $audio;
     }
 
-    public function setPhotos(array $photos = []): void
+    /**
+     * @param PhotoSize[] $photo
+     */
+    public function setPhoto(array $photo = []): void
     {
-        $this->photos = $photos;
+        $this->photo = $photo;
     }
 
     public function setLeftChatMember(User $user = null): void
@@ -886,6 +889,4 @@ class Message
     {
         $this->passportData = $passportData;
     }
-
-    
 }

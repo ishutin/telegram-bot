@@ -3,9 +3,9 @@
 namespace Test\Entity;
 
 use PHPUnit\Framework\TestCase;
-use Telegram\Entity\Photo;
+use Telegram\Entity\PhotoSize;
 
-final class PhotoTest extends TestCase
+final class PhotoSizeTest extends TestCase
 {
     public function testAttributes(): void
     {
@@ -14,7 +14,7 @@ final class PhotoTest extends TestCase
         $height = 400;
         $fileSize = 1234135;
 
-        $photo = new Photo($fileId, $width, $height);
+        $photo = new PhotoSize($fileId, $width, $height);
 
         $this->assertEquals($fileId, $photo->getFileId());
         $this->assertEquals($width, $photo->getWidth());

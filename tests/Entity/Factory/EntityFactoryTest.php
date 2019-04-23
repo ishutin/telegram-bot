@@ -94,7 +94,7 @@ final class EntityFactoryTest extends TestCase
         $this->assertEquals($from->getFirstName(), $request['message']['from']['first_name']);
         $this->assertEquals($from->getLastName(), $request['message']['from']['last_name']);
         $this->assertEquals($from->getUsername(), $request['message']['from']['username']);
-        $this->assertEquals($from->getLang(), $request['message']['from']['language_code']);
+        $this->assertEquals($from->getLanguageCode(), $request['message']['from']['language_code']);
 
         $this->assertEquals($message->getText(), $request['message']['text']);
 
@@ -105,7 +105,7 @@ final class EntityFactoryTest extends TestCase
         $this->assertEquals($audio->getFileId(), $request['message']['audio']['file_id']);
         $this->assertEquals($audio->getDuration(), $request['message']['audio']['duration']);
 
-        $photos = $message->getPhotos();
+        $photos = $message->getPhoto();
         $this->assertNotEmpty($photos);
 
         $leftMember = $message->getLeftChatMember();
@@ -115,7 +115,7 @@ final class EntityFactoryTest extends TestCase
         $this->assertEquals($leftMember->getFirstName(), $request['message']['left_chat_member']['first_name']);
         $this->assertEquals($leftMember->getLastName(), $request['message']['left_chat_member']['last_name']);
         $this->assertEquals($leftMember->getUsername(), $request['message']['left_chat_member']['username']);
-        $this->assertEquals($leftMember->getLang(), $request['message']['left_chat_member']['language_code']);
+        $this->assertEquals($leftMember->getLanguageCode(), $request['message']['left_chat_member']['language_code']);
 
         $chat = $message->getForwardFromChat();
         $this->assertInstanceOf(Chat::class, $chat);

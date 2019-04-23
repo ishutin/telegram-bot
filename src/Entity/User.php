@@ -27,7 +27,7 @@ class User
     /**
      * @var string
      */
-    protected $lang;
+    protected $languageCode;
 
     /**
      * @var bool
@@ -39,7 +39,7 @@ class User
         string $firstName,
         string $lastName,
         string $username,
-        string $lang,
+        string $languageCode,
         bool $isBot
 
     ) {
@@ -47,7 +47,7 @@ class User
         $this->firstName = $firstName;
         $this->lastName = $lastName;
         $this->username = $username;
-        $this->lang = $lang;
+        $this->languageCode = $languageCode;
         $this->isBot = $isBot;
     }
 
@@ -71,9 +71,9 @@ class User
         return $this->username;
     }
 
-    public function getLang(): string
+    public function getLanguageCode(): string
     {
-        return $this->lang;
+        return $this->languageCode;
     }
 
     public function getIsBot(): bool

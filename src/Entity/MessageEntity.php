@@ -19,17 +19,27 @@ class MessageEntity
     /**
      * @var string
      */
-    protected $type;
+    private $type;
 
     /**
      * @var int
      */
-    protected $offset;
+    private $offset;
 
     /**
      * @var int
      */
-    protected $length;
+    private $length;
+
+    /**
+     * @var string|null
+     */
+    private $url;
+
+    /**
+     * @var User|null
+     */
+    private $user;
 
     public function __construct(string $type, int $offset, int $length)
     {
@@ -51,5 +61,37 @@ class MessageEntity
     public function getLength(): int
     {
         return $this->length;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getUrl(): ?string
+    {
+        return $this->url;
+    }
+
+    /**
+     * @param string|null $url
+     */
+    public function setUrl(?string $url): void
+    {
+        $this->url = $url;
+    }
+
+    /**
+     * @return User|null
+     */
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param User|null $user
+     */
+    public function setUser(?User $user): void
+    {
+        $this->user = $user;
     }
 }
