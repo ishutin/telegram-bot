@@ -3,7 +3,7 @@
 use Telegram\Kernel\Exception\RequestException;
 use Telegram\Kernel\Request;
 
-require_once '../../vendor/autoload.php';
+require_once '../vendor/autoload.php';
 
 $token = 'xxxx-xxxx-xxxx-xxxx';
 
