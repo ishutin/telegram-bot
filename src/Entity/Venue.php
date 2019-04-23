@@ -2,7 +2,7 @@
 
 namespace Telegram\Entity;
 
-class Venue extends Entity
+class Venue
 {
 
 }

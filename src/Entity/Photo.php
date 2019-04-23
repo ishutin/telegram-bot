@@ -4,7 +4,7 @@ namespace Telegram\Entity;
 
 use Telegram\Entity\Traits\{FileSizeTrait, FileTrait, FileWidthAndHeightTrait};
 
-class Photo extends Entity
+class Photo
 {
     use FileTrait;
     use FileSizeTrait;

@@ -2,7 +2,7 @@
 
 namespace Telegram\Entity;
 
-class MessageEntity extends Entity
+class MessageEntity
 {
     public const TYPE_MENTION = 'mention';
     public const TYPE_BOT_COMMAND = 'bot_command';

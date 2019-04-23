@@ -2,7 +2,7 @@
 
 namespace Telegram\Entity;
 
-class VideoNote extends Entity
+class VideoNote
 {
 
 }

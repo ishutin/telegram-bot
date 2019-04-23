@@ -27,7 +27,7 @@ class Request implements RequestInterface
     /**
      * @var string
      */
-    private $apiUrl = 'https://api.telegram.org/';
+    public $apiUrl = 'https://api.telegram.org/';
 
     public function __construct(string $token, ClientInterface $client = null)
     {

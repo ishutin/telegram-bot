@@ -2,9 +2,15 @@
 
 namespace Telegram\Handler\Update;
 
-use Telegram\Kernel\RequestInterface;
+use Telegram\Entity\Update;
+use Telegram\Kernel\Exception\EntityParserException;
 
-interface HandlerInterface
+interface UpdateHandlerInterface
 {
-    public function handle(RequestInterface $request): void;
+    /**
+     * @return Update[]
+     *
+     * @throws EntityParserException
+     */
+    public function getUpdates(): array;
 }

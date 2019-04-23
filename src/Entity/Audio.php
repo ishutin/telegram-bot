@@ -4,7 +4,7 @@ namespace Telegram\Entity;
 
 use Telegram\Entity\Traits\{FileDurationTrait, FileMimeTrait, FileSizeTrait, FileTrait};
 
-class Audio extends Entity
+class Audio
 {
     use FileTrait;
     use FileDurationTrait;

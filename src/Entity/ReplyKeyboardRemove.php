@@ -2,7 +2,7 @@
 
 namespace Telegram\Entity;
 
-class ReplyKeyboardRemove extends Entity
+class ReplyKeyboardRemove
 {
 
 }

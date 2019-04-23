@@ -2,7 +2,7 @@
 
 namespace Telegram\Event;
 
-class Storage implements StorageInterface
+class EventStorage implements EventStorageInterface
 {
     /**
      * @var EventHandlerInterface[]
@@ -17,7 +17,12 @@ class Storage implements StorageInterface
         return $this->handlers;
     }
 
-    public function on(string $event, EventHandlerInterface $handler): StorageInterface
+    public function getHandler(string $event): ?EventHandlerInterface
+    {
+        return $this->handlers[$event] ?? null;
+    }
+
+    public function on(string $event, EventHandlerInterface $handler): EventStorageInterface
     {
         $this->handlers[$event] = $handler;
 

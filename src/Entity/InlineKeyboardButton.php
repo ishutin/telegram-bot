@@ -2,7 +2,7 @@
 
 namespace Telegram\Entity;
 
-class InlineKeyboardButton extends Entity
+class InlineKeyboardButton
 {
 
 }

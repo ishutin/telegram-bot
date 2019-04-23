@@ -2,7 +2,7 @@
 
 namespace Telegram\Entity;
 
-class ResponseParameters extends Entity
+class ResponseParameters
 {
 
 }

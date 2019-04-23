@@ -1,23 +1,25 @@
 <?php
 
-use Telegram\Kernel\Exception\EntityParserException;
-use Telegram\Handler\Update\WebHookUpdateHandler;
-use Telegram\Kernel\Request;
+use Example\EditedMessageEventHandler;
+use Example\MessageEventHandler;
+use Telegram\Event\EventStorageInterface;
+use Telegram\Handler\Update\WebHookUpdateHandlerInterface;
+use Telegram\Kernel\Telegram;
 
 require_once '../../vendor/autoload.php';
 
 $token = 'xxxx-xxxx-xxxx-xxxx'; // your bot token
-$request = new Request($token); // Create requester class
 
-$updateHandler = new WebHookUpdateHandler($request); // update handler
-
-// handlers listen events MESSAGE and EDITED MESSAGE
-$updateHandler
-    ->on(WebHookUpdateHandler::EVENT_MESSAGE, new MessageEventHandler())
-    ->on(WebHookUpdateHandler::EVENT_EDITED_MESSAGE, new EditedMessageEventHandler());
+$telegram = new Telegram($token, WebHookUpdateHandlerInterface::class);
 
 try {
-    $updateHandler->handle();
-} catch (EntityParserException $e) {
-    // catch exceptions
+    // Handle events
+    $telegram
+        ->getEventStorage()
+        ->on(EventStorageInterface::EVENT_MESSAGE, new MessageEventHandler())
+        ->on(EventStorageInterface::EVENT_EDITED_MESSAGE, new EditedMessageEventHandler());
+
+    $telegram->listen();
+} catch (Throwable $exception) {
+    echo $exception->getMessage();
 }

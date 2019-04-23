@@ -2,7 +2,7 @@
 
 namespace Telegram\Entity;
 
-class Message extends Entity
+class Message
 {
     /**
      * @var int

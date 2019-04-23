@@ -2,7 +2,7 @@
 
 namespace Telegram\Entity;
 
-class InputFile extends Entity
+class InputFile
 {
 
 }

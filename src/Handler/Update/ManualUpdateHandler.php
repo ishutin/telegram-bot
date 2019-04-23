@@ -3,13 +3,10 @@
 namespace Telegram\Handler\Update;
 
 use Fig\Http\Message\StatusCodeInterface;
-use Telegram\Entity\Update;
 use Telegram\Kernel\EntityParser;
-use Telegram\Kernel\Exception\EntityParserException;
-use Telegram\Kernel\HandlerInterface;
 use Telegram\Kernel\RequestInterface;
 
-class ManualUpdateHandler extends AbstractUpdateHandler implements HandlerInterface
+class ManualUpdateHandler implements ManualUpdateHandlerInterface
 {
     /**
      * @var int
@@ -32,65 +29,47 @@ class ManualUpdateHandler extends AbstractUpdateHandler implements HandlerInterf
     private $allowedUpdates;
 
     /**
-     * @throws EntityParserException
+     * @var RequestInterface
      */
-    public function handle(): void
+    private $request;
+
+    public function __construct(RequestInterface $request)
     {
-        foreach ($this->getUpdates($this->request) as $update) {
-            $this->handleUpdate($this->request, $update);
-        }
+        $this->request = $request;
     }
 
-    /**
-     * @return int
-     */
     public function getOffset(): int
     {
         return $this->offset;
     }
 
-    /**
-     * @param int $offset
-     */
     public function setOffset(int $offset): void
     {
         $this->offset = $offset;
     }
 
-    /**
-     * @return int
-     */
     public function getLimit(): int
     {
         return $this->limit;
     }
 
-    /**
-     * @param int $limit
-     */
     public function setLimit(int $limit): void
     {
         $this->limit = $limit;
     }
 
-    /**
-     * @return int
-     */
     public function getTimeout(): int
     {
         return $this->timeout;
     }
 
-    /**
-     * @param int $timeout
-     */
     public function setTimeout(int $timeout): void
     {
         $this->timeout = $timeout;
     }
 
     /**
-     * @return string|string[]
+     * @inheritDoc
      */
     public function getAllowedUpdates()
     {
@@ -98,7 +77,7 @@ class ManualUpdateHandler extends AbstractUpdateHandler implements HandlerInterf
     }
 
     /**
-     * @param string|string[] $allowedUpdates
+     * @inheritDoc
      */
     public function setAllowedUpdates($allowedUpdates): void
     {
@@ -106,13 +85,11 @@ class ManualUpdateHandler extends AbstractUpdateHandler implements HandlerInterf
     }
 
     /**
-     * @param RequestInterface $request
-     * @return Update[]
-     * @throws EntityParserException
+     * @inheritDoc
      */
-    private function getUpdates(RequestInterface $request): array
+    public function getUpdates(): array
     {
-        $response = $request
+        $response = $this->request
             ->getUpdates(
                 $this->offset,
                 $this->limit,

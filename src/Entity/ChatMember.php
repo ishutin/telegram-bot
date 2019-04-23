@@ -2,7 +2,7 @@
 
 namespace Telegram\Entity;
 
-class ChatMember extends Entity
+class ChatMember
 {
 
 }

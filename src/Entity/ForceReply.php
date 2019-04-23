@@ -2,7 +2,7 @@
 
 namespace Telegram\Entity;
 
-class ForceReply extends Entity
+class ForceReply
 {
 
 }

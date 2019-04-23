@@ -2,7 +2,7 @@
 
 namespace Telegram\Entity;
 
-class InputMedia extends Entity
+class InputMedia
 {
 
 }

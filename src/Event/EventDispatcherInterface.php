@@ -5,11 +5,11 @@ namespace Telegram\Event;
 use Telegram\Entity\Update;
 use Telegram\Kernel\RequestInterface;
 
-interface EventHandlerInterface
+interface EventDispatcherInterface
 {
     /**
      * @param RequestInterface $request
      * @param Update $update
      */
-    public function handle(RequestInterface $request, Update $update): void;
+    public function dispatch(RequestInterface $request, Update $update): void;
 }

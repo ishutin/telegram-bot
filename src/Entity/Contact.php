@@ -2,7 +2,7 @@
 
 namespace Telegram\Entity;
 
-class Contact extends Entity
+class Contact
 {
 
 }

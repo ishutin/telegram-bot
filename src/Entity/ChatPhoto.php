@@ -2,7 +2,7 @@
 
 namespace Telegram\Entity;
 
-class ChatPhoto extends Entity
+class ChatPhoto
 {
     /**
      * @var string

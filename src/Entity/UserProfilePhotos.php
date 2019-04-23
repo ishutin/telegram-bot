@@ -2,7 +2,7 @@
 
 namespace Telegram\Entity;
 
-class UserProfilePhotos extends Entity
+class UserProfilePhotos
 {
 
 }
