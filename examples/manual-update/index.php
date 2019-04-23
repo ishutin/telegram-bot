@@ -8,8 +8,8 @@ use Telegram\Kernel\Telegram;
 
 require_once '../../vendor/autoload.php';
 
-//$token = 'xxxx-xxxx-xxxx-xxxx'; // your bot token
-$token = '487878994:AAGOThWciYkufBElZ-iPyF-MDAGQ8DFQTzs';
+$token = 'xxxx-xxxx-xxxx-xxxx'; // your bot token
+
 $telegram = new Telegram($token, ManualUpdateHandlerInterface::class);
 
 try {
@@ -20,6 +20,6 @@ try {
         ->on(EventStorageInterface::EVENT_EDITED_MESSAGE, new EditedMessageEventHandler());
 
     $telegram->listen();
-} catch (Throwable $e) {
-    echo $e->getMessage();
+} catch (Throwable $exception) {
+    echo $exception->getMessage();
 }
