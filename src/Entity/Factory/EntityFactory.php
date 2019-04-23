@@ -13,14 +13,14 @@ use Telegram\Entity\Update;
 use Telegram\Entity\User;
 use Telegram\Kernel\Exception\EntityParserException;
 
-class EntityParser
+class EntityFactory
 {
     /**
      * @param array $response
      * @return Update
      * @throws EntityParserException
      */
-    public function parseUpdate(array $response): Update
+    public function createUpdate(array $response): Update
     {
         if (empty($response['update_id'])) {
             throw new EntityParserException('Invalid response: empty update_id');
@@ -29,19 +29,19 @@ class EntityParser
         $update = new Update($response['update_id']);
 
         if (!empty($response['message'])) {
-            $update->setMessage($this->parseMessage($response['message']));
+            $update->setMessage($this->createMessage($response['message']));
         }
 
         if (!empty($response['edited_message'])) {
-            $update->setEditedMessage($this->parseMessage($response['edited_message']));
+            $update->setEditedMessage($this->createMessage($response['edited_message']));
         }
 
         if (!empty($response['channel_post'])) {
-            $update->setChannelPost($this->parseMessage($response['channel_post']));
+            $update->setChannelPost($this->createMessage($response['channel_post']));
         }
 
         if (!empty($response['edited_channel_post'])) {
-            $update->setEditedChannelPost($this->parseMessage($response['edited_channel_post']));
+            $update->setEditedChannelPost($this->createMessage($response['edited_channel_post']));
         }
 
         // ToDo: add parse all Update fields
@@ -54,7 +54,7 @@ class EntityParser
      * @return Message
      * @throws EntityParserException
      */
-    public function parseMessage(array $data): Message
+    public function createMessage(array $data): Message
     {
         if (empty($data['message_id'])) {
             throw new EntityParserException('Invalid request: empty message.message_id');
@@ -68,54 +68,54 @@ class EntityParser
             throw new EntityParserException('Invalid request: empty message.date');
         }
 
-        $message = new Message($data['message_id'], $data['date'], $this->parseChat($data['chat']));
+        $message = new Message($data['message_id'], $data['date'], $this->createChat($data['chat']));
 
         if (!empty($data['text'])) {
             $message->setText($data['text']);
         }
 
         if (!empty($data['from'])) {
-            $message->setFrom($this->parseUser($data['from']));
+            $message->setFrom($this->createUser($data['from']));
         }
 
         if (!empty($data['entities'])) {
             $messageEntities = [];
 
             foreach ($data['entities'] as $messageEntity) {
-                $messageEntities[] = $this->parseMessageEntity($messageEntity);
+                $messageEntities[] = $this->createMessageEntity($messageEntity);
             }
 
             $message->setEntities($messageEntities);
         }
 
         if (!empty($data['forward_from'])) {
-            $message->setReplyTo($this->parseMessage($data['forward_from']));
+            $message->setReplyTo($this->createMessage($data['forward_from']));
         }
 
         if (!empty($data['audio'])) {
-            $message->setAudio($this->parseAudio($data['audio']));
+            $message->setAudio($this->createAudio($data['audio']));
         }
 
         if (!empty($data['photo'])) {
             $photos = [];
 
             foreach ($data['photo'] as $photoData) {
-                $photos[] = $this->parsePhoto($photoData);
+                $photos[] = $this->createPhoto($photoData);
             }
 
             $message->setPhotos($photos);
         }
 
         if (!empty($data['left_chat_member'])) {
-            $message->setLeftChatMember($this->parseUser($data['left_chat_member']));
+            $message->setLeftChatMember($this->createUser($data['left_chat_member']));
         }
 
         if (!empty($data['forward_from_chat'])) {
-            $message->setForwardFromChat($this->parseChat($data['forward_from_chat']));
+            $message->setForwardFromChat($this->createChat($data['forward_from_chat']));
         }
 
         if (!empty($data['document'])) {
-            $message->setDocument($this->parseDocument($data['document']));
+            $message->setDocument($this->createDocument($data['document']));
         }
 
         return $message;
@@ -126,7 +126,7 @@ class EntityParser
      * @return Chat
      * @throws EntityParserException
      */
-    public function parseChat(array $data): Chat
+    public function createChat(array $data): Chat
     {
         $chat = new Chat($data['id'], $data['type']);
 
@@ -141,17 +141,17 @@ class EntityParser
         $chat->setCanSetStickerSet($data['can_set_sticker_set'] ?? null);
 
         if (!empty($data['pinned_message'])) {
-            $chat->setPinnedMessage($this->parseMessage($data['pinned_message']));
+            $chat->setPinnedMessage($this->createMessage($data['pinned_message']));
         }
 
         if (!empty($data['photo'])) {
-            $chat->setPhoto($this->parseChatPhoto($data['photo']));
+            $chat->setPhoto($this->createChatPhoto($data['photo']));
         }
 
         return $chat;
     }
 
-    public function parseUser(array $data): User
+    public function createUser(array $data): User
     {
         return new User(
             $data['id'],
@@ -163,7 +163,7 @@ class EntityParser
         );
     }
 
-    public function parseAudio(array $data): Audio
+    public function createAudio(array $data): Audio
     {
         $audio = new Audio($data['file_id'], $data['duration']);
 
@@ -175,7 +175,7 @@ class EntityParser
         return $audio;
     }
 
-    public function parsePhoto(array $data): Photo
+    public function createPhoto(array $data): Photo
     {
         $photo = new Photo($data['file_id'], $data['width'], $data['height']);
 
@@ -184,17 +184,17 @@ class EntityParser
         return $photo;
     }
 
-    public function parseChatPhoto(array $data): ChatPhoto
+    public function createChatPhoto(array $data): ChatPhoto
     {
         return new ChatPhoto($data['small_file_id'], $data['big_file_id']);
     }
 
-    public function parseMessageEntity(array $data): MessageEntity
+    public function createMessageEntity(array $data): MessageEntity
     {
         return new MessageEntity($data['type'], $data['offset'], $data['length']);
     }
 
-    public function parseDocument(array $data): Document
+    public function createDocument(array $data): Document
     {
         $document = new Document($data['file_id']);
 
@@ -203,7 +203,7 @@ class EntityParser
         $document->setMimeType($data['mime_type'] ?? null);
 
         if (!empty($data['thumb'])) {
-            $document->setThumb($this->parsePhoto($data['thumb']));
+            $document->setThumb($this->createPhoto($data['thumb']));
         }
 
         return $document;
