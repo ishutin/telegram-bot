@@ -1,6 +1,6 @@
 <?php
 
-namespace Telegram\Kernel;
+namespace Telegram\Http;
 
 use Psr\Http\Message\ResponseInterface;
 use Telegram\Entity\Chat;

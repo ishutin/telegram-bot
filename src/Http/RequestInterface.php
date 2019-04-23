@@ -1,6 +1,6 @@
 <?php
 
-namespace Telegram\Kernel;
+namespace Telegram\Http;
 
 interface RequestInterface extends RequestMethodsInterface
 {

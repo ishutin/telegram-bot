@@ -13,6 +13,8 @@ use Telegram\Handler\Update\ManualUpdateHandlerInterface;
 use Telegram\Handler\Update\UpdateHandlerInterface;
 use Telegram\Handler\Update\WebHookUpdateHandler;
 use Telegram\Handler\Update\WebHookUpdateHandlerInterface;
+use Telegram\Http\Request;
+use Telegram\Http\RequestInterface;
 use Telegram\Kernel\Exception\InvalidUpdateHandler;
 use Telegram\Kernel\Exception\MissingUpdateHandler;
 

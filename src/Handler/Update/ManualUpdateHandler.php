@@ -3,7 +3,7 @@
 namespace Telegram\Handler\Update;
 
 use Fig\Http\Message\StatusCodeInterface;
-use Telegram\Kernel\RequestInterface;
+use Telegram\Http\RequestInterface;
 
 class ManualUpdateHandler implements ManualUpdateHandlerInterface
 {

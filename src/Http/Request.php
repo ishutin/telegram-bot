@@ -1,6 +1,6 @@
 <?php
 
-namespace Telegram\Kernel;
+namespace Telegram\Http;
 
 use Fig\Http\Message\StatusCodeInterface;
 use GuzzleHttp\Client;
@@ -10,7 +10,7 @@ use GuzzleHttp\Exception\GuzzleException;
 use Psr\Http\Message\ResponseInterface;
 use Telegram\Entity\Chat;
 use Telegram\Entity\Message;
-use Telegram\Kernel\Exception\RequestException;
+use Telegram\Http\Exception\HttpRequestException;
 
 class Request implements RequestInterface
 {
@@ -57,7 +57,7 @@ class Request implements RequestInterface
      * @param int|null $timeout
      * @param string|string[]|null $allowedUpdates
      * @return ResponseInterface
-     * @throws RequestException
+     * @throws HttpRequestException
      */
     public function getUpdates(
         int $offset = null,
@@ -81,7 +81,7 @@ class Request implements RequestInterface
      * @param string $chatId
      * @param string $text
      * @return bool
-     * @throws RequestException
+     * @throws HttpRequestException
      */
     public function sendMessage(string $chatId, string $text): bool
     {
@@ -98,7 +98,7 @@ class Request implements RequestInterface
      * @param Chat $toChat
      * @param bool $disableNotification
      * @return bool
-     * @throws RequestException
+     * @throws HttpRequestException
      */
     public function forwardMessage(
         Message $message,
@@ -119,7 +119,7 @@ class Request implements RequestInterface
      * @param string $method
      * @param array $params
      * @return ResponseInterface
-     * @throws RequestException
+     * @throws HttpRequestException
      */
     private function sendGet(string $method, array $params = []): ResponseInterface
     {
@@ -130,7 +130,7 @@ class Request implements RequestInterface
                 ['query' => $params]
             );
         } catch (ClientException | GuzzleException $e) {
-            throw new RequestException($e->getMessage());
+            throw new HttpRequestException($e->getMessage());
         }
     }
 

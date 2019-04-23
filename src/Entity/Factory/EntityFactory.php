@@ -6,12 +6,12 @@ use Telegram\Entity\Audio;
 use Telegram\Entity\Chat;
 use Telegram\Entity\ChatPhoto;
 use Telegram\Entity\Document;
+use Telegram\Entity\Factory\Exception\ParseException;
 use Telegram\Entity\Message;
 use Telegram\Entity\MessageEntity;
 use Telegram\Entity\Photo;
 use Telegram\Entity\Update;
 use Telegram\Entity\User;
-use Telegram\Kernel\Exception\EntityParserException;
 
 class EntityFactory implements EntityFactoryInterface
 {
@@ -21,7 +21,7 @@ class EntityFactory implements EntityFactoryInterface
     public function createUpdate(array $data): Update
     {
         if (empty($data['update_id'])) {
-            throw new EntityParserException('Invalid response: empty update_id');
+            throw new ParseException('Invalid response: empty update_id');
         }
 
         $update = new Update($data['update_id']);
@@ -50,20 +50,20 @@ class EntityFactory implements EntityFactoryInterface
     /**
      * @param array $data
      * @return Message
-     * @throws EntityParserException
+     * @throws ParseException
      */
     public function createMessage(array $data): Message
     {
         if (empty($data['message_id'])) {
-            throw new EntityParserException('Invalid request: empty message.message_id');
+            throw new ParseException('Invalid request: empty message.message_id');
         }
 
         if (empty($data['chat'])) {
-            throw new EntityParserException('Invalid request: empty message.chat');
+            throw new ParseException('Invalid request: empty message.chat');
         }
 
         if (empty($data['date'])) {
-            throw new EntityParserException('Invalid request: empty message.date');
+            throw new ParseException('Invalid request: empty message.date');
         }
 
         $message = new Message($data['message_id'], $data['date'], $this->createChat($data['chat']));
@@ -122,7 +122,7 @@ class EntityFactory implements EntityFactoryInterface
     /**
      * @param array $data
      * @return Chat
-     * @throws EntityParserException
+     * @throws ParseException
      */
     public function createChat(array $data): Chat
     {

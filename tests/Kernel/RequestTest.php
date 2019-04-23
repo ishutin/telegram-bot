@@ -9,8 +9,8 @@ use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
-use Telegram\Kernel\Exception\RequestException;
-use Telegram\Kernel\Request;
+use Telegram\Http\Exception\HttpRequestException;
+use Telegram\Http\Request;
 
 final class RequestTest extends TestCase
 {
@@ -22,7 +22,7 @@ final class RequestTest extends TestCase
     }
 
     /**
-     * @throws RequestException
+     * @throws HttpRequestException
      */
     public function testGetUpdates(): void
     {
@@ -53,7 +53,7 @@ final class RequestTest extends TestCase
     }
 
     /**
-     * @throws RequestException
+     * @throws HttpRequestException
      */
     public function testSendMessage(): void
     {
@@ -66,7 +66,7 @@ final class RequestTest extends TestCase
 
         $this->assertTrue($result);
 
-        $this->expectException(RequestException::class);
+        $this->expectException(HttpRequestException::class);
         $request->sendMessage('example-chat-id', 'hello');
     }
 

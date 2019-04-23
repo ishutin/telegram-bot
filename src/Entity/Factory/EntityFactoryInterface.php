@@ -2,15 +2,15 @@
 
 namespace Telegram\Entity\Factory;
 
+use Telegram\Entity\Factory\Exception\ParseException;
 use Telegram\Entity\Update;
-use Telegram\Kernel\Exception\EntityParserException;
 
 interface EntityFactoryInterface
 {
     /**
      * @param array $data
      * @return Update
-     * @throws EntityParserException
+     * @throws ParseException
      */
     public function createUpdate(array $data): Update;
 }

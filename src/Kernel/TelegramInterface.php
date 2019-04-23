@@ -8,6 +8,7 @@ use Telegram\Event\EventStorageInterface;
 use Telegram\Handler\Update\ManualUpdateHandlerInterface;
 use Telegram\Handler\Update\UpdateHandlerInterface;
 use Telegram\Handler\Update\WebHookUpdateHandlerInterface;
+use Telegram\Http\RequestInterface;
 use Telegram\Kernel\Exception\MissingUpdateHandler;
 
 interface TelegramInterface
@@ -37,7 +38,7 @@ interface TelegramInterface
     public function getEntityFactory(): EntityFactoryInterface;
 
     /**
-     * @throws Exception\EntityParserException
+     * @throws \Telegram\Entity\Factory\Exception\ParseException
      * @throws MissingUpdateHandler
      */
     public function listen(): void;

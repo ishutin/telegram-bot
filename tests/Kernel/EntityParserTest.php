@@ -7,9 +7,9 @@ use Telegram\Entity\Audio;
 use Telegram\Entity\Chat;
 use Telegram\Entity\Document;
 use Telegram\Entity\Factory\EntityFactory;
+use Telegram\Entity\Factory\Exception\ParseException;
 use Telegram\Entity\Message;
 use Telegram\Entity\User;
-use Telegram\Kernel\Exception\EntityParserException;
 
 final class EntityParserTest extends TestCase
 {
@@ -68,7 +68,7 @@ final class EntityParserTest extends TestCase
     ];
 
     /**
-     * @throws EntityParserException
+     * @throws ParseException
      */
     public function testMessageParser(): void
     {

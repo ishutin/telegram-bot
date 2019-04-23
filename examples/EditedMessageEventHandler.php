@@ -6,7 +6,7 @@ use Exception;
 use RuntimeException;
 use Telegram\Entity\{Chat, Message, Update};
 use Telegram\Event\EventHandlerInterface;
-use Telegram\Kernel\RequestInterface;
+use Telegram\Http\RequestInterface;
 
 class EditedMessageEventHandler implements EventHandlerInterface
 {
