@@ -22,31 +22,31 @@ class EventDispatcher implements EventDispatcherInterface
      */
     public function dispatch(RequestInterface $request, Update $update): void
     {
-        $handler = null;
-
-        if ($handlerAllEvents = $this->storage->getHandler(EventStorageInterface::EVENT_ALL)) {
-            $handlerAllEvents->handle($request, $update);
-        }
+        $handlers = [];
 
         if ($update->getMessage()) {
-            $handler = $this->storage->getHandler(EventStorageInterface::EVENT_MESSAGE);
+            $handlers = $this->storage->getHandlers(EventStorageInterface::EVENT_MESSAGE);
         } elseif ($update->getEditedMessage()) {
-            $handler = $this->storage->getHandler(EventStorageInterface::EVENT_EDITED_MESSAGE);
+            $handlers = $this->storage->getHandlers(EventStorageInterface::EVENT_EDITED_MESSAGE);
         } elseif ($update->getChannelPost()) {
-            $handler = $this->storage->getHandler(EventStorageInterface::EVENT_CHANNEL_POST);
+            $handlers = $this->storage->getHandlers(EventStorageInterface::EVENT_CHANNEL_POST);
         } elseif ($update->getEditedChannelPost()) {
-            $handler = $this->storage->getHandler(EventStorageInterface::EVENT_EDITED_CHANNEL_POST);
+            $handlers = $this->storage->getHandlers(EventStorageInterface::EVENT_EDITED_CHANNEL_POST);
         } elseif ($update->getInlineQuery()) {
-            $handler = $this->storage->getHandler(EventStorageInterface::EVENT_INLINE_QUERY);
+            $handlers = $this->storage->getHandlers(EventStorageInterface::EVENT_INLINE_QUERY);
         } elseif ($update->getChosenInlineResult()) {
-            $handler = $this->storage->getHandler(EventStorageInterface::EVENT_CHOSEN_INLINE_RESULT);
+            $handlers = $this->storage->getHandlers(EventStorageInterface::EVENT_CHOSEN_INLINE_RESULT);
         } elseif ($update->getCallbackQuery()) {
-            $handler = $this->storage->getHandler(EventStorageInterface::EVENT_CALLBACK_QUERY);
+            $handlers = $this->storage->getHandlers(EventStorageInterface::EVENT_CALLBACK_QUERY);
         } elseif ($update->getPreCheckoutQuery()) {
-            $handler = $this->storage->getHandler(EventStorageInterface::EVENT_PRE_CHECKOUT_QUERY);
+            $handlers = $this->storage->getHandlers(EventStorageInterface::EVENT_PRE_CHECKOUT_QUERY);
         }
 
-        if ($handler !== null) {
+        if ($handlersAllEvents = $this->storage->getHandlers(EventStorageInterface::EVENT_ALL)) {
+            $handlers = array_merge($handlersAllEvents);
+        }
+
+        foreach ($handlers as $handler) {
             $handler->handle($request, $update);
         }
     }

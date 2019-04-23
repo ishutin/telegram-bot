@@ -5,26 +5,25 @@ namespace Telegram\Event;
 class EventStorage implements EventStorageInterface
 {
     /**
-     * @var EventHandlerInterface[]
+     * @var EventHandlerInterface[][]
      */
     private $handlers = [];
 
     /**
      * @inheritDoc
      */
-    public function getHandlers(): array
+    public function getHandlers(string $event): array
     {
-        return $this->handlers;
-    }
-
-    public function getHandler(string $event): ?EventHandlerInterface
-    {
-        return $this->handlers[$event] ?? null;
+        return $this->handlers[$event] ?? [];
     }
 
     public function on(string $event, EventHandlerInterface $handler): EventStorageInterface
     {
-        $this->handlers[$event] = $handler;
+        if (!isset($this->handlers[$event])) {
+            $this->handlers[$event] = [];
+        }
+
+        $this->handlers[$event][] = $handler;
 
         return $this;
     }

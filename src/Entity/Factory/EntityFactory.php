@@ -1,6 +1,6 @@
 <?php
 
-namespace Telegram\Kernel;
+namespace Telegram\Entity\Factory;
 
 use Telegram\Entity\Audio;
 use Telegram\Entity\Chat;
@@ -13,35 +13,33 @@ use Telegram\Entity\Update;
 use Telegram\Entity\User;
 use Telegram\Kernel\Exception\EntityParserException;
 
-class EntityFactory
+class EntityFactory implements EntityFactoryInterface
 {
     /**
-     * @param array $response
-     * @return Update
-     * @throws EntityParserException
+     * @inheritDoc
      */
-    public function createUpdate(array $response): Update
+    public function createUpdate(array $data): Update
     {
-        if (empty($response['update_id'])) {
+        if (empty($data['update_id'])) {
             throw new EntityParserException('Invalid response: empty update_id');
         }
 
-        $update = new Update($response['update_id']);
+        $update = new Update($data['update_id']);
 
-        if (!empty($response['message'])) {
-            $update->setMessage($this->createMessage($response['message']));
+        if (!empty($data['message'])) {
+            $update->setMessage($this->createMessage($data['message']));
         }
 
-        if (!empty($response['edited_message'])) {
-            $update->setEditedMessage($this->createMessage($response['edited_message']));
+        if (!empty($data['edited_message'])) {
+            $update->setEditedMessage($this->createMessage($data['edited_message']));
         }
 
-        if (!empty($response['channel_post'])) {
-            $update->setChannelPost($this->createMessage($response['channel_post']));
+        if (!empty($data['channel_post'])) {
+            $update->setChannelPost($this->createMessage($data['channel_post']));
         }
 
-        if (!empty($response['edited_channel_post'])) {
-            $update->setEditedChannelPost($this->createMessage($response['edited_channel_post']));
+        if (!empty($data['edited_channel_post'])) {
+            $update->setEditedChannelPost($this->createMessage($data['edited_channel_post']));
         }
 
         // ToDo: add parse all Update fields

@@ -15,11 +15,10 @@ interface EventStorageInterface
     public const EVENT_PRE_CHECKOUT_QUERY = 'pre_checkout_query';
 
     /**
+     * @param string $event
      * @return EventHandlerInterface[]
      */
-    public function getHandlers(): array;
-
-    public function getHandler(string $event):? EventHandlerInterface;
+    public function getHandlers(string $event): iterable;
 
     public function on(string $event, EventHandlerInterface $handler): EventStorageInterface;
 }

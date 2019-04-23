@@ -2,6 +2,8 @@
 
 namespace Telegram\Kernel;
 
+use Telegram\Entity\Factory\EntityFactory;
+use Telegram\Entity\Factory\EntityFactoryInterface;
 use Telegram\Event\EventDispatcher;
 use Telegram\Event\EventDispatcherInterface;
 use Telegram\Event\EventStorage;
@@ -45,6 +47,11 @@ class Telegram implements TelegramInterface
      * @var EventStorageInterface
      */
     private $eventStorage;
+
+    /**
+     * @var EntityFactoryInterface
+     */
+    private $entityFactory;
 
     public function __construct(string $token, string $updateHandlerClass = null)
     {
@@ -96,6 +103,13 @@ class Telegram implements TelegramInterface
         return $this->updateHandler;
     }
 
+    public function setEntityFactory(EntityFactoryInterface $entityFactory): TelegramInterface
+    {
+        $this->entityFactory = $entityFactory;
+
+        return $this;
+    }
+
     public function getRequest(): RequestInterface
     {
         if ($this->request === null) {
@@ -123,13 +137,24 @@ class Telegram implements TelegramInterface
         return $this->eventDispatcher;
     }
 
+    public function getEntityFactory(): EntityFactoryInterface
+    {
+        if ($this->entityFactory === null) {
+            $this->entityFactory = new EntityFactory();
+        }
+
+        return $this->entityFactory;
+    }
+
 
     /**
      * @inheritDoc
      */
     public function listen(): void
     {
-        foreach ($this->getUpdateHandler()->getUpdates() as $update) {
+        foreach ($this->getUpdateHandler()->getResponseData() as $data) {
+            $update = $this->getEntityFactory()->createUpdate($data);
+
             $this->getEventDispatcher()->dispatch($this->request, $update);
         }
     }

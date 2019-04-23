@@ -2,6 +2,7 @@
 
 namespace Telegram\Kernel;
 
+use Telegram\Entity\Factory\EntityFactoryInterface;
 use Telegram\Event\EventDispatcherInterface;
 use Telegram\Event\EventStorageInterface;
 use Telegram\Handler\Update\ManualUpdateHandlerInterface;
@@ -19,6 +20,8 @@ interface TelegramInterface
 
     public function setEventDispatcher(EventDispatcherInterface $eventDispatcher): TelegramInterface;
 
+    public function setEntityFactory(EntityFactoryInterface $entityFactory): TelegramInterface;
+
     public function getRequest(): RequestInterface;
 
     public function getEventStorage(): EventStorageInterface;
@@ -30,6 +33,8 @@ interface TelegramInterface
      * @throws MissingUpdateHandler
      */
     public function getUpdateHandler();
+
+    public function getEntityFactory(): EntityFactoryInterface;
 
     /**
      * @throws Exception\EntityParserException

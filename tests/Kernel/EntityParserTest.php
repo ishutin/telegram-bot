@@ -6,9 +6,9 @@ use PHPUnit\Framework\TestCase;
 use Telegram\Entity\Audio;
 use Telegram\Entity\Chat;
 use Telegram\Entity\Document;
+use Telegram\Entity\Factory\EntityFactory;
 use Telegram\Entity\Message;
 use Telegram\Entity\User;
-use Telegram\Kernel\EntityParser;
 use Telegram\Kernel\Exception\EntityParserException;
 
 final class EntityParserTest extends TestCase
@@ -72,10 +72,10 @@ final class EntityParserTest extends TestCase
      */
     public function testMessageParser(): void
     {
-        $parser = new EntityParser();
+        $parser = new EntityFactory();
         $request = $this->testRequest;
 
-        $update = $parser->parseUpdate($request);
+        $update = $parser->createUpdate($request);
 
         $message = $update->getMessage();
         $this->assertInstanceOf(Message::class, $message);

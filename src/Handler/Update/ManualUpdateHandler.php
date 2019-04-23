@@ -3,7 +3,6 @@
 namespace Telegram\Handler\Update;
 
 use Fig\Http\Message\StatusCodeInterface;
-use Telegram\Kernel\EntityParser;
 use Telegram\Kernel\RequestInterface;
 
 class ManualUpdateHandler implements ManualUpdateHandlerInterface
@@ -87,7 +86,7 @@ class ManualUpdateHandler implements ManualUpdateHandlerInterface
     /**
      * @inheritDoc
      */
-    public function getUpdates(): array
+    public function getResponseData(): array
     {
         $response = $this->request
             ->getUpdates(
@@ -97,18 +96,12 @@ class ManualUpdateHandler implements ManualUpdateHandlerInterface
                 $this->allowedUpdates
             );
 
-        $updates = [];
-
         if ($response->getStatusCode() === StatusCodeInterface::STATUS_OK) {
             $updatesData = \GuzzleHttp\json_decode($response->getBody(), true);
 
-            $parser = new EntityParser();
-
-            foreach ($updatesData['result'] ?? [] as $updateData) {
-                $updates[] = $parser->parseUpdate($updateData);
-            }
+            return $updatesData['result'] ?? [];
         }
 
-        return $updates;
+        return [];
     }
 }
