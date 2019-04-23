@@ -3,13 +3,23 @@
 namespace Telegram\Entity\Factory;
 
 use Telegram\Entity\Audio;
+use Telegram\Entity\CallbackQuery;
 use Telegram\Entity\Chat;
 use Telegram\Entity\ChatPhoto;
 use Telegram\Entity\Document;
 use Telegram\Entity\Factory\Exception\ParseException;
+use Telegram\Entity\Inline\ChosenInlineResult;
+use Telegram\Entity\Inline\InlineQuery;
+use Telegram\Entity\Location;
 use Telegram\Entity\Message;
 use Telegram\Entity\MessageEntity;
+use Telegram\Entity\Payment\OrderInfo;
+use Telegram\Entity\Payment\PreCheckoutQuery;
+use Telegram\Entity\Payment\ShippingAddress;
+use Telegram\Entity\Payment\ShippingQuery;
 use Telegram\Entity\Photo;
+use Telegram\Entity\Poll;
+use Telegram\Entity\PollOption;
 use Telegram\Entity\Update;
 use Telegram\Entity\User;
 
@@ -42,7 +52,29 @@ class EntityFactory implements EntityFactoryInterface
             $update->setEditedChannelPost($this->createMessage($data['edited_channel_post']));
         }
 
-        // ToDo: add parse all Update fields
+        if (!empty($data['inline_query'])) {
+            $update->setInlineQuery($this->createInlineQuery($data['inline_query']));
+        }
+
+        if (!empty($data['chosen_inline_result'])) {
+            $update->setChosenInlineResult($this->createChosenInlineResult($data['chosen_inline_result']));
+        }
+
+        if (!empty($data['callback_query'])) {
+            $update->setCallbackQuery($this->createCallbackQuery($data['callback_query']));
+        }
+
+        if (!empty($data['shipping_query'])) {
+            $update->setShippingQuery($this->createShippingQuery($data['shipping_query']));
+        }
+
+        if (!empty($data['pre_checkout_query'])) {
+            $update->setPreCheckoutQuery($this->createPreCheckoutQuery($data['pre_checkout_query']));
+        }
+
+        if (!empty($data['poll'])) {
+            $update->setPoll($this->createPoll($data['poll']));
+        }
 
         return $update;
     }
@@ -52,7 +84,7 @@ class EntityFactory implements EntityFactoryInterface
      * @return Message
      * @throws ParseException
      */
-    public function createMessage(array $data): Message
+    private function createMessage(array $data): Message
     {
         if (empty($data['message_id'])) {
             throw new ParseException('Invalid request: empty message.message_id');
@@ -124,7 +156,7 @@ class EntityFactory implements EntityFactoryInterface
      * @return Chat
      * @throws ParseException
      */
-    public function createChat(array $data): Chat
+    private function createChat(array $data): Chat
     {
         $chat = new Chat($data['id'], $data['type']);
 
@@ -149,7 +181,7 @@ class EntityFactory implements EntityFactoryInterface
         return $chat;
     }
 
-    public function createUser(array $data): User
+    private function createUser(array $data): User
     {
         return new User(
             $data['id'],
@@ -161,7 +193,7 @@ class EntityFactory implements EntityFactoryInterface
         );
     }
 
-    public function createAudio(array $data): Audio
+    private function createAudio(array $data): Audio
     {
         $audio = new Audio($data['file_id'], $data['duration']);
 
@@ -173,7 +205,7 @@ class EntityFactory implements EntityFactoryInterface
         return $audio;
     }
 
-    public function createPhoto(array $data): Photo
+    private function createPhoto(array $data): Photo
     {
         $photo = new Photo($data['file_id'], $data['width'], $data['height']);
 
@@ -182,17 +214,17 @@ class EntityFactory implements EntityFactoryInterface
         return $photo;
     }
 
-    public function createChatPhoto(array $data): ChatPhoto
+    private function createChatPhoto(array $data): ChatPhoto
     {
         return new ChatPhoto($data['small_file_id'], $data['big_file_id']);
     }
 
-    public function createMessageEntity(array $data): MessageEntity
+    private function createMessageEntity(array $data): MessageEntity
     {
         return new MessageEntity($data['type'], $data['offset'], $data['length']);
     }
 
-    public function createDocument(array $data): Document
+    private function createDocument(array $data): Document
     {
         $document = new Document($data['file_id']);
 
@@ -205,5 +237,132 @@ class EntityFactory implements EntityFactoryInterface
         }
 
         return $document;
+    }
+
+    private function createInlineQuery(array $data): InlineQuery
+    {
+        $query = new InlineQuery($data['id'], $this->createUser($data['from']), $data['query'], $data['offset']);
+
+        if (!empty($data['location'])) {
+            $query->setLocation($this->createLocation($data['location']));
+        }
+
+        return $query;
+    }
+
+    private function createLocation(array $data): Location
+    {
+        return new Location($data['longitude'], $data['latitude']);
+    }
+
+    private function createChosenInlineResult(array $data): ChosenInlineResult
+    {
+        $result = new ChosenInlineResult($data['result_id'], $this->createUser($data['from']), $data['query']);
+
+        if (!empty($data['location'])) {
+            $result->setLocation($this->createLocation($data['location']));
+        }
+
+        if (!empty($data['inline_message_id'])) {
+            $result->setInlineMessageId($data['inline_message_id']);
+        }
+
+        return $result;
+    }
+
+    private function createCallbackQuery(array $data): CallbackQuery
+    {
+        $query = new CallbackQuery($data['id'], $this->createUser($data['from']), $data['chat_instance']);
+
+        if (!empty($data['message'])) {
+            $query->setMessage($this->createMessage($data['message']));
+        }
+
+        if (!empty($data['inline_message_id'])) {
+            $query->setInlineMessageId($data['inline_message_id']);
+        }
+
+        if (!empty($data['data'])) {
+            $query->setData($data['data']);
+        }
+
+        if (!empty($data['game_short_name'])) {
+            $query->setGameShortName($data['game_short_name']);
+        }
+
+        return $query;
+    }
+
+    private function createShippingQuery(array $data): ShippingQuery
+    {
+        return new ShippingQuery(
+            $data['id'],
+            $this->createUser($data['from']),
+            $data['invoice_payload'],
+            $this->createShippingAddress($data['shipping_address'])
+        );
+    }
+
+    private function createShippingAddress(array $data): ShippingAddress
+    {
+        return new ShippingAddress(
+            $data['country_code'],
+            $data['state'],
+            $data['city'],
+            $data['street_line1'],
+            $data['street_line2'],
+            $data['post_code']
+        );
+    }
+
+    private function createPreCheckoutQuery(array $data): PreCheckoutQuery
+    {
+        $query = new PreCheckoutQuery(
+            $data['id'],
+            $this->createUser($data['from']),
+            $data['currency'],
+            $data['total_amount'],
+            $data['invoice_payload']
+        );
+
+        $query->setShippingOptionId($data['shipping_option_id'] ?? null);
+
+        if (!empty($data['order_info'])) {
+            $query->setOrderInfo($this->createOrderInfo($data['order_info']));
+        }
+
+        return $query;
+    }
+
+    private function createOrderInfo(array $data): OrderInfo
+    {
+        $info = new OrderInfo();
+
+        $info->setName($data['name'] ?? null);
+        $info->setEmail($data['email'] ?? null);
+        $info->setPhoneNumber($data['phone_number'] ?? null);
+        if (!empty($data['shipping_address'])) {
+            $info->setShippingAddress(
+                $this->createShippingAddress($data['shipping_address'])
+            );
+        }
+
+        return $info;
+    }
+
+    private function createPoll(array $data): Poll
+    {
+        $options = [];
+
+        foreach ($data['options'] as $option) {
+            $options[] = $this->createPollOption($option);
+        }
+
+        return new Poll($data['id'], $data['question'], $options, $data['isClosed']);
+    }
+
+    private function createPollOption(array $data): PollOption
+    {
+        return new PollOption($data['text'], $data['voter_count']);
     }
 }

@@ -5,6 +5,7 @@ namespace Telegram\Entity;
 use Telegram\Entity\Inline\ChosenInlineResult;
 use Telegram\Entity\Inline\InlineQuery;
 use Telegram\Entity\Payment\PreCheckoutQuery;
+use Telegram\Entity\Payment\ShippingQuery;
 
 class Update
 {
@@ -14,44 +15,54 @@ class Update
     protected $updateId;
 
     /**
-     * @var Message
+     * @var Message|null
      */
     protected $message;
 
     /**
-     * @var Message
+     * @var Message|null
      */
     protected $channelPost;
 
     /**
-     * @var Message
+     * @var Message|null
      */
     protected $editedMessage;
 
     /**
-     * @var Message
+     * @var Message|null
      */
     protected $editedChannelPost;
 
     /**
-     * @var InlineQuery
+     * @var InlineQuery|null
      */
     protected $inlineQuery;
 
     /**
-     * @var ChosenInlineResult
+     * @var ChosenInlineResult|null
      */
     protected $chosenInlineResult;
 
     /**
-     * @var CallbackQuery
+     * @var CallbackQuery|null
      */
     protected $callbackQuery;
 
     /**
-     * @var PreCheckoutQuery
+     * @var ShippingQuery|null
+     */
+    protected $shippingQuery;
+
+    /**
+     * @var PreCheckoutQuery|null
      */
     protected $preCheckoutQuery;
+
+    /**
+     * @var Poll|null
+     */
+    protected $poll;
 
     public function __construct(int $updateId)
     {
@@ -103,6 +114,16 @@ class Update
         return $this->preCheckoutQuery;
     }
 
+    public function getShippingQuery(): ?ShippingQuery
+    {
+        return $this->shippingQuery;
+    }
+
+    public function getPoll(): ?Poll
+    {
+        return $this->poll;
+    }
+
     public function setMessage(Message $message = null): void
     {
         $this->message = $message;
@@ -141,5 +162,15 @@ class Update
     public function setEditedMessage(Message $editedMessage = null): void
     {
         $this->editedMessage = $editedMessage;
+    }
+
+    public function setShippingQuery(ShippingQuery $shippingQuery): void
+    {
+        $this->shippingQuery = $shippingQuery;
+    }
+
+    public function setPoll(?Poll $poll): void
+    {
+        $this->poll = $poll;
     }
 }
