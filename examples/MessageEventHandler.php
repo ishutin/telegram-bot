@@ -1,7 +1,11 @@
 <?php
 
+namespace Example;
+
+use Exception;
+use RuntimeException;
 use Telegram\Entity\{Chat, Message, Update};
-use Telegram\Handler\Update\EventHandlerInterface;
+use Telegram\Event\EventHandlerInterface;
 use Telegram\Kernel\RequestInterface;
 
 class MessageEventHandler implements EventHandlerInterface

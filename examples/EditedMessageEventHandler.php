@@ -1,10 +1,14 @@
 <?php
 
+namespace Example;
+
+use Exception;
+use RuntimeException;
 use Telegram\Entity\{Chat, Message, Update};
-use Telegram\Handler\Update\EventHandlerInterface;
+use Telegram\Event\EventHandlerInterface;
 use Telegram\Kernel\RequestInterface;
 
-class MessageEventHandler implements EventHandlerInterface
+class EditedMessageEventHandler implements EventHandlerInterface
 {
     /**
      * @param RequestInterface $request
@@ -25,6 +29,6 @@ class MessageEventHandler implements EventHandlerInterface
             throw new RuntimeException('Invalid chat');
         }
 
-        $request->sendMessage($chat->getId(), 'Hello, world!');
+        $request->sendMessage($chat->getId(), 'Changed message!');
     }
 }
