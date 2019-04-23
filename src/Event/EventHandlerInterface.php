@@ -7,9 +7,5 @@ use Telegram\Http\RequestInterface;
 
 interface EventHandlerInterface
 {
-    /**
-     * @param RequestInterface $request
-     * @param Update $update
-     */
     public function handle(RequestInterface $request, Update $update): void;
 }

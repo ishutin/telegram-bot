@@ -14,6 +14,7 @@ use Telegram\Http\Exception\HttpRequestException;
 
 class Request implements RequestInterface
 {
+    public const API_URL = 'https://api.telegram.org/';
     /**
      * @var string
      */
@@ -24,31 +25,21 @@ class Request implements RequestInterface
      */
     private $client;
 
-    /**
-     * @var string
-     */
-    public $apiUrl = 'https://api.telegram.org/';
-
     public function __construct(string $token, ClientInterface $client = null)
     {
         $this->token = $token;
         $this->client = $client;
+    }
 
+    public function getClient(): ClientInterface
+    {
         if ($this->client === null) {
             $this->client = new Client([
-                'base_uri' => $this->apiUrl,
+                'base_uri' => self::API_URL,
             ]);
         }
-    }
 
-    public function setApiUrl(string $url): void
-    {
-        $this->apiUrl = $url;
-    }
-
-    public function getApiUrl(): ?string
-    {
-        return $this->apiUrl;
+        return $this->client;
     }
 
     /**

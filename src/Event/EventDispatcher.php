@@ -22,6 +22,17 @@ class EventDispatcher implements EventDispatcherInterface
      */
     public function dispatch(RequestInterface $request, Update $update): void
     {
+        foreach ($this->getHandlers($update) as $handler) {
+            $handler->handle($request, $update);
+        }
+    }
+
+    /**
+     * @param Update $update
+     * @return EventHandlerInterface[]
+     */
+    private function getHandlers(Update $update): array
+    {
         $handlers = [];
 
         if ($update->getMessage()) {
@@ -43,11 +54,9 @@ class EventDispatcher implements EventDispatcherInterface
         }
 
         if ($handlersAllEvents = $this->storage->getHandlers(EventStorageInterface::EVENT_ALL)) {
-            $handlers = array_merge($handlersAllEvents);
+            $handlers = array_merge($handlers, $handlersAllEvents);
         }
 
-        foreach ($handlers as $handler) {
-            $handler->handle($request, $update);
-        }
+        return $handlers;
     }
 }

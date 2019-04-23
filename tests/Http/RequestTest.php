@@ -16,9 +16,9 @@ final class RequestTest extends TestCase
 {
     public function testConstruct(): void
     {
-        $request = new Request('xxxx-xxxx-xxxx-xxxx', new Client());
+        $request = new Request('xxxx-xxxx-xxxx-xxxx');
 
-        $this->assertInstanceOf(Request::class, $request);
+        $this->assertInstanceOf(ClientInterface::class, $request->getClient());
     }
 
     /**
