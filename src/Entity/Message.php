@@ -2,9 +2,11 @@
 
 namespace Telegram\Entity;
 
+use Telegram\Entity\Game\Game;
 use Telegram\Entity\Passport\PassportData;
 use Telegram\Entity\Payment\Invoice;
 use Telegram\Entity\Payment\SuccessfulPayment;
+use Telegram\Entity\Sticker\Sticker;
 
 class Message
 {

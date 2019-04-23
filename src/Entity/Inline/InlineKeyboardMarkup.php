@@ -1,6 +1,6 @@
 <?php
 
-namespace Telegram\Entity;
+namespace Telegram\Entity\Inline;
 
 class InlineKeyboardMarkup
 {
