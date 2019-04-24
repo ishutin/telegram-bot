@@ -2,7 +2,7 @@
 
 namespace Telegram\Entity;
 
-use Telegram\Entity\Traits\{FileMimeTrait, FileSizeTrait, FileThumbTrait, FileTrait};
+use Telegram\Entity\Traits\{FileMimeTrait, FileNameTrait, FileSizeTrait, FileThumbTrait, FileTrait};
 
 class Document
 {
@@ -10,24 +10,10 @@ class Document
     use FileSizeTrait;
     use FileMimeTrait;
     use FileThumbTrait;
-
-    /**
-     * @var string
-     */
-    private $fileName;
+    use FileNameTrait;
 
     public function __construct(string $fileId)
     {
         $this->fileId = $fileId;
-    }
-
-    public function getFileName(): string
-    {
-        return $this->fileName;
-    }
-
-    public function setFileName(string $fileName = null): void
-    {
-        $this->fileName = $fileName;
     }
 }

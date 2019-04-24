@@ -26,6 +26,7 @@ use Telegram\Entity\Payment\SuccessfulPayment;
 use Telegram\Entity\PhotoSize;
 use Telegram\Entity\Poll;
 use Telegram\Entity\PollOption;
+use Telegram\Entity\Sticker\MaskPosition;
 use Telegram\Entity\Sticker\Sticker;
 use Telegram\Entity\Update\Update;
 use Telegram\Entity\Update\UpdateCallbackQuery;
@@ -657,21 +658,79 @@ class EntityFactory implements EntityFactoryInterface
         return new PassportData();
     }
 
-    // todo
     private function createAnimation(array $data): Animation
     {
-        return new Animation();
+        $animation = new Animation(
+            $data['file_id'],
+            $data['width'],
+            $data['height'],
+            $data['duration']
+        );
+
+        if (!empty($data['thumb'])) {
+            $animation->setThumb($this->createPhotoSize($data['thumb']));
+        }
+
+        $animation->setFileName($data['file_name'] ?? null);
+        $animation->setMimeType($data['mime_type'] ?? null);
+        $animation->setFileSize($data['file_size'] ?? null);
+
+        return $animation;
     }
 
-    // todo
     private function createGame(array $data): Game
     {
-        return new Game();
+        $game = new Game(
+            $data['title'],
+            $data['description'],
+            $this->getPhotos($data['photo'])
+        );
+
+        $game->setTextEntities($data['text'] ?? null);
+
+        if (!empty($data['text_entities'])) {
+            $game->setTextEntities(
+                $this->getMessageEntities($data['text_entities'])
+            );
+        }
+
+        if (!empty($data['animation'])) {
+            $game->setAnimation($this->createAnimation($data['animation']));
+        }
+
+        return $game;
     }
 
-    // todo
     private function createSticker(array $data): Sticker
     {
-        return new Sticker();
+        $sticker = new Sticker(
+            $data['file_id'],
+            $data['width'],
+            $data['height']
+        );
+
+        $sticker->setEmoji($data['emoji'] ?? null);
+        $sticker->setSetName($data['set_name'] ?? null);
+        $sticker->setFileSize($data['file_size'] ?? null);
+
+        if (!empty($data['thumb'])) {
+            $sticker->setThumb($this->createPhotoSize($data['thumb']));
+        }
+
+        if (!empty($data['mask_position'])) {
+            $sticker->setMaskPosition($this->createMaskPosition($data['mask_position']));
+        }
+
+        return $sticker;
+    }
+
+    private function createMaskPosition(array $data): MaskPosition
+    {
+        return new MaskPosition(
+            $data['point'],
+            $data['x_shift'],
+            $data['y_shift'],
+            $data['scale']
+        );
     }
 }
