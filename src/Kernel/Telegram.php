@@ -61,32 +61,14 @@ class Telegram implements TelegramInterface
         $this->updateHandlerClass = $updateHandlerClass;
     }
 
-    public function setUpdateHandler(UpdateHandlerInterface $updateHandler): TelegramInterface
+    /**
+     * @inheritDoc
+     */
+    public function listen(): void
     {
-        $this->updateHandler = $updateHandler;
-
-        return $this;
-    }
-
-    public function setRequest(RequestInterface $request): TelegramInterface
-    {
-        $this->request = $request;
-
-        return $this;
-    }
-
-    public function setEventStorage(EventStorageInterface $eventStorage): TelegramInterface
-    {
-        $this->eventStorage = $eventStorage;
-
-        return $this;
-    }
-
-    public function setEventDispatcher(EventDispatcherInterface $eventDispatcher): TelegramInterface
-    {
-        $this->eventDispatcher = $eventDispatcher;
-
-        return $this;
+        foreach ($this->getUpdateHandler()->getUpdates() as $update) {
+            $this->getEventDispatcher()->dispatch($this->request, $update);
+        }
     }
 
     /**
@@ -105,60 +87,11 @@ class Telegram implements TelegramInterface
         return $this->updateHandler;
     }
 
-    public function setEntityFactory(EntityFactoryInterface $entityFactory): TelegramInterface
+    public function setUpdateHandler(UpdateHandlerInterface $updateHandler): TelegramInterface
     {
-        $this->entityFactory = $entityFactory;
+        $this->updateHandler = $updateHandler;
 
         return $this;
-    }
-
-    public function getRequest(): RequestInterface
-    {
-        if ($this->request === null) {
-            $this->request = new Request($this->token);
-        }
-
-        return $this->request;
-    }
-
-    public function getEventStorage(): EventStorageInterface
-    {
-        if ($this->eventStorage === null) {
-            $this->eventStorage = new EventStorage();
-        }
-
-        return $this->eventStorage;
-    }
-
-    public function getEventDispatcher(): EventDispatcherInterface
-    {
-        if ($this->eventDispatcher === null) {
-            $this->eventDispatcher = new EventDispatcher($this->getEventStorage());
-        }
-
-        return $this->eventDispatcher;
-    }
-
-    public function getEntityFactory(): EntityFactoryInterface
-    {
-        if ($this->entityFactory === null) {
-            $this->entityFactory = new EntityFactory();
-        }
-
-        return $this->entityFactory;
-    }
-
-
-    /**
-     * @inheritDoc
-     */
-    public function listen(): void
-    {
-        foreach ($this->getUpdateHandler()->getResponseData() as $data) {
-            $update = $this->getEntityFactory()->createUpdate($data);
-
-            $this->getEventDispatcher()->dispatch($this->request, $update);
-        }
     }
 
     /**
@@ -173,9 +106,77 @@ class Telegram implements TelegramInterface
                 return new ManualUpdateHandler($this->getRequest());
             case WebHookUpdateHandler::class:
             case WebHookUpdateHandlerInterface::class:
-                return new WebHookUpdateHandler();
+                $handler = new WebHookUpdateHandler();
+                $handler->setEntityFactory($this->getEntityFactory());
+
+                return $handler;
             default:
                 throw new InvalidUpdateHandler("Invalid update handler: $updateHandlerClass");
         }
+    }
+
+    public function getRequest(): RequestInterface
+    {
+        if ($this->request === null) {
+            $this->request = new Request($this->token);
+            $this->request->setEntityFactory($this->getEntityFactory());
+        }
+
+        return $this->request;
+    }
+
+    public function setRequest(RequestInterface $request): TelegramInterface
+    {
+        $this->request = $request;
+
+        return $this;
+    }
+
+    public function getEntityFactory(): EntityFactoryInterface
+    {
+        if ($this->entityFactory === null) {
+            $this->entityFactory = new EntityFactory();
+        }
+
+        return $this->entityFactory;
+    }
+
+    public function setEntityFactory(EntityFactoryInterface $entityFactory): TelegramInterface
+    {
+        $this->entityFactory = $entityFactory;
+
+        return $this;
+    }
+
+    public function getEventDispatcher(): EventDispatcherInterface
+    {
+        if ($this->eventDispatcher === null) {
+            $this->eventDispatcher = new EventDispatcher($this->getEventStorage());
+        }
+
+        return $this->eventDispatcher;
+    }
+
+    public function setEventDispatcher(EventDispatcherInterface $eventDispatcher): TelegramInterface
+    {
+        $this->eventDispatcher = $eventDispatcher;
+
+        return $this;
+    }
+
+    public function getEventStorage(): EventStorageInterface
+    {
+        if ($this->eventStorage === null) {
+            $this->eventStorage = new EventStorage();
+        }
+
+        return $this->eventStorage;
+    }
+
+    public function setEventStorage(EventStorageInterface $eventStorage): TelegramInterface
+    {
+        $this->eventStorage = $eventStorage;
+
+        return $this;
     }
 }

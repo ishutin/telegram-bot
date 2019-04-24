@@ -15,17 +15,17 @@ class User
     private $firstName;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $lastName;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $username;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $languageCode;
 
@@ -37,17 +37,11 @@ class User
     public function __construct(
         int $id,
         string $firstName,
-        string $lastName,
-        string $username,
-        string $languageCode,
         bool $isBot
 
     ) {
         $this->id = $id;
         $this->firstName = $firstName;
-        $this->lastName = $lastName;
-        $this->username = $username;
-        $this->languageCode = $languageCode;
         $this->isBot = $isBot;
     }
 
@@ -79,5 +73,29 @@ class User
     public function getIsBot(): bool
     {
         return $this->isBot;
+    }
+
+    /**
+     * @param string|null $lastName
+     */
+    public function setLastName(?string $lastName): void
+    {
+        $this->lastName = $lastName;
+    }
+
+    /**
+     * @param string|null $username
+     */
+    public function setUsername(?string $username): void
+    {
+        $this->username = $username;
+    }
+
+    /**
+     * @param string|null $languageCode
+     */
+    public function setLanguageCode(?string $languageCode): void
+    {
+        $this->languageCode = $languageCode;
     }
 }

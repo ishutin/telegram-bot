@@ -109,11 +109,9 @@ class EntityFactory implements EntityFactoryInterface
     }
 
     /**
-     * @param array $data
-     * @return Message
-     * @throws ParseException
+     * @inheritDoc
      */
-    private function createMessage(array $data): Message
+    public function createMessage(array $data): Message
     {
         if (empty($data['message_id'])) {
             throw new ParseException('Invalid request: empty message.message_id');
@@ -295,14 +293,17 @@ class EntityFactory implements EntityFactoryInterface
 
     private function createUser(array $data): User
     {
-        return new User(
+        $user=  new User(
             $data['id'],
             $data['first_name'],
-            $data['last_name'],
-            $data['username'],
-            $data['language_code'],
             $data['is_bot']
         );
+
+        $user->setLastName($data['last_name'] ?? null);
+        $user->setUsername($data['username'] ?? null);
+        $user->setLanguageCode($data['language_code'] ?? null);
+
+        return $user;
     }
 
     private function createAudio(array $data): Audio

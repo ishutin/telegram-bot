@@ -5,6 +5,7 @@ namespace Telegram\Handler\Update;
 use Fig\Http\Message\StatusCodeInterface;
 use GuzzleHttp\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
+use Telegram\Entity\Factory\EntityFactoryInterface;
 
 class WebHookUpdateHandler implements WebHookUpdateHandlerInterface
 {
@@ -12,6 +13,11 @@ class WebHookUpdateHandler implements WebHookUpdateHandlerInterface
      * @var ResponseInterface
      */
     private $response;
+
+    /**
+     * @var EntityFactoryInterface
+     */
+    private $entityFactory;
 
     public function __construct(ResponseInterface $response = null)
     {
@@ -29,14 +35,30 @@ class WebHookUpdateHandler implements WebHookUpdateHandlerInterface
     /**
      * @inheritDoc
      */
-    public function getResponseData(): array
+    public function getUpdates(): ?array
     {
         if ($this->response instanceof ResponseInterface) {
-            return [
-                \GuzzleHttp\json_decode($this->response->getBody(), true),
-            ];
+            $data = \GuzzleHttp\json_decode($this->response->getBody(), true);
+
+            if (empty($data)) {
+                return null;
+            }
+
+            return [$this->getEntityFactory()->createUpdate($data)];
         }
 
         return [];
+    }
+
+    public function getEntityFactory(): EntityFactoryInterface
+    {
+        return $this->entityFactory;
+    }
+
+    public function setEntityFactory(EntityFactoryInterface $entityFactory): WebHookUpdateHandlerInterface
+    {
+        $this->entityFactory = $entityFactory;
+
+        return $this;
     }
 }

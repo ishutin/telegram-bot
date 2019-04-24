@@ -86,22 +86,14 @@ class ManualUpdateHandler implements ManualUpdateHandlerInterface
     /**
      * @inheritDoc
      */
-    public function getResponseData(): array
+    public function getUpdates():? array
     {
-        $response = $this->request
+        return $this->request
             ->getUpdates(
                 $this->offset,
                 $this->limit,
                 $this->timeout,
                 $this->allowedUpdates
             );
-
-        if ($response->getStatusCode() === StatusCodeInterface::STATUS_OK) {
-            $updatesData = \GuzzleHttp\json_decode($response->getBody(), true);
-
-            return $updatesData['result'] ?? [];
-        }
-
-        return [];
     }
 }
