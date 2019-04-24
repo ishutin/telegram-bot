@@ -1,68 +1,71 @@
 <?php
 
-namespace Telegram\Entity;
+namespace Telegram\Entity\Update;
 
+use Telegram\Entity\CallbackQuery;
 use Telegram\Entity\Inline\ChosenInlineResult;
 use Telegram\Entity\Inline\InlineQuery;
+use Telegram\Entity\Message;
 use Telegram\Entity\Payment\PreCheckoutQuery;
 use Telegram\Entity\Payment\ShippingQuery;
+use Telegram\Entity\Poll;
 
 class Update
 {
     /**
      * @var int
      */
-    protected $updateId;
+    private $updateId;
 
     /**
      * @var Message|null
      */
-    protected $message;
+    private $message;
 
     /**
      * @var Message|null
      */
-    protected $channelPost;
+    private $channelPost;
 
     /**
      * @var Message|null
      */
-    protected $editedMessage;
+    private $editedMessage;
 
     /**
      * @var Message|null
      */
-    protected $editedChannelPost;
+    private $editedChannelPost;
 
     /**
      * @var InlineQuery|null
      */
-    protected $inlineQuery;
+    private $inlineQuery;
 
     /**
      * @var ChosenInlineResult|null
      */
-    protected $chosenInlineResult;
+    private $chosenInlineResult;
 
     /**
      * @var CallbackQuery|null
      */
-    protected $callbackQuery;
+    private $callbackQuery;
 
     /**
      * @var ShippingQuery|null
      */
-    protected $shippingQuery;
+    private $shippingQuery;
 
     /**
      * @var PreCheckoutQuery|null
      */
-    protected $preCheckoutQuery;
+    private $preCheckoutQuery;
 
     /**
      * @var Poll|null
      */
-    protected $poll;
+    private $poll;
 
     public function __construct(int $updateId)
     {

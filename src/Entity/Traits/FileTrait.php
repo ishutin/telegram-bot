@@ -7,7 +7,7 @@ trait FileTrait
     /**
      * @var string
      */
-    protected $fileId;
+    private $fileId;
 
     public function getFileId(): string
     {

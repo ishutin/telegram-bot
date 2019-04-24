@@ -4,7 +4,7 @@ namespace Example;
 
 use Exception;
 use RuntimeException;
-use Telegram\Entity\{Chat, Message, Update};
+use Telegram\Entity\{Chat, Message, Update\Update};
 use Telegram\Event\EventHandlerInterface;
 use Telegram\Http\RequestInterface;
 

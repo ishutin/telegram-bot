@@ -2,7 +2,7 @@
 
 namespace Telegram\Handler\Update;
 
-use Telegram\Entity\Update;
+use Telegram\Entity\Update\Update;
 
 interface UpdateHandlerInterface
 {

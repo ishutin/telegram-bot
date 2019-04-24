@@ -14,7 +14,7 @@ class Document
     /**
      * @var string
      */
-    protected $fileName;
+    private $fileName;
 
     public function __construct(string $fileId)
     {

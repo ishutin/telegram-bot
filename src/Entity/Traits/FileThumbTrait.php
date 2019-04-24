@@ -9,7 +9,7 @@ trait FileThumbTrait
     /**
      * @var PhotoSize|null
      */
-    protected $thumb;
+    private $thumb;
 
     public function getThumb(): ?PhotoSize
     {

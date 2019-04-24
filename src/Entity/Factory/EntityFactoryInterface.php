@@ -3,7 +3,7 @@
 namespace Telegram\Entity\Factory;
 
 use Telegram\Entity\Factory\Exception\ParseException;
-use Telegram\Entity\Update;
+use Telegram\Entity\Update\Update;
 
 interface EntityFactoryInterface
 {

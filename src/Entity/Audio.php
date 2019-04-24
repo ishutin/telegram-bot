@@ -15,12 +15,12 @@ class Audio
     /**
      * @var string
      */
-    protected $performer;
+    private $performer;
 
     /**
      * @var string
      */
-    protected $title;
+    private $title;
 
     public function __construct(string $fileId, int $duration)
     {

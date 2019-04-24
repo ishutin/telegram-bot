@@ -7,7 +7,7 @@ trait FileDurationTrait
     /**
      * @var int
      */
-    protected $duration;
+    private $duration;
 
     public function getDuration(): int
     {

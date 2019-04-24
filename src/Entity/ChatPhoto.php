@@ -7,12 +7,12 @@ class ChatPhoto
     /**
      * @var string
      */
-    protected $smallFileId;
+    private $smallFileId;
 
     /**
      * @var string
      */
-    protected $bigFileId;
+    private $bigFileId;
 
     public function __construct(string $smallFileId, string $bigFileId)
     {

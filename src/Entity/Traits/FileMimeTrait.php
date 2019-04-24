@@ -7,7 +7,7 @@ trait FileMimeTrait
     /**
      * @var int
      */
-    protected $mimeType;
+    private $mimeType;
 
     public function setMimeType(?string $type): void
     {

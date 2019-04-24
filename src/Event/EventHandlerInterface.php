@@ -2,7 +2,7 @@
 
 namespace Telegram\Event;
 
-use Telegram\Entity\Update;
+use Telegram\Entity\Update\Update;
 use Telegram\Http\RequestInterface;
 
 interface EventHandlerInterface

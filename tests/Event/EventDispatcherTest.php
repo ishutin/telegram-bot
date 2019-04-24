@@ -7,7 +7,8 @@ use ReflectionClass;
 use ReflectionException;
 use Telegram\Entity\Chat;
 use Telegram\Entity\Message;
-use Telegram\Entity\Update;
+use Telegram\Entity\Update\Update;
+use Telegram\Entity\Update\UpdateMessage;
 use Telegram\Event\EventDispatcher;
 use Telegram\Event\EventHandlerInterface;
 use Telegram\Event\EventStorage;
@@ -22,7 +23,7 @@ final class EventDispatcherTest extends TestCase
     {
         $storage = new EventStorage();
         $storage->on($storage::EVENT_MESSAGE, $this->getHandlerInstance());
-        $update = new Update(1);
+        $update = new UpdateMessage(1);
         $update->setMessage(new Message(1, 1, new Chat(1, 'chat-type')));
 
         $dispatcher = new EventDispatcher($storage);

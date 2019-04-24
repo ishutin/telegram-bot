@@ -3,7 +3,7 @@
 namespace Test\Event;
 
 use PHPUnit\Framework\TestCase;
-use Telegram\Entity\Update;
+use Telegram\Entity\Update\Update;
 use Telegram\Event\EventHandlerInterface;
 use Telegram\Event\EventStorage;
 use Telegram\Http\RequestInterface;

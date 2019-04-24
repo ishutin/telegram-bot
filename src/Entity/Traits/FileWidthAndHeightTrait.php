@@ -7,12 +7,12 @@ trait FileWidthAndHeightTrait
     /**
      * @var int
      */
-    protected $width;
+    private $width;
 
     /**
      * @var int
      */
-    protected $height;
+    private $height;
 
     public function getWidth(): int
     {

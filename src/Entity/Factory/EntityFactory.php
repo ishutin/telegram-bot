@@ -27,7 +27,17 @@ use Telegram\Entity\PhotoSize;
 use Telegram\Entity\Poll;
 use Telegram\Entity\PollOption;
 use Telegram\Entity\Sticker\Sticker;
-use Telegram\Entity\Update;
+use Telegram\Entity\Update\Update;
+use Telegram\Entity\Update\UpdateCallbackQuery;
+use Telegram\Entity\Update\UpdateChannelPost;
+use Telegram\Entity\Update\UpdateChosenInlineResult;
+use Telegram\Entity\Update\UpdateEditedChannelPost;
+use Telegram\Entity\Update\UpdateEditedMessage;
+use Telegram\Entity\Update\UpdateInlineQuery;
+use Telegram\Entity\Update\UpdateMessage;
+use Telegram\Entity\Update\UpdatePoll;
+use Telegram\Entity\Update\UpdatePreCheckoutQuery;
+use Telegram\Entity\Update\UpdateShippingQuery;
 use Telegram\Entity\User;
 use Telegram\Entity\Venue;
 use Telegram\Entity\Video;
@@ -45,46 +55,50 @@ class EntityFactory implements EntityFactoryInterface
             throw new ParseException('Invalid response: empty update_id');
         }
 
-        $update = new Update($data['update_id']);
-
         if (!empty($data['message'])) {
+            $update = new UpdateMessage($data['update_id']);
+
             $update->setMessage($this->createMessage($data['message']));
-        }
+        } elseif (!empty($data['edited_message'])) {
+            $update = new UpdateEditedMessage($data['update_id']);
 
-        if (!empty($data['edited_message'])) {
             $update->setEditedMessage($this->createMessage($data['edited_message']));
-        }
+        } elseif (!empty($data['channel_post'])) {
+            $update = new UpdateChannelPost($data['update_id']);
 
-        if (!empty($data['channel_post'])) {
             $update->setChannelPost($this->createMessage($data['channel_post']));
-        }
+        } elseif (!empty($data['edited_channel_post'])) {
+            $update = new UpdateEditedChannelPost($data['update_id']);
 
-        if (!empty($data['edited_channel_post'])) {
-            $update->setEditedChannelPost($this->createMessage($data['edited_channel_post']));
-        }
+            $update->setEditedChannelPost(
+                $this->createMessage($data['edited_channel_post'])
+            );
+        } elseif (!empty($data['inline_query'])) {
+            $update = new UpdateInlineQuery($data['update_id']);
 
-        if (!empty($data['inline_query'])) {
             $update->setInlineQuery($this->createInlineQuery($data['inline_query']));
-        }
+        } elseif (!empty($data['chosen_inline_result'])) {
+            $update = new UpdateChosenInlineResult($data['update_id']);
 
-        if (!empty($data['chosen_inline_result'])) {
             $update->setChosenInlineResult($this->createChosenInlineResult($data['chosen_inline_result']));
-        }
+        } elseif (!empty($data['callback_query'])) {
+            $update = new UpdateCallbackQuery($data['update_id']);
 
-        if (!empty($data['callback_query'])) {
             $update->setCallbackQuery($this->createCallbackQuery($data['callback_query']));
-        }
+        } elseif (!empty($data['shipping_query'])) {
+            $update = new UpdateShippingQuery($data['update_id']);
 
-        if (!empty($data['shipping_query'])) {
             $update->setShippingQuery($this->createShippingQuery($data['shipping_query']));
-        }
+        } elseif (!empty($data['pre_checkout_query'])) {
+            $update = new UpdatePreCheckoutQuery($data['update_id']);
 
-        if (!empty($data['pre_checkout_query'])) {
             $update->setPreCheckoutQuery($this->createPreCheckoutQuery($data['pre_checkout_query']));
-        }
+        } elseif (!empty($data['poll'])) {
+            $update = new UpdatePoll($data['update_id']);
 
-        if (!empty($data['poll'])) {
             $update->setPoll($this->createPoll($data['poll']));
+        } else {
+            return new Update($data['update_id']);
         }
 
         return $update;

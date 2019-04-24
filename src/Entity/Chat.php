@@ -12,67 +12,67 @@ class Chat
     /**
      * @var int
      */
-    protected $id;
+    private $id;
 
     /**
      * @var string
      */
-    protected $type;
+    private $type;
 
     /**
      * @var string
      */
-    protected $title;
+    private $title;
 
     /**
      * @var string
      */
-    protected $username;
+    private $username;
 
     /**
      * @var string
      */
-    protected $firstName;
+    private $firstName;
 
     /**
      * @var string
      */
-    protected $lastName;
+    private $lastName;
 
     /**
      * @var bool
      */
-    protected $allMembersAreAdministrators;
+    private $allMembersAreAdministrators;
 
     /**
      * @var ChatPhoto
      */
-    protected $photo;
+    private $photo;
 
     /**
      * @var String
      */
-    protected $description;
+    private $description;
 
     /**
      * @var string
      */
-    protected $inviteLink;
+    private $inviteLink;
 
     /**
      * @var Message
      */
-    protected $pinnedMessage;
+    private $pinnedMessage;
 
     /**
      * @var string
      */
-    protected $stickerSetName;
+    private $stickerSetName;
 
     /**
      * @var bool
      */
-    protected $canSetStickerSet;
+    private $canSetStickerSet;
 
     public function __construct(int $id, string $type)
     {

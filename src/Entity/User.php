@@ -7,32 +7,32 @@ class User
     /**
      * @var int
      */
-    protected $id;
+    private $id;
 
     /**
      * @var string
      */
-    protected $firstName;
+    private $firstName;
 
     /**
      * @var string
      */
-    protected $lastName;
+    private $lastName;
 
     /**
      * @var string
      */
-    protected $username;
+    private $username;
 
     /**
      * @var string
      */
-    protected $languageCode;
+    private $languageCode;
 
     /**
      * @var bool
      */
-    protected $isBot;
+    private $isBot;
 
     public function __construct(
         int $id,
