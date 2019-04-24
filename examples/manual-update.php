@@ -6,7 +6,7 @@ use Telegram\Event\EventStorageInterface;
 use Telegram\Handler\Update\ManualUpdateHandlerInterface;
 use Telegram\Kernel\Telegram;
 
-require_once '../vendor/autoload.php';
+require_once __DIR__ . '/../vendor/autoload.php';
 
 $token = 'xxxx-xxxx-xxxx-xxxx'; // your bot token
 

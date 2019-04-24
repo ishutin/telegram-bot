@@ -115,7 +115,7 @@ class Request implements RequestInterface
     private function sendGet(string $method, array $params = []): ResponseInterface
     {
         try {
-            return $this->client->request(
+            return $this->getClient()->request(
                 'get',
                 $this->getRequestUri($method),
                 ['query' => $params]
