@@ -579,34 +579,76 @@ class EntityFactory implements EntityFactoryInterface
         return $users;
     }
 
-    // todo
     private function createVideoNote(array $data): VideoNote
     {
-        return new VideoNote();
+        $note = new VideoNote(
+            $data['file_id'],
+            $data['length'],
+            $data['duration']
+        );
+
+        if (!empty($data['thumb'])) {
+            $note->setThumb($this->createPhotoSize($data['thumb']));
+        }
+
+        $note->setFileSize($data['file_size'] ?? null);
+
+        return $note;
     }
 
-    // todo
     private function createContact(array $data): Contact
     {
-        return new Contact();
+        $contact = new Contact($data['phone_number'], $data['first_name']);
+
+        $contact->setLastName($data['last_name'] ?? null);
+        $contact->setUserId($data['user_id'] ?? null);
+        $contact->setVCard($data['vcard'] ?? null);
+
+        return $contact;
     }
 
-    // todo
     private function createVenue(array $data): Venue
     {
-        return new Venue();
+        $venue = new Venue(
+            $this->createLocation($data['location']),
+            $data['title'],
+            $data['address']
+        );
+
+        $venue->setFoursquareId($data['foursquare_id'] ?? null);
+        $venue->setFoursquareType($data['foursquare_type'] ?? null);
+
+        return $venue;
     }
 
-    // todo
     private function createInvoice(array $data): Invoice
     {
-        return new Invoice();
+        return new Invoice(
+            $data['title'],
+            $data['description'],
+            $data['start_parameter'],
+            $data['currency'],
+            $data['total_amount']
+        );
     }
 
-    // todo
     private function createSuccessfulPayment(array $data): SuccessfulPayment
     {
-        return new SuccessfulPayment();
+        $payment = new SuccessfulPayment(
+            $data['currency'],
+            $data['total_amount'],
+            $data['invoice_payload'],
+            $data['telegram_payment_charge_id'],
+            $data['provider_payment_charge_id']
+        );
+
+        $payment->setShippingOptionId($data['shipping_option_id'] ?? null);
+
+        if (!empty($data['order_info'])) {
+            $payment->setOrderInfo($this->createOrderInfo($data['order_info']));
+        }
+
+        return $payment;
     }
 
     // todo
@@ -614,7 +656,6 @@ class EntityFactory implements EntityFactoryInterface
     {
         return new PassportData();
     }
-
 
     // todo
     private function createAnimation(array $data): Animation
