@@ -19,11 +19,12 @@ final class UserTest extends TestCase
         $user = new User(
             $id,
             $firstName,
-            $lastName,
-            $username,
-            $lang,
             $isBot
         );
+
+        $user->setLanguageCode($lang);
+        $user->setUsername($username);
+        $user->setLastName($lastName);
 
         $this->assertEquals($id, $user->getId());
         $this->assertEquals($firstName, $user->getFirstName());
