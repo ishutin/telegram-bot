@@ -32,7 +32,7 @@ final class MessageTest extends TestCase
         $this->assertNull($message->getAudio());
         $this->assertNull($message->getFrom());
         $this->assertNull($message->getText());
-        $this->assertNull($message->getReplyTo());
+        $this->assertNull($message->getReplyToMessage());
         $this->assertEmpty($message->getPhoto());
 
 
@@ -40,19 +40,19 @@ final class MessageTest extends TestCase
         $message->setAudio($audio);
         $message->setEntities($entities);
         $message->setFrom($from);
-        $message->setReplyTo($replyTo);
+        $message->setReplyToMessage($replyTo);
         $message->setPhoto($photos);
 
         $this->assertEquals($text, $message->getText());
         $this->assertEquals($audio, $message->getAudio());
         $this->assertEquals($entities, $message->getEntities());
         $this->assertEquals($from, $message->getFrom());
-        $this->assertEquals($replyTo, $message->getReplyTo());
+        $this->assertEquals($replyTo, $message->getReplyToMessage());
         $this->assertEquals($photos, $message->getPhoto());
 
         $this->assertInstanceOf(Audio::class, $message->getAudio());
         $this->assertInstanceOf(User::class, $message->getFrom());
-        $this->assertInstanceOf(Message::class, $message->getReplyTo());
+        $this->assertInstanceOf(Message::class, $message->getReplyToMessage());
     }
 
     public function testGetEntitiesValues(): void

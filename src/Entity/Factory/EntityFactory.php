@@ -2,26 +2,37 @@
 
 namespace Telegram\Entity\Factory;
 
+use Telegram\Entity\Animation;
 use Telegram\Entity\Audio;
 use Telegram\Entity\CallbackQuery;
 use Telegram\Entity\Chat;
 use Telegram\Entity\ChatPhoto;
+use Telegram\Entity\Contact;
 use Telegram\Entity\Document;
 use Telegram\Entity\Factory\Exception\ParseException;
+use Telegram\Entity\Game\Game;
 use Telegram\Entity\Inline\ChosenInlineResult;
 use Telegram\Entity\Inline\InlineQuery;
 use Telegram\Entity\Location;
 use Telegram\Entity\Message;
 use Telegram\Entity\MessageEntity;
+use Telegram\Entity\Passport\PassportData;
+use Telegram\Entity\Payment\Invoice;
 use Telegram\Entity\Payment\OrderInfo;
 use Telegram\Entity\Payment\PreCheckoutQuery;
 use Telegram\Entity\Payment\ShippingAddress;
 use Telegram\Entity\Payment\ShippingQuery;
+use Telegram\Entity\Payment\SuccessfulPayment;
 use Telegram\Entity\PhotoSize;
 use Telegram\Entity\Poll;
 use Telegram\Entity\PollOption;
+use Telegram\Entity\Sticker\Sticker;
 use Telegram\Entity\Update;
 use Telegram\Entity\User;
+use Telegram\Entity\Venue;
+use Telegram\Entity\Video;
+use Telegram\Entity\VideoNote;
+use Telegram\Entity\Voice;
 
 class EntityFactory implements EntityFactoryInterface
 {
@@ -100,10 +111,6 @@ class EntityFactory implements EntityFactoryInterface
 
         $message = new Message($data['message_id'], $data['date'], $this->createChat($data['chat']));
 
-        if (!empty($data['text'])) {
-            $message->setText($data['text']);
-        }
-
         if (!empty($data['from'])) {
             $message->setFrom($this->createUser($data['from']));
         }
@@ -112,8 +119,20 @@ class EntityFactory implements EntityFactoryInterface
             $message->setEntities($this->getMessageEntities($data['entities']));
         }
 
+        if (!empty($data['caption_entities'])) {
+            $message->setCaptionEntities($this->getMessageEntities($data['caption_entities']));
+        }
+
+        if (!empty($data['reply_to_message'])) {
+            $message->setReplyToMessage($this->createMessage($data['reply_to_message']));
+        }
+
         if (!empty($data['forward_from'])) {
-            $message->setReplyTo($this->createMessage($data['forward_from']));
+            $message->setForwardFrom($this->createUser($data['forward_from']));
+        }
+
+        if (!empty($data['forward_from_chat'])) {
+            $message->setForwardFromChat($this->createChat($data['forward_from_chat']));
         }
 
         if (!empty($data['audio'])) {
@@ -135,6 +154,93 @@ class EntityFactory implements EntityFactoryInterface
         if (!empty($data['document'])) {
             $message->setDocument($this->createDocument($data['document']));
         }
+
+        if (!empty($data['animation'])) {
+            $message->setAnimation($this->createAnimation($data['animation']));
+        }
+
+        if (!empty($data['game'])) {
+            $message->setGame($this->createGame($data['game']));
+        }
+
+        if (!empty($data['sticker'])) {
+            $message->setSticker($this->createSticker($data['sticker']));
+        }
+
+        if (!empty($data['video'])) {
+            $message->setVideo($this->createVideo($data['video']));
+        }
+
+        if (!empty($data['voice'])) {
+            $message->setVoice($this->createVoice($data['voice']));
+        }
+
+        if (!empty($data['video_note'])) {
+            $message->setVideoNote($this->createVideoNote($data['video_note']));
+        }
+
+        if (!empty($data['contact'])) {
+            $message->setContact($this->createContact($data['contact']));
+        }
+
+        if (!empty($data['location'])) {
+            $message->setLocation($this->createLocation($data['location']));
+        }
+
+        if (!empty($data['venue'])) {
+            $message->setVenue($this->createVenue($data['venue']));
+        }
+
+        if (!empty($data['poll'])) {
+            $message->setPoll($this->createPoll($data['poll']));
+        }
+
+        if (!empty($data['new_chat_members'])) {
+            $message->setNewChatMembers($this->getUsers($data['new_chat_members']));
+        }
+
+        if (!empty($data['left_chat_member'])) {
+            $message->setLeftChatMember($this->createUser($data['left_chat_member']));
+        }
+
+        if (!empty($data['new_chat_photo'])) {
+            $message->setNewChatPhoto($this->getPhotos($data['new_chat_photo']));
+        }
+
+        if (!empty($data['pinned_message'])) {
+            $message->setPinnedMessage($this->createMessage($data['pinned_message']));
+        }
+
+        if (!empty($data['invoice'])) {
+            $message->setInvoice($this->createInvoice($data['invoice']));
+        }
+
+        if (!empty($data['successful_payment'])) {
+            $message->setSuccessfulPayment($this->createSuccessfulPayment($data['successful_payment']));
+        }
+
+        if (!empty($data['passport_data'])) {
+            $message->setPassportData($this->createPassportData($data['passport_data']));
+        }
+
+        $message->setText($data['text'] ?? null);
+        $message->setForwardFromMessageId($data['forward_from_message_id'] ?? null);
+        $message->setForwardSignature($data['forward_signature'] ?? null);
+        $message->setForwardSenderName($data['forward_sender_name'] ?? null);
+        $message->setForwardDate($data['forward_date'] ?? null);
+        $message->setEditDate($data['edit_date'] ?? null);
+        $message->setEditDate($data['edit_date'] ?? null);
+        $message->setMediaGroupId($data['media_group_id'] ?? null);
+        $message->setAuthorSignature($data['author_signature'] ?? null);
+        $message->setCaption($data['caption'] ?? null);
+        $message->setNewChatTitle($data['new_chat_title'] ?? null);
+        $message->setDeleteChatPhoto($data['delete_chat_photo'] ?? false);
+        $message->setGroupChatCreated($data['group_chat_created'] ?? false);
+        $message->setSupergroupChatCreated($data['supergroup_chat_created'] ?? false);
+        $message->setChannelChatCreated($data['channel_chat_created'] ?? false);
+        $message->setMigrateToChatId($data['migrate_to_chat_id'] ?? null);
+        $message->setMigrateFromChatId($data['migrate_from_chat_id'] ?? null);
+        $message->setConnectedWebsite($data['connected_website'] ?? null);
 
         return $message;
     }
@@ -332,6 +438,7 @@ class EntityFactory implements EntityFactoryInterface
         $info->setName($data['name'] ?? null);
         $info->setEmail($data['email'] ?? null);
         $info->setPhoneNumber($data['phone_number'] ?? null);
+
         if (!empty($data['shipping_address'])) {
             $info->setShippingAddress(
                 $this->createShippingAddress($data['shipping_address'])
@@ -343,18 +450,32 @@ class EntityFactory implements EntityFactoryInterface
 
     private function createPoll(array $data): Poll
     {
+        return new Poll(
+            $data['id'],
+            $data['question'],
+            $this->getPollOptions($data['options']),
+            $data['isClosed']
+        );
+    }
+
+    private function createPollOption(array $data): PollOption
+    {
+        return new PollOption($data['text'], $data['voter_count']);
+    }
+
+    /**
+     * @param array $data
+     * @return PollOption[]
+     */
+    private function getPollOptions(array $data): array
+    {
         $options = [];
 
         foreach ($data['options'] as $option) {
             $options[] = $this->createPollOption($option);
         }
 
-        return new Poll($data['id'], $data['question'], $options, $data['isClosed']);
-    }
-
-    private function createPollOption(array $data): PollOption
-    {
-        return new PollOption($data['text'], $data['voter_count']);
+        return $options;
     }
 
     /**
@@ -398,5 +519,104 @@ class EntityFactory implements EntityFactoryInterface
         $photo->setFileSize($data['file_size'] ?? null);
 
         return $photo;
+    }
+
+    private function createVideo(array $data): Video
+    {
+        $video = new Video(
+            $data['file_id'],
+            $data['width'],
+            $data['height'],
+            $data['duration']
+        );
+
+        if (!empty($data['thumb'])) {
+            $video->setThumb($this->createPhotoSize($data['thumb']));
+        }
+
+        $video->setMimeType($data['mime_type'] ?? null);
+        $video->setFileSize($data['file_size'] ?? null);
+
+        return $video;
+    }
+
+    private function createVoice(array $data): Voice
+    {
+        $voice = new Voice($data['file_id'], $data['duration']);
+
+        $voice->setMimeType($data['mime_type'] ?? null);
+        $voice->setFileSize($data['file_size'] ?? null);
+
+        return $voice;
+    }
+
+    /**
+     * @param array $data
+     * @return User[]
+     */
+    private function getUsers(array $data): array
+    {
+        $users = [];
+
+        foreach ($data as $userData) {
+            $users[] = $this->createUser($userData);
+        }
+
+        return $users;
+    }
+
+    // todo
+    private function createVideoNote(array $data): VideoNote
+    {
+        return new VideoNote();
+    }
+
+    // todo
+    private function createContact(array $data): Contact
+    {
+        return new Contact();
+    }
+
+    // todo
+    private function createVenue(array $data): Venue
+    {
+        return new Venue();
+    }
+
+    // todo
+    private function createInvoice(array $data): Invoice
+    {
+        return new Invoice();
+    }
+
+    // todo
+    private function createSuccessfulPayment(array $data): SuccessfulPayment
+    {
+        return new SuccessfulPayment();
+    }
+
+    // todo
+    private function createPassportData(array $data): PassportData
+    {
+        return new PassportData();
+    }
+
+
+    // todo
+    private function createAnimation(array $data): Animation
+    {
+        return new Animation();
+    }
+
+    // todo
+    private function createGame(array $data): Game
+    {
+        return new Game();
+    }
+
+    // todo
+    private function createSticker(array $data): Sticker
+    {
+        return new Sticker();
     }
 }

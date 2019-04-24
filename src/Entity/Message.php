@@ -13,62 +13,62 @@ class Message
     /**
      * @var int
      */
-    protected $id;
+    private $id;
 
     /**
      * @var Chat
      */
-    protected $chat;
+    private $chat;
 
     /**
      * @var int
      */
-    protected $date;
+    private $date;
 
     /**
      * @var User
      */
-    protected $from;
+    private $from;
 
     /**
      * @var string
      */
-    protected $text;
+    private $text;
 
     /**
      * @var MessageEntity[]
      */
-    protected $entities = [];
+    private $entities = [];
 
     /**
      * @var Message
      */
-    protected $replyTo;
+    private $replyToMessage;
 
     /**
      * @var Audio
      */
-    protected $audio;
+    private $audio;
 
     /**
      * @var PhotoSize[]
      */
-    protected $photo = [];
+    private $photo = [];
 
     /**
      * @var User
      */
-    protected $leftChatMember;
+    private $leftChatMember;
 
     /**
      * @var Chat
      */
-    protected $forwardFromChat;
+    private $forwardFromChat;
 
     /**
      * @var Document
      */
-    protected $document;
+    private $document;
 
     /**
      * @var User|null
@@ -186,12 +186,12 @@ class Message
     private $newChatPhoto = [];
 
     /**
-     * @var bool|null
+     * @var bool
      */
     private $deleteChatPhoto;
 
     /**
-     * @var bool|null
+     * @var bool
      */
     private $channelChatCreated;
 
@@ -229,6 +229,16 @@ class Message
      * @var PassportData|null
      */
     private $passportData;
+
+    /**
+     * @var bool
+     */
+    private $groupChatCreated;
+
+    /**
+     * @var bool
+     */
+    private $supergroupChatCreated;
 
     public function __construct(int $id, int $date, Chat $chat)
     {
@@ -296,9 +306,9 @@ class Message
         return $result;
     }
 
-    public function getReplyTo(): ?Message
+    public function getReplyToMessage(): ?Message
     {
-        return $this->replyTo;
+        return $this->replyToMessage;
     }
 
     public function getAudio(): ?Audio
@@ -329,9 +339,9 @@ class Message
         return $this->document;
     }
 
-    public function setReplyTo(Message $message = null): void
+    public function setReplyToMessage(Message $message = null): void
     {
-        $this->replyTo = $message;
+        $this->replyToMessage = $message;
     }
 
     public function setText(string $text = null): void
@@ -749,33 +759,33 @@ class Message
     }
 
     /**
-     * @return bool|null
+     * @return bool
      */
-    public function getDeleteChatPhoto(): ?bool
+    public function getDeleteChatPhoto(): bool
     {
         return $this->deleteChatPhoto;
     }
 
     /**
-     * @param bool|null $deleteChatPhoto
+     * @param bool $deleteChatPhoto
      */
-    public function setDeleteChatPhoto(?bool $deleteChatPhoto): void
+    public function setDeleteChatPhoto(bool $deleteChatPhoto): void
     {
         $this->deleteChatPhoto = $deleteChatPhoto;
     }
 
     /**
-     * @return bool|null
+     * @return bool
      */
-    public function getChannelChatCreated(): ?bool
+    public function getChannelChatCreated(): bool
     {
         return $this->channelChatCreated;
     }
 
     /**
-     * @param bool|null $channelChatCreated
+     * @param bool $channelChatCreated
      */
-    public function setChannelChatCreated(?bool $channelChatCreated): void
+    public function setChannelChatCreated(bool $channelChatCreated): void
     {
         $this->channelChatCreated = $channelChatCreated;
     }
@@ -890,5 +900,37 @@ class Message
     public function setPassportData(?PassportData $passportData): void
     {
         $this->passportData = $passportData;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isGroupChatCreated(): bool
+    {
+        return $this->groupChatCreated;
+    }
+
+    /**
+     * @param bool $groupChatCreated
+     */
+    public function setGroupChatCreated(bool $groupChatCreated): void
+    {
+        $this->groupChatCreated = $groupChatCreated;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isSupergroupChatCreated(): bool
+    {
+        return $this->supergroupChatCreated;
+    }
+
+    /**
+     * @param bool $supergroupChatCreated
+     */
+    public function setSupergroupChatCreated(bool $supergroupChatCreated): void
+    {
+        $this->supergroupChatCreated = $supergroupChatCreated;
     }
 }
