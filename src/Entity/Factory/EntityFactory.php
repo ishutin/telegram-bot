@@ -16,7 +16,10 @@ use Telegram\Entity\Inline\InlineQuery;
 use Telegram\Entity\Location;
 use Telegram\Entity\Message;
 use Telegram\Entity\MessageEntity;
+use Telegram\Entity\Passport\EncryptedCredentials;
+use Telegram\Entity\Passport\EncryptedPassportElement;
 use Telegram\Entity\Passport\PassportData;
+use Telegram\Entity\Passport\PassportFile;
 use Telegram\Entity\Payment\Invoice;
 use Telegram\Entity\Payment\OrderInfo;
 use Telegram\Entity\Payment\PreCheckoutQuery;
@@ -652,10 +655,91 @@ class EntityFactory implements EntityFactoryInterface
         return $payment;
     }
 
-    // todo
     private function createPassportData(array $data): PassportData
     {
-        return new PassportData();
+        return new PassportData(
+            $this->getEncryptedPassportElements($data['data']),
+            $this->createEncryptedCredentials($data['credentials'])
+        );
+    }
+
+    private function createEncryptedPassportElement(array $data): EncryptedPassportElement
+    {
+        $element = new EncryptedPassportElement(
+            $data['type'],
+            $data['hash']
+        );
+
+        $element->setData($data['data'] ?? null);
+        $element->setPhoneNumber($data['phone_number'] ?? null);
+        $element->setEmail($data['email'] ?? null);
+
+        if (!empty($data['files'])) {
+            $element->setFiles($this->getPassportFiles($data['files']));
+        }
+
+        if (!empty($data['front_side'])) {
+            $element->setFrontSide($this->createPassportFile($data['front_side']));
+        }
+
+        if (!empty($data['reverse_side'])) {
+            $element->setReverseSide($this->createPassportFile($data['reverse_side']));
+        }
+
+        if (!empty($data['selfie'])) {
+            $element->setSelfie($this->createPassportFile($data['reverse_side']));
+        }
+
+        if (!empty($data['translation'])) {
+            $element->setTranslation($this->getPassportFiles($data['translation']));
+        }
+
+
+        return $element;
+    }
+
+    private function createEncryptedCredentials(array $data): EncryptedCredentials
+    {
+        return new EncryptedCredentials(
+            $data['data'],
+            $data['hash'],
+            $data['secret']
+        );
+    }
+
+    private function createPassportFile(array $data): PassportFile
+    {
+        return new PassportFile(
+            $data['file_id'],
+            $data['file_size'],
+            $data['file_date']
+        );
+    }
+
+    /**
+     * @param array $data
+     * @return PassportFile[]
+     */
+    private function getPassportFiles(array $data): array
+    {
+        $files = [];
+
+        foreach ($data as $fileData) {
+            $files[] = $this->createPassportFile($fileData);
+        }
+
+        return $files;
+    }
+
+    private function getEncryptedPassportElements(array $data): array
+    {
+        $elements = [];
+
+        foreach ($data as $elementData) {
+            $elements[] = $this->createEncryptedPassportElement($elementData);
+        }
+
+        return $elements;
     }
 
     private function createAnimation(array $data): Animation
