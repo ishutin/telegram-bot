@@ -1,6 +1,6 @@
 {
     "name": "ishutin/telegram-bot",
-    "description": "Telegram bot API",
+    "description": "PHP Library for Telegram Bot API",
     "keywords": ["telegram", "bot", "api", "library"],
     "type": "library",
     "license": "MIT",
