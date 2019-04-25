@@ -19,17 +19,10 @@ class WebHookUpdateHandler implements WebHookUpdateHandlerInterface
      */
     private $entityFactory;
 
-    public function __construct(ResponseInterface $response = null)
+    public function __construct(EntityFactoryInterface $entityFactory, ResponseInterface $response = null)
     {
         $this->response = $response;
-
-        if (($this->response === null) && $content = file_get_contents('php://input')) {
-            $this->response = new Response(
-                StatusCodeInterface::STATUS_OK,
-                [],
-                $content
-            );
-        }
+        $this->entityFactory = $entityFactory;
     }
 
     /**
@@ -37,28 +30,29 @@ class WebHookUpdateHandler implements WebHookUpdateHandlerInterface
      */
     public function getUpdates(): ?array
     {
-        if ($this->response instanceof ResponseInterface) {
+        if ($this->getResponse() instanceof ResponseInterface) {
             $data = \GuzzleHttp\json_decode($this->response->getBody(), true);
 
             if (empty($data)) {
                 return null;
             }
 
-            return [$this->getEntityFactory()->createUpdate($data)];
+            return [$this->entityFactory->createUpdate($data)];
         }
 
         return [];
     }
 
-    public function getEntityFactory(): EntityFactoryInterface
+    private function getResponse(): ResponseInterface
     {
-        return $this->entityFactory;
-    }
+        if (($this->response === null) && $content = file_get_contents('php://input')) {
+            $this->response = new Response(
+                StatusCodeInterface::STATUS_OK,
+                [],
+                $content
+            );
+        }
 
-    public function setEntityFactory(EntityFactoryInterface $entityFactory): WebHookUpdateHandlerInterface
-    {
-        $this->entityFactory = $entityFactory;
-
-        return $this;
+        return $this->response;
     }
 }

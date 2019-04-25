@@ -106,10 +106,7 @@ class Telegram implements TelegramInterface
                 return new ManualUpdateHandler($this->getRequest());
             case WebHookUpdateHandler::class:
             case WebHookUpdateHandlerInterface::class:
-                $handler = new WebHookUpdateHandler();
-                $handler->setEntityFactory($this->getEntityFactory());
-
-                return $handler;
+                return new WebHookUpdateHandler($this->getEntityFactory());
             default:
                 throw new InvalidUpdateHandler("Invalid update handler: $updateHandlerClass");
         }
