@@ -291,7 +291,10 @@ class EntityFactory implements EntityFactoryInterface
         return $chat;
     }
 
-    private function createUser(array $data): User
+    /**
+     * @inheritDoc
+     */
+    public function createUser(array $data): User
     {
         $user=  new User(
             $data['id'],

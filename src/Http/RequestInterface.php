@@ -19,5 +19,5 @@ interface RequestInterface extends RequestMethodsInterface
 
     public function setEntityFactory(EntityFactoryInterface $entityFactory): RequestInterface;
 
-    public function parseResponseToData(ResponseInterface $response):? array;
+    public function getResponseData(ResponseInterface $response):? array;
 }

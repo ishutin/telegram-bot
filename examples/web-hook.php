@@ -8,7 +8,7 @@ use Telegram\Kernel\Telegram;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-$token = 'xxxx-xxxx-xxxx-xxxx'; // your bot token
+$token = 'xxxx-xxxx-xxxx-xxxx'; // API token
 
 $telegram = new Telegram($token, WebHookUpdateHandlerInterface::class);
 

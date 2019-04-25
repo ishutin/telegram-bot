@@ -2,9 +2,9 @@
 
 namespace Telegram\Http;
 
-use Telegram\Entity\Chat;
 use Telegram\Entity\Message;
 use Telegram\Entity\Update\Update;
+use Telegram\Entity\User;
 use Telegram\Http\Exception\HttpRequestException;
 use Telegram\Http\Exception\MissingEntityFactory;
 
@@ -24,7 +24,14 @@ interface RequestMethodsInterface
         int $limit = null,
         int $timeout = null,
         $allowedUpdates = null
-    ):? array;
+    ): ?array;
+
+    /**
+     * @return User
+     * @throws HttpRequestException
+     * @throws MissingEntityFactory
+     */
+    public function getMe(): User;
 
     /**
      * @param string $chatId
@@ -35,9 +42,20 @@ interface RequestMethodsInterface
      */
     public function sendMessage(string $chatId, string $text): ?Message;
 
+    /**
+     * @param int $messageId
+     * @param int $fromChatId
+     * @param int $toChatId
+     * @param bool $disableNotification
+     * @return Message
+     *
+     * @throws HttpRequestException
+     * @throws MissingEntityFactory
+     */
     public function forwardMessage(
-        Message $message,
-        Chat $toChat,
+        int $messageId,
+        int $fromChatId,
+        int $toChatId,
         bool $disableNotification = false
-    ): bool;
+    ): Message;
 }

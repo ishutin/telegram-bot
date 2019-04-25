@@ -8,9 +8,9 @@ use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\GuzzleException;
 use Psr\Http\Message\ResponseInterface;
-use Telegram\Entity\Chat;
 use Telegram\Entity\Factory\EntityFactoryInterface;
 use Telegram\Entity\Message;
+use Telegram\Entity\User;
 use Telegram\Http\Exception\HttpRequestException;
 use Telegram\Http\Exception\MissingEntityFactory;
 
@@ -58,7 +58,7 @@ class Request implements RequestInterface
 
         $response = $this->sendGet('getUpdates', $query);
 
-        $data = $this->parseResponseToData($response);
+        $data = $this->getResponseData($response);
 
         if (empty($data)) {
             return null;
@@ -108,7 +108,7 @@ class Request implements RequestInterface
         return "/bot{$this->token}/$method";
     }
 
-    public function parseResponseToData(ResponseInterface $response): ?array
+    public function getResponseData(ResponseInterface $response): ?array
     {
         $data = \GuzzleHttp\json_decode($response->getBody(), true);
 
@@ -135,6 +135,19 @@ class Request implements RequestInterface
         return $this;
     }
 
+    public function getMe(): User
+    {
+        $response = $this->sendGet('getMe');
+
+        $data = $this->getResponseData($response);
+
+        if (empty($data)) {
+            return null;
+        }
+
+        return $this->getEntityFactory()->createUser($data);
+    }
+
     /**
      * @inheritDoc
      */
@@ -149,7 +162,7 @@ class Request implements RequestInterface
             return null;
         }
 
-        $data = $this->parseResponseToData($response);
+        $data = $this->getResponseData($response);
 
         if (empty($data)) {
             return null;
@@ -159,25 +172,28 @@ class Request implements RequestInterface
     }
 
     /**
-     * @param Message $message
-     * @param Chat $toChat
-     * @param bool $disableNotification
-     * @return bool
-     * @throws HttpRequestException
+     * @inheritDoc
      */
     public function forwardMessage(
-        Message $message,
-        Chat $toChat,
+        int $messageId,
+        int $fromChatId,
+        int $toChatId,
         bool $disableNotification = false
-    ): bool {
+    ): Message {
         $response = $this->sendGet('forwardMessage', [
-            'chat_id' => $toChat->getId(),
-            'from_chat_id' => $message->getChat()->getId(),
+            'chat_id' => $toChatId,
+            'from_chat_id' => $fromChatId,
             'disable_notification' => $disableNotification,
-            'message_id' => $message->getId(),
+            'message_id' => $messageId,
         ]);
 
-        return $response->getStatusCode() === StatusCodeInterface::STATUS_OK;
+        $data = $this->getResponseData($response);
+
+        if (empty($data)) {
+            return null;
+        }
+
+        return $this->getEntityFactory()->createMessage($data);
     }
 
     /**
