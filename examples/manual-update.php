@@ -9,7 +9,7 @@ use Telegram\Kernel\Telegram;
 require_once __DIR__ . '/../vendor/autoload.php';
 
 $token = 'xxxx-xxxx-xxxx-xxxx'; // your bot token
-g
+
 $telegram = new Telegram($token, ManualUpdateHandlerInterface::class);
 
 try {
